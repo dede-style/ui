@@ -116,7 +116,8 @@ Everything else is the same in both modes, so one rule does it:
 - **[DESIGN.md](https://dede.style/DESIGN.md)** — the whole system in one file,
   for AI agents and design tools; also in this package.
 - **`docs/`** — one markdown file per component, with its props.
-- **`tokens/`** — the tokens as DTCG JSON, one file per mode.
+- **`tokens/`** — the tokens as W3C DTCG JSON: one file of shared values, one
+  each for light and dark, and a resolver that joins them.
 
 ## Licence
 

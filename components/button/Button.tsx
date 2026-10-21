@@ -7,7 +7,8 @@ import { controlGlyph } from "../icon/control"
     icon inside carries none of its own. Variants are ranks (how much emphasis),
     not looks; `destructive` names a purpose. Only `variant` and the named
     `shape` set paint — no free colour or radius. IconButton shares its styles.
-    No hooks, so a server page ships no JavaScript for it. */
+    With `href` it renders a link that looks the same: it goes somewhere rather
+    than doing something. No hooks, so a server page ships no JavaScript for it. */
 
 /*  A --size-element-* step: 24 / 32 / 40 / 48px. 24 is for icon buttons: it is
     exactly the WCAG 2.5.8 minimum target. */
@@ -42,6 +43,11 @@ export type ButtonProps = {
     /** For a disclosure. ARIA is added by name, one per real consumer. */
     "aria-expanded"?: boolean
     "aria-controls"?: string
+    /** Renders a link instead of a button: it goes somewhere rather than doing
+     *  something. `target` and `rel` apply only with `href`. */
+    href?: string
+    target?: "_blank"
+    rel?: string
 }
 
 export function Button({
@@ -59,6 +65,9 @@ export function Button({
     style,
     "aria-expanded": ariaExpanded,
     "aria-controls": ariaControls,
+    href,
+    target,
+    rel,
 }: ButtonProps) {
     //  The icon modifier names the side: it takes one step less padding.
     const classes = [
@@ -75,6 +84,32 @@ export function Button({
 
     const icon = glyph ? <Icon glyph={glyph} size={controlGlyph(size)} /> : null
 
+    const content = (
+        <>
+            {iconPosition === "start" ? icon : null}
+            {children}
+            {iconPosition === "end" ? icon : null}
+        </>
+    )
+
+    //  A link cannot be disabled, so isDisabled with href is unsupported.
+    if (href) {
+        return (
+            <a
+                data-component="Button"
+                className={classes}
+                style={style}
+                href={href}
+                target={target}
+                rel={rel}
+                aria-expanded={ariaExpanded}
+                aria-controls={ariaControls}
+            >
+                {content}
+            </a>
+        )
+    }
+
     return (
         <button
             data-component="Button"
@@ -86,9 +121,7 @@ export function Button({
             aria-expanded={ariaExpanded}
             aria-controls={ariaControls}
         >
-            {iconPosition === "start" ? icon : null}
-            {children}
-            {iconPosition === "end" ? icon : null}
+            {content}
         </button>
     )
 }

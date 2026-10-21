@@ -41,6 +41,8 @@
     /*  The button sets its own height; the line box must not push past it. */
     line-height: var(--line-height-none);
     white-space: nowrap;
+    /*  With `href` the element is a link; it keeps a button's look. */
+    text-decoration: none;
 
     cursor: pointer;
     transition:

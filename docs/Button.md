@@ -1,6 +1,6 @@
 # Button
 
-A button that does something on this page. `variant` sets how much emphasis it claims — one `primary` per view, `secondary` by default, `tertiary` for the quietest, `destructive` for a dangerous action. It hugs its label; `fullWidth` fills the container.
+A button that does something on this page. `variant` sets how much emphasis it claims — one `primary` per view, `secondary` by default, `tertiary` for the quietest, `destructive` for a dangerous action. It hugs its label; `fullWidth` fills the container. With `href` it renders a link instead, for an action that goes somewhere — Sign up, Try the demo.
 
 ```tsx
 import { Button } from "@dede-style/ui"

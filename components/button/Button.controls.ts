@@ -3,7 +3,7 @@ import * as icons from "../../icons"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
-    "A button that does something on this page. `variant` sets how much emphasis it claims — one `primary` per view, `secondary` by default, `tertiary` for the quietest, `destructive` for a dangerous action. It hugs its label; `fullWidth` fills the container."
+    "A button that does something on this page. `variant` sets how much emphasis it claims — one `primary` per view, `secondary` by default, `tertiary` for the quietest, `destructive` for a dangerous action. It hugs its label; `fullWidth` fills the container. With `href` it renders a link instead, for an action that goes somewhere — Sign up, Try the demo."
 
 //  The glyph list is generated from the icon module; iconPosition shows only with a glyph.
 
