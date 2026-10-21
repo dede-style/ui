@@ -273,7 +273,7 @@ Every text and status pairing is verified for WCAG contrast on each build.
 | `brand` | `#000000` | `#ffffff` | `var(--color-brand)` |
 | `surface` | `#f8f8f8` | `#161616` | `var(--color-surface)` |
 | `surface-raised` | `#ffffff` | `#1b1b1b` | `var(--color-surface-raised)` |
-| `surface-sunken` | `#f2f2f2` | `#121212` | `var(--color-surface-sunken)` |
+| `surface-sunken` | `#f2f2f2` | `#0b0b0b` | `var(--color-surface-sunken)` |
 | `surface-inverse` | `#161616` | `#f8f8f8` | `var(--color-surface-inverse)` |
 | `wash` | `#0000000a` | `#ffffff0a` | `var(--color-wash)` |
 | `scrim` | `#1616167a` | `#000000a3` | `var(--color-scrim)` |

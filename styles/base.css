@@ -60,7 +60,8 @@ p + p {
 /*  Back to primary inside prose. Not `em`: italics already emphasise. */
 strong,
 code,
-th {
+th,
+a {
     color: var(--color-text-primary);
 }
 
@@ -115,7 +116,6 @@ label,
 }
 
 a {
-    color: inherit;
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }

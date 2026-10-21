@@ -83,11 +83,11 @@
       "$value": {
         "colorSpace": "srgb",
         "components": [
-          0.071,
-          0.071,
-          0.071
+          0.043,
+          0.043,
+          0.043
         ],
-        "hex": "#121212"
+        "hex": "#0b0b0b"
       },
       "$description": "var(--color-surface-sunken)"
     },

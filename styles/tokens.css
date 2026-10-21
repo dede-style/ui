@@ -340,7 +340,7 @@
     /*  Raised is a higher tone here and a lower one on light: that is a role. */
     --color-surface:        var(--neutral-20);    /* #161616 — the page */
     --color-surface-raised: var(--neutral-22);    /* #1b1b1b — cards / fields / popovers */
-    --color-surface-sunken: var(--neutral-18);    /* #121212 — code / hover / track / stage */
+    --color-surface-sunken: var(--neutral-15);    /* #0b0b0b — code / hover / track / stage */
     --color-surface-inverse: var(--neutral-98);   /* #f8f8f8 — a band in the opposite mode */
 
     /*  A light ink: below the dark page there is little room to darken. */
