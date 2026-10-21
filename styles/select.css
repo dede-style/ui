@@ -1,0 +1,151 @@
+/*  Select — paired with components/select/Select.tsx.
+
+    The box is not here: it is TextInput's, declared in text-input.css against
+    `.dede-text-input, .dede-select`. This file holds what a select adds: the
+    trigger's layout, the value, the list and its own width ladder.
+
+    The list is a `popover="manual"` in the top layer, so no scrolling ancestor
+    clips it. The UA centres a popover in the viewport, so its inset, margin,
+    border and padding are all reset here. */
+
+/*  A trigger, not a field. */
+.dede-select {
+    justify-content: space-between;
+    text-align: start;
+    cursor: pointer;
+}
+
+/*  The value yields so the chevron never leaves the one-row box; a long label
+    ellipses. */
+.dede-select-value {
+    flex: 1;
+    min-inline-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--color-text-primary);
+}
+
+.dede-select-value--placeholder {
+    color: var(--color-text-tertiary);
+}
+
+/*  ─── The list ───────────────────────────────────────────────────────────
+    A raised floating surface with TextInput's corner. The hairline separates it
+    from the page on dark, where a black shadow barely shows. */
+.dede-select-list {
+    --dede-select-row: var(--size-element-8);
+    list-style: none;
+    padding-inline-start: 0;
+    /*  The room to the window edge, written by Select.tsx; declared here so an
+        ancestor's value cannot leak in. */
+    --dede-select-room: 100vh;
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    padding-block: var(--space-component-1);
+    padding-inline: 0;
+    border: var(--border-1) solid var(--color-border-subtle);
+    border-radius: var(--text-input-radius);
+    background: var(--color-surface-raised);
+    box-shadow: var(--shadow-3);
+    /*  10.5 rows, so the sliced row says there is more; the chrome is added back.
+        Capped too by the viewport and by the room the trigger leaves. */
+    max-block-size: min(
+        calc(var(--dede-select-row) * 10.5 + var(--space-component-1) * 2 + var(--border-1) * 2),
+        60vh,
+        var(--dede-select-room)
+    );
+    overflow-y: auto;
+    /*  Scrolling to the end does not move the page under the trigger. */
+    overscroll-behavior: contain;
+}
+
+/*  A control-height floor, not a height, so a wrapped label grows its row. The
+    inline padding matches the trigger's inset so the label does not shift as
+    the list opens over it. */
+.dede-select-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-component-2);
+    min-block-size: var(--dede-select-row);
+    padding-block: var(--space-component-1);
+    padding-inline: var(--space-component-3);
+    color: var(--color-text-primary);
+    cursor: pointer;
+}
+
+/*  One highlight, moved by pointer and keyboard alike; no separate :hover. The
+    selected row is marked by its check, not a second fill. */
+.dede-select-option--active {
+    background: var(--color-state-hover);
+}
+
+.dede-select-option-label {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+}
+
+.dede-icon.dede-select-option-check {
+    flex: none;
+    color: var(--color-icon-secondary);
+}
+
+.dede-select-option[aria-disabled="true"] {
+    opacity: var(--opacity-12);
+    cursor: default;
+}
+
+.dede-select-option[aria-disabled="true"].dede-select-option--active {
+    background: none;
+}
+
+/*  ─── Width ──────────────────────────────────────────────────────────────
+    `width="N"` holds N characters, so the gutter adds the chevron and its gap
+    to TextInput's. The chevron is half the box's height (icon/control.ts). */
+.dede-select {
+    --dede-select-chevron: calc(var(--dede-text-input-block) / 2);
+    --dede-select-gutter: calc(
+        var(--dede-text-input-gutter) + var(--dede-select-chevron) + var(--dede-text-input-gap)
+    );
+}
+
+.dede-select--width-full { inline-size: 100%; }
+.dede-select--width-2  { inline-size: calc(2ch + var(--dede-select-gutter)); }
+.dede-select--width-3  { inline-size: calc(3ch + var(--dede-select-gutter)); }
+.dede-select--width-4  { inline-size: calc(4ch + var(--dede-select-gutter)); }
+.dede-select--width-5  { inline-size: calc(5ch + var(--dede-select-gutter)); }
+.dede-select--width-10 { inline-size: calc(10ch + var(--dede-select-gutter)); }
+.dede-select--width-20 { inline-size: calc(20ch + var(--dede-select-gutter)); }
+
+/*  At least the trigger's width (set by Select.tsx), growing to keep labels on
+    one line up to an absolute cap that stays 8px inside the window. */
+.dede-select-list {
+    max-inline-size: min(24rem, calc(100vw - 16px));
+}
+
+/*  The check's column is kept on every row, so labels wrap alike. */
+.dede-select-option:not([aria-selected="true"]) .dede-select-option-check {
+    visibility: hidden;
+}
+
+/*  40px rows under a thumb. A floor, not padding, which shrinks with the
+    fluid root. */
+@media (max-width: 768px) {
+    .dede-select-list {
+        --dede-select-row: var(--size-element-10);
+    }
+}
+
+/*  The form value: clipped but rendered, so the browser can focus it to report
+    `required`. */
+.dede-select-form-value {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+}

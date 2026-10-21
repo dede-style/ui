@@ -1,0 +1,39 @@
+{
+  "name": "dede",
+  "description": "dede's design tokens. base holds every mode-invariant token; the mode modifier adds light or dark colours and shadows. Each file is also self-contained, for tools that import one file per mode.",
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [
+        {
+          "$ref": "base.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "mode": {
+      "contexts": {
+        "light": [
+          {
+            "$ref": "light.tokens.json"
+          }
+        ],
+        "dark": [
+          {
+            "$ref": "dark.tokens.json"
+          }
+        ]
+      },
+      "default": "light"
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/base"
+    },
+    {
+      "$ref": "#/modifiers/mode"
+    }
+  ]
+}

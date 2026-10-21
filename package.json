@@ -1,0 +1,72 @@
+{
+  "name": "@dede-style/ui",
+  "version": "0.1.0",
+  "description": "dede — a code-based design system: tokens, layout primitives and React components.",
+  "license": "MIT",
+  "author": "Steve Tearle",
+  "homepage": "https://dede.style",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dede-style/ui.git"
+  },
+  "bugs": "https://github.com/dede-style/ui/issues",
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "design-tokens",
+    "dtcg",
+    "layout",
+    "css"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "docs",
+    "tokens",
+    "DESIGN.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "default": "./dist/icons/index.js"
+    },
+    "./styles.css": "./dist/styles/global.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./tokens.css": "./dist/styles/tokens.css",
+    "./base.css": "./dist/styles/base.css",
+    "./layout.css": "./dist/styles/layout.css",
+    "./styles/*.css": "./dist/styles/*.css",
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "default": "./dist/components/*/index.js"
+    },
+    "./tokens/*.json": "./tokens/*.json",
+    "./DESIGN.md": "./DESIGN.md"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@types/react": "^19.2.0",
+    "typescript": "^5.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

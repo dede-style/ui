@@ -1,0 +1,135 @@
+/*  Base element styles: where the system first paints, consuming tokens. */
+
+/*  Native controls and scrollbars follow the mode. */
+[data-mode="light"] { color-scheme: light; }
+[data-mode="dark"]  { color-scheme: dark; }
+
+/*  The one place type becomes fluid: every --font-size-* is a rem, so the
+    root moves the whole scale and keeps its ratios. */
+html {
+    font-size: var(--font-size-root);
+}
+
+body {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+}
+
+/*  Headings carry their own size, so the level is the choice. */
+h1, h2, h3, h4, h5, h6 {
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-family-heading);
+}
+
+h1 { font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-base); }
+h6 { font-size: var(--font-size-sm); }
+
+/*  A heading belongs to what follows it, so it takes margin above — the
+    asymmetry a gap cannot express. Only after a sibling, so a heading opening
+    its container gets none. In a Sleeve this adds to the gap. */
+* + :is(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: var(--space-component-3);
+}
+
+/*  Space below, in `em` so it scales with the heading; not after a heading
+    that closes its container. */
+:is(h1, h2, h3, h4, h5, h6):not(:last-child) {
+    margin-block-end: 0.5em;
+}
+
+/*  Prose is secondary, so strong, code and headings read as emphasis by
+    contrast. Relaxed leading for continuous reading. p + p spaces paragraphs
+    in bare flow; a Sleeve's gap replaces it. */
+p {
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+}
+
+p + p {
+    margin-block-start: var(--space-component-3);
+}
+
+/*  Back to primary inside prose. Not `em`: italics already emphasise. */
+strong,
+code,
+th {
+    color: var(--color-text-primary);
+}
+
+/*  Inline code: mono at 0.9em (an optical correction), medium weight, on a
+    wash. Margin keeps the chip off the next word; the clone break repaints a
+    chip that wraps; no block padding, which would overlap the line above. */
+code {
+    font-family: var(--font-family-code);
+    font-size: 0.9em;
+    font-weight: var(--font-weight-medium);
+    /*  A film, so it reads the same on the page, a card or a stage. */
+    background: var(--color-wash);
+    padding-inline: 0.25em;
+    margin-inline: 0.15em;
+    border-radius: var(--radius-1);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    /*  Keeps the chip inside the line box, so it cannot grow a table row. */
+    line-height: 1;
+}
+
+/*  Labels are smaller than prose: size only, since weight and colour mark
+    state. `.as-label` is the same rule for text that names a control but cannot
+    be a <label> (e.g. a caption for a group). A class names a role, never a
+    place. */
+label,
+.as-label {
+    font-size: var(--font-size-sm);
+    /*  Snug: a label reads as one unit with what it names. */
+    line-height: var(--line-height-snug);
+}
+
+/*  The alias restores primary, which a host <p> would have stepped back. */
+.as-label {
+    color: var(--color-text-primary);
+}
+
+/*  Announced but not shown: rendered into a clipped pixel, so it stays in the
+    accessibility tree (display/visibility would remove it). Absolute, so it
+    leaves no empty grid row. Prefixed: `visually-hidden` and `sr-only` are
+    Bootstrap's and Tailwind's. */
+.dede-visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+:focus-visible {
+    outline: var(--border-2) solid var(--color-border-focus);
+    outline-offset: var(--space-component-0-5);
+}
+
+::selection {
+    background-color: var(--color-text-primary);
+    color: var(--color-text-inverse);
+}

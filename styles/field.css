@@ -1,0 +1,34 @@
+/*  Field — the element is a `.dede-sleeve` (grid and gap); load after
+    layout.css. The label's type comes from base.css. */
+
+/*  One step below the label; the error stays a step larger. */
+.dede-field-hint {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-tight);
+}
+
+/*  No gap in the label group: tight leading is the separation. */
+.dede-field-label-group > * {
+    margin-block: 0;
+}
+
+/*  `start`, so a wrapped message keeps the glyph on its first line. */
+.dede-field-error {
+    display: flex;
+    align-items: start;
+    gap: var(--space-component-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+}
+
+/*  Centred on the first line from the type itself (1lh vs 1em); never shrinks. */
+.dede-field-error-icon {
+    flex: none;
+    margin-block-start: calc((1lh - 1em) / 2);
+}
+
+/*  Read from the control, which dims itself; the words dim to match it. */
+.dede-field:has(:disabled) > .dede-field-label-group,
+.dede-field:has(:disabled) > .dede-field-error {
+    opacity: var(--opacity-12);
+}

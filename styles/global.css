@@ -1,0 +1,19 @@
+/*  The product stylesheet, in cascade order: reset (no tokens), tokens
+    (declares only), base (first paint), layout, then each component's sheet.
+    Self-contained; consumers import this file. */
+
+@import "./reset.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./icon.css";
+@import "./button.css";
+@import "./switch.css";
+@import "./checkbox.css";
+@import "./radio.css";
+@import "./card.css";
+@import "./field.css";
+@import "./text-input.css";
+@import "./select.css";
+@import "./segmented.css";
+@import "./table.css";

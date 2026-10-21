@@ -1,0 +1,35 @@
+/*  Card — paint only. The element is also a `.dede-sleeve`, which supplies the
+    grid and the gap; load after layout.css. Fills come only from the surface
+    roles, so a theme moves every card with them. */
+
+.dede-card {
+    --dede-card-padding: var(--space-component-6);
+
+    /*  Declared here so an ancestor card's values cannot reach a nested one. */
+    --dede-card-surface: var(--color-surface);
+    --dede-card-edge:    var(--color-border-subtle);
+    --dede-card-shadow:  var(--shadow-0);
+
+    padding: var(--dede-card-padding);
+
+    background-color: var(--dede-card-surface);
+    border: var(--border-1) solid var(--dede-card-edge);
+    border-radius: var(--card-radius);
+    box-shadow: var(--dede-card-shadow);
+
+    /*  Clips a bled image to the rounded corners. `clip`, not `hidden`, so the
+        card is not a scroll container. */
+    overflow: clip;
+}
+
+.dede-card--elevation-sunken { --dede-card-surface: var(--color-surface-sunken); }
+.dede-card--elevation-flush  { --dede-card-surface: var(--color-surface); }
+
+.dede-card--elevation-raised {
+    --dede-card-surface: var(--color-surface-raised);
+    --dede-card-shadow: var(--shadow-2);
+}
+
+/*  The border keeps its width and loses its colour. A borderless flush card is
+    invisible by design: it is the page's own plane. */
+.dede-card--borderless { --dede-card-edge: transparent; }

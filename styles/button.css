@@ -1,0 +1,189 @@
+/*  Button and IconButton — one stylesheet; IconButton adds only the square box.
+
+    Metrics are declared on `.dede-button` and stepped by modifier classes.
+    Monochrome, so emphasis is solid / soft / nothing; destructive is the only
+    hue. Every fill is a --button-bg-* token, and check:contrast holds the text
+    on each. States: a filled variant mixes the page into its fill; an unfilled
+    one takes a translucent wash over whatever it rests on. */
+
+.dede-button {
+    --dede-button-size:    var(--size-element-8);
+    --dede-button-px:      var(--space-component-3);
+    --dede-button-px-icon: var(--space-component-2);
+    --dede-button-gap:     var(--space-component-1);
+    --dede-button-font:    var(--font-size-sm);
+    --dede-button-radius:  var(--button-radius-rounded);
+
+    --dede-button-bg: transparent;
+    --dede-button-fg: var(--color-text-primary);
+    --dede-button-bd: transparent;
+    --dede-button-wash: transparent;
+
+    display: inline-flex;
+    /*  Declared: as a grid child it would otherwise stretch. */
+    inline-size: fit-content;
+    align-items: center;
+    justify-content: center;
+    gap: var(--dede-button-gap);
+    block-size: var(--dede-button-size);
+    padding-inline: var(--dede-button-px);
+
+    /*  A state is a wash over the fill, so one value lands on any variant. */
+    background-color: var(--dede-button-bg);
+    background-image: linear-gradient(var(--dede-button-wash), var(--dede-button-wash));
+    color: var(--dede-button-fg);
+    border: var(--border-1) solid var(--dede-button-bd);
+    border-radius: var(--dede-button-radius);
+
+    font-family: var(--font-family-body);
+    font-size: var(--dede-button-font);
+    font-weight: var(--font-weight-medium);
+    /*  The button sets its own height; the line box must not push past it. */
+    line-height: var(--line-height-none);
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition:
+        transform        var(--motion-duration-fast) var(--motion-ease-standard),
+        background-color var(--motion-duration-fast) var(--motion-ease-standard),
+        border-color     var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/*  24 / 32 / 40 / 48px. Padding, gap and type move with the height. Type is
+    12 / 14 / 16 / 16: four sizes, three usable steps, and the repeat sits where
+    height already tells them apart. The icon size is set in the component. */
+
+.dede-button--size-6 {
+    --dede-button-size:    var(--size-element-6);
+    --dede-button-px:      var(--space-component-2);
+    --dede-button-px-icon: var(--space-component-1);
+    --dede-button-gap:     var(--space-component-0-5);
+    --dede-button-font:    var(--font-size-xs);
+}
+
+.dede-button--size-8 {
+    --dede-button-size:    var(--size-element-8);
+    --dede-button-px:      var(--space-component-3);
+    --dede-button-px-icon: var(--space-component-2);
+    --dede-button-gap:     var(--space-component-1);
+    --dede-button-font:    var(--font-size-sm);
+}
+
+.dede-button--size-10 {
+    --dede-button-size:    var(--size-element-10);
+    --dede-button-px:      var(--space-component-4);
+    --dede-button-px-icon: var(--space-component-3);
+    --dede-button-gap:     var(--space-component-2);
+    --dede-button-font:    var(--font-size-base);
+}
+
+.dede-button--size-12 {
+    --dede-button-size:    var(--size-element-12);
+    --dede-button-px:      var(--space-component-5);
+    --dede-button-px-icon: var(--space-component-4);
+    --dede-button-gap:     var(--space-component-2);
+    --dede-button-font:    var(--font-size-base);
+}
+
+/*  A named set. `rounded` reads the theme lever --button-radius-rounded; `pill`
+    and `square` are fixed statements a theme should not move. */
+.dede-button--shape-rounded { --dede-button-radius: var(--button-radius-rounded); }
+.dede-button--shape-pill    { --dede-button-radius: var(--radius-full); }
+.dede-button--shape-square  { --dede-button-radius: var(--radius-0); }
+
+/*  The icon side takes one step less padding: a glyph is sparse where a letter
+    is dense, so that side reads airier at equal padding. The icon-to-label gap
+    stays smaller than the padding, so they read as one unit. */
+
+.dede-button--icon-start { padding-inline-start: var(--dede-button-px-icon); }
+.dede-button--icon-end   { padding-inline-end:   var(--dede-button-px-icon); }
+
+/*  Variants are ranks; `destructive` names a purpose. */
+
+.dede-button--variant-primary {
+    --dede-button-bg: var(--button-bg-primary);
+    --dede-button-fg: var(--color-text-inverse);
+    --dede-button-bd: var(--button-bg-primary);
+}
+
+/*  Soft: a resting wash of the ink the states use. No border. */
+.dede-button--variant-secondary {
+    --dede-button-bg: var(--button-bg-secondary);
+}
+
+/*  Tertiary declares nothing. Every variant keeps a transparent 1px border, so
+    swapping variants moves nothing. */
+
+.dede-button--variant-destructive {
+    --dede-button-bg: var(--button-bg-destructive);
+    --dede-button-fg: var(--color-text-inverse);
+    --dede-button-bd: var(--button-bg-destructive);
+}
+
+/*  ─── States (never on :disabled) ─── */
+
+/*  Hover confirms the target without reading as a state change. Filled
+    variants mix the page in by --opacity-2. */
+
+.dede-button--variant-primary:hover:not(:disabled) {
+    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
+    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
+}
+
+.dede-button--variant-destructive:hover:not(:disabled) {
+    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-destructive));
+    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-destructive));
+}
+
+/*  One pair of rules for both unfilled variants: the wash composes over
+    whatever each rests on. The border does not move. */
+.dede-button--variant-secondary:hover:not(:disabled),
+.dede-button--variant-tertiary:hover:not(:disabled)  { --dede-button-wash: var(--color-state-hover); }
+
+.dede-button--variant-secondary:active:not(:disabled),
+.dede-button--variant-tertiary:active:not(:disabled) { --dede-button-wash: var(--color-state-pressed); }
+
+/*  Pressed: each mechanism one step louder, plus a scale — a press is the one
+    interaction a user waits to see confirmed. */
+.dede-button--variant-primary:active:not(:disabled) {
+    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
+    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
+}
+
+.dede-button--variant-destructive:active:not(:disabled) {
+    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-destructive));
+    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-destructive));
+}
+
+.dede-button:hover:not(:disabled)  { transform: scale(var(--motion-scale-hover)); }
+.dede-button:active:not(:disabled) { transform: scale(var(--motion-scale-press)); }
+
+/*  The offset keeps the ring clear of a filled variant's edge. */
+.dede-button:focus-visible {
+    outline: var(--border-2) solid var(--color-border-focus);
+    outline-offset: var(--border-1);
+}
+
+.dede-button:disabled {
+    cursor: default;
+    opacity: var(--opacity-16);
+    transform: none;
+}
+
+/*  ─── Full width ─── */
+
+.dede-button--full-width { inline-size: 100%; }
+
+/*  IconButton: a square box; everything else is above. */
+
+.dede-icon-button {
+    inline-size: var(--dede-button-size);
+    padding-inline: 0;
+}
+
+/*  The colour and the ring carry every state, so the scale can go. */
+@media (prefers-reduced-motion: reduce) {
+    .dede-button { transition: background-color 0s, border-color 0s; }
+    .dede-button:hover:not(:disabled),
+    .dede-button:active:not(:disabled) { transform: none; }
+}

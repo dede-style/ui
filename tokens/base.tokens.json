@@ -1,0 +1,1262 @@
+{
+  "space-layout": {
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "var(--space-layout-0)"
+    },
+    "1": {
+      "$description": "Fluid: clamp(12px, 2cqi, 24px). Use var(--space-layout-1) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      }
+    },
+    "2": {
+      "$description": "Fluid: clamp(24px, 4cqi, 48px). Use var(--space-layout-2) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      }
+    },
+    "3": {
+      "$description": "Fluid: clamp(36px, 6cqi, 72px). Use var(--space-layout-3) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 72,
+          "unit": "px"
+        }
+      }
+    },
+    "4": {
+      "$description": "Fluid: clamp(48px, 8cqi, 96px). Use var(--space-layout-4) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        }
+      }
+    },
+    "6": {
+      "$description": "Fluid: clamp(72px, 12cqi, 144px). Use var(--space-layout-6) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 72,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 144,
+          "unit": "px"
+        }
+      }
+    },
+    "8": {
+      "$description": "Fluid: clamp(96px, 16cqi, 192px). Use var(--space-layout-8) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 192,
+          "unit": "px"
+        }
+      }
+    },
+    "0-25": {
+      "$description": "Fluid: clamp(3px, 0.5cqi, 6px). Use var(--space-layout-0-25) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 3,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        }
+      }
+    },
+    "0-5": {
+      "$description": "Fluid: clamp(6px, 1cqi, 12px). Use var(--space-layout-0-5) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      }
+    },
+    "1-5": {
+      "$description": "Fluid: clamp(18px, 3cqi, 36px). Use var(--space-layout-1-5) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "space-component": {
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-0)"
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-1)"
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-2)"
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-3)"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-4)"
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-5)"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-6)"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-8)"
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-10)"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-12)"
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-16)"
+    },
+    "0-25": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-0-25)"
+    },
+    "0-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "var(--space-component-0-5)"
+    }
+  },
+  "border": {
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "var(--border-0)"
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "var(--border-1)"
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "var(--border-2)"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "var(--border-4)"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--border-8)"
+    },
+    "0-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "px"
+      },
+      "$description": "var(--border-0-5)"
+    }
+  },
+  "radius": {
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "var(--radius-0)"
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "var(--radius-1)"
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "var(--radius-2)"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--radius-4)"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "var(--radius-6)"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "var(--radius-8)"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "var(--radius-12)"
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "var(--radius-16)"
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "var(--radius-full)"
+    }
+  },
+  "font-size": {
+    "root": {
+      "$description": "Fluid: clamp(0.875rem, 0.8rem + 0.4vw, 1rem). Use var(--font-size-root) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        }
+      }
+    },
+    "3xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-3xs)"
+    },
+    "2xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.625,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-2xs)"
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-xs)"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.875,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-sm)"
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-base)"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.125,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-lg)"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-xl)"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-2xl)"
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.875,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-3xl)"
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2.25,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-4xl)"
+    },
+    "5xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-5xl)"
+    },
+    "6xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3.75,
+        "unit": "rem"
+      },
+      "$description": "var(--font-size-6xl)"
+    }
+  },
+  "font-family": {
+    "display": {
+      "$type": "fontFamily",
+      "$value": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "var(--font-family-display)"
+    },
+    "heading": {
+      "$type": "fontFamily",
+      "$value": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "var(--font-family-heading)"
+    },
+    "body": {
+      "$type": "fontFamily",
+      "$value": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "var(--font-family-body)"
+    },
+    "code": {
+      "$type": "fontFamily",
+      "$value": [
+        "ui-monospace",
+        "Consolas",
+        "monospace"
+      ],
+      "$description": "var(--font-family-code)"
+    }
+  },
+  "font-weight": {
+    "light": {
+      "$type": "fontWeight",
+      "$value": 300,
+      "$description": "var(--font-weight-light)"
+    },
+    "regular": {
+      "$type": "fontWeight",
+      "$value": 400,
+      "$description": "var(--font-weight-regular)"
+    },
+    "medium": {
+      "$type": "fontWeight",
+      "$value": 500,
+      "$description": "var(--font-weight-medium)"
+    },
+    "semibold": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$description": "var(--font-weight-semibold)"
+    },
+    "bold": {
+      "$type": "fontWeight",
+      "$value": 700,
+      "$description": "var(--font-weight-bold)"
+    }
+  },
+  "line-height": {
+    "compact": {
+      "$type": "number",
+      "$value": 0.8,
+      "$description": "var(--line-height-compact)"
+    },
+    "none": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "var(--line-height-none)"
+    },
+    "tight": {
+      "$type": "number",
+      "$value": 1.15,
+      "$description": "var(--line-height-tight)"
+    },
+    "snug": {
+      "$type": "number",
+      "$value": 1.25,
+      "$description": "var(--line-height-snug)"
+    },
+    "normal": {
+      "$type": "number",
+      "$value": 1.4,
+      "$description": "var(--line-height-normal)"
+    },
+    "relaxed": {
+      "$type": "number",
+      "$value": 1.5,
+      "$description": "var(--line-height-relaxed)"
+    }
+  },
+  "opacity": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "var(--opacity-0)"
+    },
+    "1": {
+      "$type": "number",
+      "$value": 0.04,
+      "$description": "var(--opacity-1)"
+    },
+    "2": {
+      "$type": "number",
+      "$value": 0.08,
+      "$description": "var(--opacity-2)"
+    },
+    "3": {
+      "$type": "number",
+      "$value": 0.12,
+      "$description": "var(--opacity-3)"
+    },
+    "4": {
+      "$type": "number",
+      "$value": 0.16,
+      "$description": "var(--opacity-4)"
+    },
+    "6": {
+      "$type": "number",
+      "$value": 0.24,
+      "$description": "var(--opacity-6)"
+    },
+    "8": {
+      "$type": "number",
+      "$value": 0.32,
+      "$description": "var(--opacity-8)"
+    },
+    "12": {
+      "$type": "number",
+      "$value": 0.48,
+      "$description": "var(--opacity-12)"
+    },
+    "16": {
+      "$type": "number",
+      "$value": 0.64,
+      "$description": "var(--opacity-16)"
+    },
+    "20": {
+      "$type": "number",
+      "$value": 0.8,
+      "$description": "var(--opacity-20)"
+    },
+    "25": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "var(--opacity-25)"
+    },
+    "0-25": {
+      "$type": "number",
+      "$value": 0.01,
+      "$description": "var(--opacity-0-25)"
+    },
+    "0-5": {
+      "$type": "number",
+      "$value": 0.02,
+      "$description": "var(--opacity-0-5)"
+    },
+    "1-5": {
+      "$type": "number",
+      "$value": 0.06,
+      "$description": "var(--opacity-1-5)"
+    }
+  },
+  "size-element": {
+    "3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-3)"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-4)"
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-5)"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-6)"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-8)"
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-10)"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "var(--size-element-12)"
+    }
+  },
+  "size-measure": {
+    "prose": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "rem"
+      },
+      "$description": "var(--size-measure-prose)"
+    },
+    "panel": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "rem"
+      },
+      "$description": "var(--size-measure-panel)"
+    },
+    "content": {
+      "$type": "dimension",
+      "$value": {
+        "value": 72,
+        "unit": "rem"
+      },
+      "$description": "var(--size-measure-content)"
+    },
+    "wide": {
+      "$type": "dimension",
+      "$value": {
+        "value": 90,
+        "unit": "rem"
+      },
+      "$description": "var(--size-measure-wide)"
+    }
+  },
+  "motion-duration": {
+    "fast": {
+      "$type": "duration",
+      "$value": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "$description": "var(--motion-duration-fast)"
+    },
+    "base": {
+      "$type": "duration",
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "$description": "var(--motion-duration-base)"
+    },
+    "slow": {
+      "$type": "duration",
+      "$value": {
+        "value": 320,
+        "unit": "ms"
+      },
+      "$description": "var(--motion-duration-slow)"
+    }
+  },
+  "motion-ease": {
+    "standard": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.2,
+        0,
+        0,
+        1
+      ],
+      "$description": "var(--motion-ease-standard)"
+    },
+    "in": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0,
+        1,
+        1
+      ],
+      "$description": "var(--motion-ease-in)"
+    },
+    "out": {
+      "$type": "cubicBezier",
+      "$value": [
+        0,
+        0,
+        0.2,
+        1
+      ],
+      "$description": "var(--motion-ease-out)"
+    },
+    "in-out": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0,
+        0.2,
+        1
+      ],
+      "$description": "var(--motion-ease-in-out)"
+    }
+  },
+  "motion-scale": {
+    "press": {
+      "$type": "number",
+      "$value": 0.97,
+      "$description": "var(--motion-scale-press)"
+    },
+    "press-lg": {
+      "$type": "number",
+      "$value": 0.99,
+      "$description": "var(--motion-scale-press-lg)"
+    },
+    "none": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "var(--motion-scale-none)"
+    },
+    "hover": {
+      "$type": "number",
+      "$value": 1.02,
+      "$description": "var(--motion-scale-hover)"
+    },
+    "hover-lg": {
+      "$type": "number",
+      "$value": 1.01,
+      "$description": "var(--motion-scale-hover-lg)"
+    }
+  },
+  "z-index": {
+    "base": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "var(--z-base)"
+    },
+    "raised": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "var(--z-raised)"
+    },
+    "dropdown": {
+      "$type": "number",
+      "$value": 100,
+      "$description": "var(--z-dropdown)"
+    },
+    "sticky": {
+      "$type": "number",
+      "$value": 200,
+      "$description": "var(--z-sticky)"
+    },
+    "overlay": {
+      "$type": "number",
+      "$value": 300,
+      "$description": "var(--z-overlay)"
+    },
+    "modal": {
+      "$type": "number",
+      "$value": 400,
+      "$description": "var(--z-modal)"
+    },
+    "toast": {
+      "$type": "number",
+      "$value": 500,
+      "$description": "var(--z-toast)"
+    },
+    "tooltip": {
+      "$type": "number",
+      "$value": 600,
+      "$description": "var(--z-tooltip)"
+    }
+  },
+  "breakpoint": {
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 640,
+        "unit": "px"
+      },
+      "$description": "var(--breakpoint-sm)"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 768,
+        "unit": "px"
+      },
+      "$description": "var(--breakpoint-md)"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1024,
+        "unit": "px"
+      },
+      "$description": "var(--breakpoint-lg)"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1280,
+        "unit": "px"
+      },
+      "$description": "var(--breakpoint-xl)"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1536,
+        "unit": "px"
+      },
+      "$description": "var(--breakpoint-2xl)"
+    }
+  },
+  "neutral": {
+    "0": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "hex": "#000000"
+      },
+      "$description": "var(--neutral-0)"
+    },
+    "15": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.043,
+          0.043,
+          0.043
+        ],
+        "hex": "#0b0b0b"
+      },
+      "$description": "var(--neutral-15)"
+    },
+    "18": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.071,
+          0.071,
+          0.071
+        ],
+        "hex": "#121212"
+      },
+      "$description": "var(--neutral-18)"
+    },
+    "20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.086,
+          0.086,
+          0.086
+        ],
+        "hex": "#161616"
+      },
+      "$description": "var(--neutral-20)"
+    },
+    "22": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.106,
+          0.106,
+          0.106
+        ],
+        "hex": "#1b1b1b"
+      },
+      "$description": "var(--neutral-22)"
+    },
+    "25": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.133,
+          0.133,
+          0.133
+        ],
+        "hex": "#222222"
+      },
+      "$description": "var(--neutral-25)"
+    },
+    "32": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "hex": "#333333"
+      },
+      "$description": "var(--neutral-32)"
+    },
+    "35": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.227,
+          0.227,
+          0.227
+        ],
+        "hex": "#3a3a3a"
+      },
+      "$description": "var(--neutral-35)"
+    },
+    "45": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.333,
+          0.333,
+          0.333
+        ],
+        "hex": "#555555"
+      },
+      "$description": "var(--neutral-45)"
+    },
+    "50": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.388,
+          0.388,
+          0.388
+        ],
+        "hex": "#636363"
+      },
+      "$description": "var(--neutral-50)"
+    },
+    "60": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.502,
+          0.502,
+          0.502
+        ],
+        "hex": "#808080"
+      },
+      "$description": "var(--neutral-60)"
+    },
+    "70": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.62,
+          0.62,
+          0.62
+        ],
+        "hex": "#9e9e9e"
+      },
+      "$description": "var(--neutral-70)"
+    },
+    "80": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.745,
+          0.745,
+          0.745
+        ],
+        "hex": "#bebebe"
+      },
+      "$description": "var(--neutral-80)"
+    },
+    "85": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.808,
+          0.808,
+          0.808
+        ],
+        "hex": "#cecece"
+      },
+      "$description": "var(--neutral-85)"
+    },
+    "90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.871,
+          0.871,
+          0.871
+        ],
+        "hex": "#dedede"
+      },
+      "$description": "var(--neutral-90)"
+    },
+    "92": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.894,
+          0.894,
+          0.894
+        ],
+        "hex": "#e4e4e4"
+      },
+      "$description": "var(--neutral-92)"
+    },
+    "94": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.922,
+          0.922,
+          0.922
+        ],
+        "hex": "#ebebeb"
+      },
+      "$description": "var(--neutral-94)"
+    },
+    "96": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.949,
+          0.949,
+          0.949
+        ],
+        "hex": "#f2f2f2"
+      },
+      "$description": "var(--neutral-96)"
+    },
+    "98": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.973,
+          0.973,
+          0.973
+        ],
+        "hex": "#f8f8f8"
+      },
+      "$description": "var(--neutral-98)"
+    },
+    "100": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff"
+      },
+      "$description": "var(--neutral-100)"
+    },
+    "chroma": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "var(--neutral-chroma)"
+    },
+    "hue": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "var(--neutral-hue)"
+    }
+  },
+  "button": {
+    "radius-rounded": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--button-radius-rounded)"
+    }
+  },
+  "card": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--card-radius)"
+    }
+  },
+  "text-input": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--text-input-radius)"
+    }
+  },
+  "segmented": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--segmented-radius)"
+    }
+  }
+}

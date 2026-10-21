@@ -1,0 +1,70 @@
+/*  Radio — paired with components/radio/Radio.tsx.
+
+    Only the circle and its dot. The row and the group are `.dede-choice*` in
+    checkbox.css. Painted exactly like the checkbox box, with a round edge and a
+    ::before dot where Checkbox has an Icon (a disc is not a glyph). */
+
+.dede-radio {
+    --dede-radio-fill: transparent;
+    --dede-radio-edge: var(--color-control-border);
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    display: block;
+    inline-size: var(--dede-choice-control);
+    block-size: var(--dede-choice-control);
+    margin: 0;
+    flex: none;
+
+    position: relative;
+
+    background-color: var(--dede-radio-fill);
+    border: var(--border-1) solid var(--dede-radio-edge);
+    border-radius: var(--radius-full);
+
+    cursor: inherit;
+
+    transition:
+        background-color var(--motion-duration-fast) var(--motion-ease-standard),
+        border-color     var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.dede-radio:checked {
+    --dede-radio-fill: var(--color-control-fill);
+    --dede-radio-edge: var(--color-control-fill);
+}
+
+.dede-choice:hover > .dede-choice-control > .dede-radio:not(:disabled) {
+    background-image: linear-gradient(var(--color-state-hover), var(--color-state-hover));
+}
+
+.dede-radio:focus-visible {
+    outline: var(--border-2) solid var(--color-border-focus);
+    outline-offset: var(--border-1);
+}
+
+/*  The dot: 40% of the circle, derived from the size, centred. Hidden by
+    scale so a choice reads as landing rather than as the circle recolouring. */
+.dede-radio::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    inline-size: calc(var(--dede-choice-control) * 0.4);
+    block-size: calc(var(--dede-choice-control) * 0.4);
+    border-radius: var(--radius-full);
+    background: var(--color-text-inverse);
+    transform: scale(0);
+    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.dede-radio:checked::before {
+    transform: scale(1);
+}
+
+/*  The transform is the state here, so only the timing goes. */
+@media (prefers-reduced-motion: reduce) {
+    .dede-radio,
+    .dede-radio::before { transition-duration: 0s; }
+}

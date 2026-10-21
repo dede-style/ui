@@ -1,0 +1,35 @@
+/*  Icon — paired with components/icon/Icon.tsx.
+
+    `fill: currentColor` is the whole colour model: the glyph paints with the
+    `color` where it sits. (`fill: inherit` would take the parent's fill and
+    never track text.) The size is declared on the class so an ancestor's value
+    cannot leak in. Glyphs are square; a non-square viewBox letterboxes. */
+
+.dede-icon {
+    --dede-icon-size: var(--size-element-6);
+
+    display: block;
+    inline-size: var(--dede-icon-size);
+    block-size: var(--dede-icon-size);
+    fill: currentColor;
+}
+
+.dede-icon--size-3  { --dede-icon-size: var(--size-element-3); }
+.dede-icon--size-4  { --dede-icon-size: var(--size-element-4); }
+.dede-icon--size-5  { --dede-icon-size: var(--size-element-5); }
+.dede-icon--size-6  { --dede-icon-size: var(--size-element-6); }
+.dede-icon--size-8  { --dede-icon-size: var(--size-element-8); }
+.dede-icon--size-10 { --dede-icon-size: var(--size-element-10); }
+.dede-icon--size-12 { --dede-icon-size: var(--size-element-12); }
+
+/*  The container decides, so it needs a size of its own. */
+.dede-icon--size-fill { --dede-icon-size: 100%; }
+
+/*  In a sentence: inline, tracking the type, and nudged down so it does not
+    ride high on the baseline. */
+.dede-icon--size-text {
+    --dede-icon-size: 1em;
+
+    display: inline-block;
+    vertical-align: -0.125em;
+}

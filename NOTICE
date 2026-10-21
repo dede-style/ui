@@ -1,0 +1,15 @@
+@dede-style/ui
+Copyright (c) 2026 Steve Tearle
+
+The code in this package is licensed under the MIT License (see LICENSE).
+
+ICON ARTWORK — a separate licence
+
+The glyph path data in dist/icons is derived from Boxicons v3.0.8
+(https://boxicons.com), whose free icons are licensed under the Creative
+Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+The artwork was reduced from SVG to path data, which removed the attribution
+Boxicons embeds in each file. This notice carries it instead. If you
+redistribute the icons, keep this attribution with them.

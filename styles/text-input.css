@@ -1,0 +1,223 @@
+/*  TextInput — and Select's box, shared by selector list so one edit moves
+    both; select.css holds only what differs. The wrapper is the box; the
+    <input> is transparent inside it, affixes as flex siblings. The edge does
+    the identifying (--color-control-border, 3:1 in check:contrast); rest, hover
+    and focus all move it, and error outranks both. */
+
+.dede-text-input,
+.dede-select {
+    --dede-text-input-block: var(--size-element-10);
+    --dede-text-input-px:    var(--space-component-3);
+    --dede-text-input-gap:   var(--space-component-1);
+
+    /*  A width in characters adds back the padding and borders. */
+    --dede-text-input-gutter: calc(var(--dede-text-input-px) * 2 + var(--border-1) * 2);
+
+    --dede-text-input-surface: var(--color-surface-raised);
+    --dede-text-input-edge:    var(--color-control-border);
+    --dede-text-input-wash:    transparent;
+
+    display: flex;
+    align-items: center;
+    gap: var(--dede-text-input-gap);
+    inline-size: 100%;
+
+    /*  An <input>'s intrinsic width would otherwise stop the box shrinking in a
+        grid or flex cell. */
+    min-inline-size: 0;
+
+    block-size: var(--dede-text-input-block);
+    padding-inline: var(--dede-text-input-px);
+
+    /*  A state is a film over the fill, not a replacement for it. */
+    background-color: var(--dede-text-input-surface);
+    background-image: linear-gradient(var(--dede-text-input-wash), var(--dede-text-input-wash));
+    border: var(--border-1) solid var(--dede-text-input-edge);
+    border-radius: var(--text-input-radius);
+
+    /*  Declared on the wrapper so `ch` measures the typed glyphs and the affixes
+        match the value. */
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+
+    cursor: text;
+    transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/*  The 16px floor: iOS zooms on focus under 16px, and the fluid `base` falls
+    to ~14.3px on a phone, so this is a literal. The list joins the trigger. */
+@media (max-width: 768px) {
+    .dede-text-input,
+    .dede-select,
+    .dede-select-list {
+        font-size: 16px;
+    }
+}
+
+/*  Above it, the dense size drops to `sm`. A negation, so a fractional width
+    matches one of the two queries. */
+@media not all and (max-width: 768px) {
+    .dede-text-input--size-8,
+    .dede-select--size-8 {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/*  32 / 40 / 48px. Only the height ramps: the inset is edge-to-caret, and an
+    affix belongs to the value. */
+.dede-text-input--size-8,
+.dede-select--size-8 {
+    --dede-text-input-block: var(--size-element-8);
+    --dede-text-input-px:    var(--space-component-3);
+    --dede-text-input-gap:   var(--space-component-1);
+}
+
+.dede-text-input--size-10,
+.dede-select--size-10 {
+    --dede-text-input-block: var(--size-element-10);
+    --dede-text-input-px:    var(--space-component-3);
+    --dede-text-input-gap:   var(--space-component-1);
+}
+
+.dede-text-input--size-12,
+.dede-select--size-12 {
+    --dede-text-input-block: var(--size-element-12);
+    --dede-text-input-px:    var(--space-component-3);
+    --dede-text-input-gap:   var(--space-component-1);
+}
+
+/*  Width in characters: a signal of how much to type. Not shared with Select,
+    whose ladder adds back its chevron (select.css). */
+.dede-text-input--width-full { inline-size: 100%; }
+.dede-text-input--width-2  { inline-size: calc(2ch + var(--dede-text-input-gutter)); }
+.dede-text-input--width-3  { inline-size: calc(3ch + var(--dede-text-input-gutter)); }
+.dede-text-input--width-4  { inline-size: calc(4ch + var(--dede-text-input-gutter)); }
+.dede-text-input--width-5  { inline-size: calc(5ch + var(--dede-text-input-gutter)); }
+.dede-text-input--width-10 { inline-size: calc(10ch + var(--dede-text-input-gutter)); }
+.dede-text-input--width-20 { inline-size: calc(20ch + var(--dede-text-input-gutter)); }
+
+/*  The input owns the caret and nothing else; it shrinks so a long value
+    scrolls inside it rather than pushing an affix out. Type is inherited. */
+.dede-text-input-control {
+    flex: 1;
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-text-primary);
+}
+
+/*  Tertiary, the quietest thing in the box. Firefox's default opacity would
+    compound with the token. */
+.dede-text-input-control::placeholder {
+    color: var(--color-text-tertiary);
+    opacity: 1;
+}
+
+/*  The wrapper draws the ring. */
+.dede-text-input-control:focus-visible {
+    outline: none;
+}
+
+/*  Affixes, and Select's chevron with them: never shrink, unselectable,
+    secondary so only the value reads as content. */
+.dede-text-input-affix,
+.dede-select-chevron {
+    flex: none;
+    user-select: none;
+    color: var(--color-text-secondary);
+}
+
+/*  A glyph one step softer: icons owe 3:1, not 4.5:1. */
+.dede-icon.dede-text-input-affix,
+.dede-icon.dede-select-chevron {
+    color: var(--color-icon-secondary);
+}
+
+/*  ─── States ─────────────────────────────────────────────────────────────
+    Read from the input's own attributes (disabled, readonly, aria-invalid),
+    never a modifier class. */
+
+/*  Invalid is the edge's colour: --color-error, which clears 3:1 against the
+    page on its own (--color-error-border is held only to 2:1). */
+.dede-text-input:has([aria-invalid="true"]),
+.dede-select[aria-invalid="true"] {
+    --dede-text-input-edge: var(--color-error);
+}
+
+/*  Read-only is a value displayed: no fill, no edge, no inset. `input[readonly]`
+    rather than `:read-only`, which also matches disabled inputs. */
+.dede-text-input:has(input[readonly]) {
+    --dede-text-input-surface: transparent;
+    --dede-text-input-edge:    transparent;
+    --dede-text-input-px:      0px;
+    cursor: default;
+}
+
+.dede-text-input:has(input[readonly]) .dede-text-input-control {
+    cursor: default;
+}
+
+/*  Hover doubles the edge's weight in its current colour; it stands off focus
+    and the open list rather than out-scoring them. */
+.dede-text-input:has(input:enabled:not([readonly])):hover:not(:focus-within),
+.dede-select:enabled:hover:not(:focus-visible):not([aria-expanded="true"]) {
+    outline: var(--border-1) solid var(--dede-text-input-edge);
+    outline-offset: 0;
+}
+
+/*  Focus: the edge plus a 1px outline at offset 0, one 2px line. A text field
+    on :focus-within (the ring encloses the affixes); a select on
+    :focus-visible and while its list is open. */
+.dede-text-input:focus-within,
+.dede-select:focus-visible,
+.dede-select[aria-expanded="true"] {
+    --dede-text-input-edge: var(--color-border-focus);
+    outline: var(--border-1) solid var(--dede-text-input-edge);
+    outline-offset: 0;
+}
+
+/*  One opacity on the whole control, so its parts dim together. 48%: a field is
+    mostly white space, and at Button's 64% it read as live. */
+.dede-text-input:has(:disabled),
+.dede-select:disabled {
+    opacity: var(--opacity-12);
+    cursor: default;
+}
+
+.dede-text-input:has(:disabled) .dede-text-input-control {
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dede-text-input,
+    .dede-select { transition-duration: 0s; }
+}
+
+/*  Error keeps its colour through hover and focus; focus darkens it, so the
+    error ladder has the same shape as the plain one (1px, 2px, 2px darker). */
+.dede-text-input:has([aria-invalid="true"]):focus-within,
+.dede-select[aria-invalid="true"]:focus-visible,
+.dede-select[aria-invalid="true"][aria-expanded="true"] {
+    --dede-text-input-edge: var(--color-error-strong);
+}
+
+/*  Read-only has no edge at rest, so focus restores one. */
+.dede-text-input:has(input[readonly]):focus-within {
+    --dede-text-input-edge: var(--color-border-focus);
+}
+
+/*  `frame` is the class default. `plain` drops fill, edge and inset but keeps
+    its height and its focus ring; hover has no edge to thicken. */
+.dede-text-input--variant-plain,
+.dede-select--variant-plain {
+    --dede-text-input-surface: transparent;
+    --dede-text-input-edge:    transparent;
+    --dede-text-input-px:      0px;
+}
+
+.dede-text-input--variant-plain:hover:not(:focus-within),
+.dede-select--variant-plain:enabled:hover:not(:focus-visible):not([aria-expanded="true"]) {
+    outline: none;
+}

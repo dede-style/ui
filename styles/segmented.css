@@ -1,0 +1,151 @@
+/*  Segmented — paired with components/segmented/Segmented.tsx.
+
+    A track of equal columns (`grid-auto-columns: 1fr`), so the raised segment
+    never changes size as the selection moves; shrink-to-fit, every column takes
+    the widest label. The input is invisible but focusable (opacity, never
+    display or visibility) and sits on top, so the whole segment is clickable.
+    `:has()` paints the segment from its input's state.
+
+    The track is --color-wash, a film, so it never matches its own ground. The
+    inner corner is concentric: outer radius minus the 2px groove. */
+
+.dede-segmented {
+    --dede-segmented-block: var(--size-element-8);
+    --dede-segmented-font:  var(--font-size-xs);
+    --dede-segmented-pad:   var(--border-2);
+    --dede-segmented-gap:   var(--border-1);
+    --dede-segmented-px:    var(--space-component-2);
+
+    /*  max(0px, …): a negative radius is invalid and silently dropped. */
+    --dede-segmented-inner-radius: max(
+        0px,
+        calc(var(--segmented-radius) - var(--dede-segmented-pad))
+    );
+
+    display: inline-grid;
+    /*  Declared, as Button's: a grid parent would otherwise stretch it. */
+    inline-size: fit-content;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: var(--dede-segmented-gap);
+    padding: var(--dede-segmented-pad);
+
+    /*  A floor, so a wrapped label grows the track rather than clipping. */
+    min-block-size: var(--dede-segmented-block);
+
+    background-color: var(--color-wash);
+    border-radius: var(--segmented-radius);
+}
+
+/*  Height, type and inline padding step together: 32 / 40 / 48 with 12 / 14 /
+    16px type. The groove does not: it is tied to the fixed outer radius. */
+.dede-segmented--size-10 {
+    --dede-segmented-block: var(--size-element-10);
+    --dede-segmented-font:  var(--font-size-sm);
+    --dede-segmented-px:    var(--space-component-3);
+}
+
+.dede-segmented--size-12 {
+    --dede-segmented-block: var(--size-element-12);
+    --dede-segmented-font:  var(--font-size-base);
+    --dede-segmented-px:    var(--space-component-4);
+}
+
+/*  `inline-size: 100%`, not grid alone: a centring parent would shrink it back. */
+.dede-segmented--full-width {
+    display: grid;
+    inline-size: 100%;
+}
+
+/*  A segment. `position: relative` so the input covers it, padding included. */
+.dede-segmented-option {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    /*  Lets the label yield in a narrow track instead of widening the group. */
+    min-inline-size: 0;
+
+    padding-inline: var(--dede-segmented-px);
+    border-radius: var(--dede-segmented-inner-radius);
+
+    /*  Hover is a film over the fill, as in Button. */
+    background-color: transparent;
+    background-image: none;
+
+    color: var(--color-text-secondary);
+    font-size: var(--dede-segmented-font);
+    line-height: var(--line-height-normal);
+    text-align: center;
+    cursor: pointer;
+
+    transition:
+        background-color var(--motion-duration-fast) var(--motion-ease-standard),
+        color            var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/*  One line; a label too long for its segment ellipses. `max-inline-size` is
+    what lets the ellipsis fire inside a fit-content grid item. */
+.dede-segmented-label {
+    --dede-segmented-text: "";
+
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*  The label again at the selected weight, zero-height and hidden, so each
+    column is sized for its heavier state and the track never resizes. */
+.dede-segmented-label::after {
+    content: var(--dede-segmented-text);
+    display: block;
+    block-size: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-weight: var(--font-weight-medium);
+}
+
+.dede-segmented-input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+}
+
+/*  Selected: raised fill, first shadow, primary ink, one weight up. */
+.dede-segmented-option:has(:checked) {
+    background-color: var(--segmented-thumb);
+    box-shadow: var(--shadow-1);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+/*  Unselected segments only. */
+.dede-segmented-option:has(.dede-segmented-input:hover:not(:disabled)):not(:has(:checked)) {
+    background-image: linear-gradient(var(--color-state-hover), var(--color-state-hover));
+}
+
+/*  Inside the segment (negative offset): the 2px groove has no room outside. */
+.dede-segmented-option:has(:focus-visible) {
+    outline: var(--border-1) solid var(--color-border-focus);
+    outline-offset: calc(-1 * var(--border-1));
+}
+
+/*  One opacity on the whole group, so the selection still reads. */
+.dede-segmented:has(:disabled) {
+    opacity: var(--opacity-16);
+}
+
+.dede-segmented:has(:disabled) .dede-segmented-option,
+.dede-segmented:has(:disabled) .dede-segmented-input {
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dede-segmented-option { transition-duration: 0s; }
+}

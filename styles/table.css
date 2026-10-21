@@ -1,0 +1,162 @@
+/*  Table — header, hairlines, inset, alignment and row washes. Column widths,
+    `table-layout` and overflow are the consumer's. The inset `(row − 1lh) / 2`
+    makes a single-line row exactly its step; hairlines are inset shadows, so
+    they add nothing to the box. */
+
+.dede-table {
+    inline-size: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    /*  The rule colours, switched by dividers and the foot. */
+    --dede-table-rule:     var(--color-border-subtle);
+    --dede-table-rule-col: transparent;
+
+    /*  Declared here so a nested table does not take its host's values. */
+    --dede-table-row:   var(--size-element-10);
+    --dede-table-px:    var(--space-component-3);
+    --dede-table-align: baseline;
+    /*  `sm`: a table is scanned, not read. 14 / 14 / 16 across the sizes. */
+    font-size: var(--font-size-sm);
+}
+
+/*  Row, type and inline inset move together: 8 / 12 / 16px of inset, because
+    density is why size 8 exists. */
+.dede-table--size-8  { --dede-table-row: var(--size-element-8);  --dede-table-px: var(--space-component-2); }
+.dede-table--size-10 { --dede-table-row: var(--size-element-10); --dede-table-px: var(--space-component-3); }
+.dede-table--size-12 { --dede-table-row: var(--size-element-12); --dede-table-px: var(--space-component-4); font-size: var(--font-size-base); }
+
+.dede-table--align-baseline { --dede-table-align: baseline; }
+.dede-table--align-top      { --dede-table-align: top; }
+.dede-table--align-middle   { --dede-table-align: middle; }
+
+.dede-table-caption {
+    padding-block-end: var(--space-component-3);
+    text-align: start;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.dede-table-cell {
+    padding-block: calc((var(--dede-table-row) - 1lh) / 2);
+    padding-inline: var(--dede-table-px);
+    vertical-align: var(--dede-table-align);
+    text-align: start;
+
+    /*  Bottom rule, and a column rule that is transparent unless
+        dividers="grid". */
+    box-shadow:
+        inset 0 calc(-1 * var(--border-1)) 0 0 var(--dede-table-rule),
+        inset calc(-1 * var(--border-1)) 0 0 0 var(--dede-table-rule-col);
+}
+
+.dede-table-head .dede-table-cell {
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-tertiary);
+    --dede-table-rule: var(--color-border-default);
+}
+
+/*  A row header names its row: body colour, a step of weight. */
+.dede-table-body th.dede-table-cell {
+    font-weight: var(--font-weight-medium);
+}
+
+/*  Every row closes with a rule. Before a foot it steps up, so the summary is
+    framed as the header is. */
+.dede-table-body:has(+ .dede-table-foot) .dede-table-row:last-child .dede-table-cell {
+    --dede-table-rule: var(--color-border-default);
+}
+
+/*  A foot is a summary: semibold across the whole row. */
+.dede-table-foot .dede-table-cell {
+    font-weight: var(--font-weight-semibold);
+    --dede-table-rule: var(--color-border-default);
+}
+
+/*  `justify` is the inline axis: text-align on a cell. */
+.dede-table-cell--justify-start  { text-align: start; }
+.dede-table-cell--justify-end    { text-align: end; }
+.dede-table-cell--justify-center { text-align: center; }
+
+.dede-table-cell--numeric { font-variant-numeric: tabular-nums; }
+
+.dede-table-cell--padding-none { padding: 0; }
+
+/*  A control one step below its row: 4px above and below, and the inline inset
+    less the control's own (a quarter of its height), so the glyph sits on the
+    column line. Pinned to the top: an icon-only control has no baseline and
+    would drag the row taller. */
+.dede-table-cell--padding-control {
+    padding-block: var(--space-component-1);
+    padding-inline: calc(var(--dede-table-px) - (var(--dede-table-row) - var(--space-component-2)) / 4);
+    vertical-align: top;
+}
+
+/*  A selection cell holding a hidden-label 16px Checkbox: centred in the row by
+    `(row − box) / 2`, on the column line, pinned to the first line. Under auto
+    layout `inline-size: 0` keeps the column to its content. */
+.dede-table-cell--padding-checkbox {
+    padding-block: calc((var(--dede-table-row) - var(--size-element-4)) / 2);
+    padding-inline: var(--dede-table-px);
+    inline-size: 0;
+    vertical-align: top;
+}
+
+/*  "grid" adds column rules and a frame; "none" keeps the head's rule. */
+.dede-table--dividers-grid {
+    box-shadow: inset 0 0 0 var(--border-1) var(--color-border-subtle);
+}
+
+.dede-table--dividers-grid .dede-table-cell:not(:last-child) {
+    --dede-table-rule-col: var(--color-border-subtle);
+}
+
+.dede-table--dividers-none .dede-table-body .dede-table-cell {
+    --dede-table-rule: transparent;
+}
+
+/*  Row washes are films over whatever the table sits on, one ladder in both
+    modes: stripe 2% / hover 4% / selected 6%, each its own token. Hover is a
+    background-image, so it composes over a stripe or a selection. */
+.dede-table--striped .dede-table-body .dede-table-row:nth-child(even) {
+    background-color: var(--table-stripe);
+}
+
+/*  Selected replaces a stripe (same channel, and after it in source at equal
+    specificity). */
+.dede-table .dede-table-body .dede-table-row.dede-table-row--selected {
+    background-color: var(--table-selected);
+}
+
+@media (hover: hover) {
+    .dede-table--hover .dede-table-body .dede-table-row:hover {
+        background-image: linear-gradient(var(--table-hover), var(--table-hover));
+    }
+}
+
+/*  The outer box fades as a mask (it must not scroll); the inner one scrolls.
+    The outer's padding reaches the focus ring and its mask band stays solid. */
+.dede-table-container {
+    --dede-table-fade-start: 0px;
+    --dede-table-fade-end:   0px;
+    --dede-table-fade-ring:  calc(var(--border-2) + var(--space-component-0-5));
+    padding: var(--dede-table-fade-ring);
+    margin: calc(-1 * var(--dede-table-fade-ring));
+    mask-image:
+        linear-gradient(to right, transparent, #000 var(--dede-table-fade-start), #000 calc(100% - var(--dede-table-fade-end)), transparent),
+        linear-gradient(#000, #000),
+        linear-gradient(#000, #000);
+    mask-origin: content-box, border-box, content-box;
+    mask-clip:   content-box, border-box, content-box;
+    mask-repeat: no-repeat;
+    mask-composite: add, exclude, add;
+}
+
+.dede-table-container--start { --dede-table-fade-start: var(--space-component-10); }
+.dede-table-container--end   { --dede-table-fade-end:   var(--space-component-10); }
+
+.dede-table-container-scroll {
+    overflow-x: auto;
+    border-radius: var(--radius-2);
+}

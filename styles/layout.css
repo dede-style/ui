@@ -1,0 +1,439 @@
+/*  Layout — Section > Stack > Slot > Sleeve, with Grid a peer of Stack. Paired
+    with components/layout/. Classes and plumbing properties are `dede-`
+    prefixed; tokens are not.
+
+    Section   the band, and (outermost) the only query container, so cqi and
+              @container mean the Section at every depth.
+    Stack     the arranger: lanes, gap and band padding on one of two grid
+              engines, ratio (weights as column counts) or snap (25 columns).
+    Slot      one region; placed by the --dede-col its Stack injects.
+    Sleeve    the content inside a region, spaced on the fixed component scale.
+
+    A Stack earns its place by having something to arrange: one row is one
+    Stack. All four band dials default to step 2 and nothing inherits: each
+    primitive declares its defaults on its class, which is the inheritance
+    barrier — never as a var() fallback. */
+
+
+.dede-section {
+    width: 100%;
+    /*  `clip`, not `hidden`: no scroll container. */
+    overflow: clip;
+
+    /*  Bleeds by the focus ring's reach so a ring near the edge is not cut. A
+        literal: overflow-clip-margin rejects var(). 4px = the 2px ring plus
+        its 2px offset in base.css; move it with them. */
+    overflow-clip-margin: 4px;
+}
+
+/*  The ruler: only a frame (the outermost Section, or `queryContainer`). */
+.dede-section--query-container {
+    container-type: inline-size;
+}
+
+.dede-section--no-clip {
+    overflow: visible;
+}
+
+
+/*  The band defaults, declared on every Stack so an ancestor's values cannot
+    reach it; an inline override still wins. */
+.dede-stack {
+    position: relative;
+    display: grid;
+    --dede-stack-pt: var(--space-layout-2);
+    --dede-stack-pb: var(--space-layout-2);
+    --dede-stack-px: var(--space-layout-2);
+    --dede-stack-gap: var(--space-layout-2);
+    padding-block: var(--dede-stack-pt) var(--dede-stack-pb);
+}
+
+/*  Lane alignment; stretch is the grid default. */
+.dede-stack--align-start  { align-items: start; }
+.dede-stack--align-center { align-items: center; }
+.dede-stack--align-end    { align-items: end; }
+
+/*  The cap is a width, not a container, so spacing and breakpoints inside it
+    still measure the Section. */
+.dede-stack--capped {
+    max-inline-size: var(--dede-stack-max);
+    margin-inline: auto;
+}
+
+/*  Ratio: sum(weights) equal tracks, a real gap, padding for the edges. */
+.dede-stack--ratio {
+    /*  Reset, so a nested Stack does not read its parent's breakpoint lanes. */
+    --dede-lanes-sm: initial;
+    --dede-lanes-md: initial;
+    --dede-lanes-lg: initial;
+    --dede-lanes-xl: initial;
+    --dede-lanes-2xl: initial;
+
+    grid-template-columns: var(--dede-lanes, minmax(0, 1fr));
+    gap: var(--dede-stack-gap);
+    padding-inline: var(--dede-stack-px);
+}
+
+/*  Vertical: one column; lanes size the rows. */
+.dede-stack--ratio.dede-stack--vertical {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: var(--dede-lanes-rows, none);
+}
+
+/*  Both engines place their direct children through --dede-col, so a Grid or
+    a plain element is placed as a Slot is. Every placement property is reset
+    here, where it is read, so a nested element cannot pick up its host's span.
+    min-width: 0 so content cannot widen a track. */
+.dede-stack > * {
+    --dede-col: initial;
+    --dede-col-sm: initial;
+    --dede-col-md: initial;
+    --dede-col-lg: initial;
+    --dede-col-xl: initial;
+    --dede-col-2xl: initial;
+    --dede-row: initial;
+    --dede-order: initial;
+    --dede-order-sm: initial;
+    --dede-order-md: initial;
+    --dede-order-lg: initial;
+    --dede-order-xl: initial;
+    --dede-order-2xl: initial;
+
+    grid-column: var(--dede-col, auto);
+    order: var(--dede-order, 0);
+    min-width: 0;
+}
+.dede-stack--ratio.dede-stack--vertical > * {
+    grid-column: auto;
+    grid-row: var(--dede-row, auto);
+}
+
+
+/*  Snap: the 25-column grid; gutters are reserved columns, not gap. */
+.dede-stack--snap {
+    grid-template-columns: repeat(25, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: var(--dede-stack-gap);
+}
+
+
+.dede-slot {
+    position: relative;
+    z-index: 1;                                      /* above the guide overlay */
+    min-width: 0;
+}
+
+
+/*  `alignSelf`: how the slot sits in its Stack. */
+.dede-slot--self-start   { align-self: start; }
+.dede-slot--self-center  { align-self: center; }
+.dede-slot--self-end     { align-self: end; }
+.dede-slot--self-stretch { align-self: stretch; }
+
+/*  `justify` / `align`: the slot becomes a single-cell grid only when set. */
+.dede-slot--items { display: grid; }
+.dede-slot--justify-start   { justify-items: start; }
+.dede-slot--justify-center  { justify-items: center; }
+.dede-slot--justify-end     { justify-items: end; }
+.dede-slot--justify-stretch { justify-items: stretch; }
+.dede-slot--align-start     { align-items: start; }
+.dede-slot--align-center    { align-items: center; }
+.dede-slot--align-end       { align-items: end; }
+.dede-slot--align-stretch   { align-items: stretch; }
+
+
+/*  ─── Sleeve ───
+    One column on the fixed component scale. Grid, so one gap covers every
+    adjacency and margins never collapse. */
+
+.dede-sleeve {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    --dede-sleeve-gap: var(--space-component-3);
+    gap: var(--dede-sleeve-gap);
+    /*  Rows pack at the top in a taller Sleeve. */
+    align-content: start;
+}
+
+/*  The gap already spaces paragraphs; a heading's margin stays (base.css). */
+.dede-sleeve > p + p { margin-block-start: 0; }
+
+/*  No `align` (rows hug their content) and no `alignSelf` (a Slot is a block
+    box): position a Sleeve from its Slot. */
+.dede-sleeve--justify-start   { justify-items: start; }
+.dede-sleeve--justify-center  { justify-items: center; }
+.dede-sleeve--justify-end     { justify-items: end; }
+.dede-sleeve--justify-stretch { justify-items: stretch; }
+
+/*  `alignContent` moves the rows inside a taller Sleeve. */
+.dede-sleeve--align-content-start   { align-content: start; }
+.dede-sleeve--align-content-center  { align-content: center; }
+.dede-sleeve--align-content-end     { align-content: end; }
+.dede-sleeve--align-content-stretch { align-content: stretch; }
+
+
+/*  ─── At a breakpoint ───
+    Each width reads its own property and falls back to the one below, then the
+    base, so a Stack without the object form is unaffected. Mobile-first
+    min-width: a max-width pair misses fractional widths. Custom properties are
+    invalid in a query, so these numbers must match the --breakpoint-* tokens. */
+@container (min-width: 640px) {
+    .dede-stack--ratio { grid-template-columns: var(--dede-lanes-sm, var(--dede-lanes, minmax(0, 1fr))); }
+    .dede-stack > * {
+        grid-column: var(--dede-col-sm, var(--dede-col, auto));
+        order: var(--dede-order-sm, var(--dede-order, 0));
+    }
+}
+@container (min-width: 768px) {
+    .dede-stack--ratio { grid-template-columns: var(--dede-lanes-md, var(--dede-lanes-sm, var(--dede-lanes, minmax(0, 1fr)))); }
+    .dede-stack > * {
+        grid-column: var(--dede-col-md, var(--dede-col-sm, var(--dede-col, auto)));
+        order: var(--dede-order-md, var(--dede-order-sm, var(--dede-order, 0)));
+    }
+}
+@container (min-width: 1024px) {
+    .dede-stack--ratio { grid-template-columns: var(--dede-lanes-lg, var(--dede-lanes-md, var(--dede-lanes-sm, var(--dede-lanes, minmax(0, 1fr))))); }
+    .dede-stack > * {
+        grid-column: var(--dede-col-lg, var(--dede-col-md, var(--dede-col-sm, var(--dede-col, auto))));
+        order: var(--dede-order-lg, var(--dede-order-md, var(--dede-order-sm, var(--dede-order, 0))));
+    }
+}
+@container (min-width: 1280px) {
+    .dede-stack--ratio { grid-template-columns: var(--dede-lanes-xl, var(--dede-lanes-lg, var(--dede-lanes-md, var(--dede-lanes-sm, var(--dede-lanes, minmax(0, 1fr)))))); }
+    .dede-stack > * {
+        grid-column: var(--dede-col-xl, var(--dede-col-lg, var(--dede-col-md, var(--dede-col-sm, var(--dede-col, auto)))));
+        order: var(--dede-order-xl, var(--dede-order-lg, var(--dede-order-md, var(--dede-order-sm, var(--dede-order, 0)))));
+    }
+}
+@container (min-width: 1536px) {
+    .dede-stack--ratio { grid-template-columns: var(--dede-lanes-2xl, var(--dede-lanes-xl, var(--dede-lanes-lg, var(--dede-lanes-md, var(--dede-lanes-sm, var(--dede-lanes, minmax(0, 1fr))))))); }
+    .dede-stack > * {
+        grid-column: var(--dede-col-2xl, var(--dede-col-xl, var(--dede-col-lg, var(--dede-col-md, var(--dede-col-sm, var(--dede-col, auto))))));
+        order: var(--dede-order-2xl, var(--dede-order-xl, var(--dede-order-lg, var(--dede-order-md, var(--dede-order-sm, var(--dede-order, 0))))));
+    }
+}
+
+
+/*  ─── Grid ─── */
+
+.dede-grid {
+    display: grid;
+    grid-template-columns: var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr)));
+    gap: var(--dede-grid-gap, var(--space-component-4));
+    min-width: 0;
+    /*  A list: no marker and no marker indent. */
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.dede-grid > * { min-width: 0; }
+
+/*  The <li> is the grid item; a one-track grid inside it passes a stretched
+    row on to the child, so cards in a row are equal height. */
+.dede-grid > li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+/*  maxColumns per breakpoint: reset so a nested Grid does not read its host's,
+    then the same fall-through as Stack. After .dede-grid, to win on order. */
+.dede-grid {
+    --dede-grid-cols-sm: initial;
+    --dede-grid-cols-md: initial;
+    --dede-grid-cols-lg: initial;
+    --dede-grid-cols-xl: initial;
+    --dede-grid-cols-2xl: initial;
+}
+@container (min-width: 640px) {
+    .dede-grid { grid-template-columns: var(--dede-grid-cols-sm, var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr)))); }
+}
+@container (min-width: 768px) {
+    .dede-grid { grid-template-columns: var(--dede-grid-cols-md, var(--dede-grid-cols-sm, var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr))))); }
+}
+@container (min-width: 1024px) {
+    .dede-grid { grid-template-columns: var(--dede-grid-cols-lg, var(--dede-grid-cols-md, var(--dede-grid-cols-sm, var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr)))))); }
+}
+@container (min-width: 1280px) {
+    .dede-grid { grid-template-columns: var(--dede-grid-cols-xl, var(--dede-grid-cols-lg, var(--dede-grid-cols-md, var(--dede-grid-cols-sm, var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr))))))); }
+}
+@container (min-width: 1536px) {
+    .dede-grid { grid-template-columns: var(--dede-grid-cols-2xl, var(--dede-grid-cols-xl, var(--dede-grid-cols-lg, var(--dede-grid-cols-md, var(--dede-grid-cols-sm, var(--dede-grid-cols, repeat(auto-fit, minmax(16rem, 1fr)))))))); }
+}
+
+/*  Item position in its cell; stretch by default. */
+.dede-grid--justify-start   { justify-items: start; }
+.dede-grid--justify-center  { justify-items: center; }
+.dede-grid--justify-end     { justify-items: end; }
+.dede-grid--justify-stretch { justify-items: stretch; }
+.dede-grid--align-start     { align-items: start; }
+.dede-grid--align-center    { align-items: center; }
+.dede-grid--align-end       { align-items: end; }
+.dede-grid--align-stretch   { align-items: stretch; }
+
+/*  Ratio: the cell is the aspect box and its child fills it. */
+.dede-grid--ratio > .dede-grid-cell {
+    aspect-ratio: var(--dede-grid-ratio, 1);
+    overflow: hidden;
+}
+.dede-grid-cell > * {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+
+/*  ─── Guides ───
+    Opt-in overlay. Every layer draws the same 4% --dede-guide-fill and a dashed
+    outline, so depth is what makes nesting read denser; a corner label names
+    each layer. --color-guide is the shell's, so these no-op without it. */
+
+/*  Edges are outlines, inset. Where two boxes coincide the line doubles, and
+    that is honest. */
+.dede-section--guides {
+    position: relative;
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+}
+
+.dede-stack--guides {
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+}
+
+/*  Labels: a corner per type (Section top-left, Stack top-right, Grid
+    bottom-right, Sleeve bottom-left); Slot, the most repeated, is centred
+    (`.dede-guides-corner` moves it back to a corner). */
+.dede-section--guides::after,
+.dede-stack--guides::after,
+.dede-slot--guides::after,
+.dede-sleeve--guides::after,
+.dede-grid--guides::after {
+    position: absolute;
+    inset-block-start: var(--space-component-2);
+    inset-inline-start: var(--space-component-3);
+    z-index: 3;
+    pointer-events: none;
+    color: var(--color-guide);
+    font-family: var(--font-family-code);
+    font-size: var(--font-size-2xs);
+    line-height: 1;
+}
+/*  Each primitive declares its own label, so an ancestor's guideLabel cannot
+    leak into it. */
+.dede-section { --dede-guide-label: "Section"; }
+.dede-stack   { --dede-guide-label: "Stack"; }
+.dede-slot    { --dede-guide-label: "Slot"; }
+.dede-sleeve  { --dede-guide-label: "Sleeve"; }
+.dede-grid    { --dede-guide-label: "Grid"; }
+
+.dede-section--guides::after,
+.dede-stack--guides::after,
+.dede-slot--guides::after,
+.dede-sleeve--guides::after,
+.dede-grid--guides::after { content: var(--dede-guide-label); }
+
+.dede-stack--guides::after {
+    inset-inline-start: auto;
+    inset-inline-end: var(--space-component-3);
+}
+
+.dede-grid--guides::after {
+    inset-block-start: auto;
+    inset-block-end: var(--space-component-2);
+    inset-inline-start: auto;
+    inset-inline-end: var(--space-component-3);
+}
+
+.dede-sleeve--guides::after {
+    inset-block-start: auto;
+    inset-block-end: var(--space-component-2);
+    inset-inline-start: var(--space-component-3);
+}
+
+.dede-slot--guides::after {
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.dede-guides-corner .dede-slot--guides::after {
+    inset: var(--space-component-2) auto auto var(--space-component-3);
+    display: block;
+}
+
+/*  Room above the content for a corner label. */
+.dede-guides-room {
+    padding-block: var(--space-component-6);
+}
+
+/*  The 25-column lines: snap only. */
+.dede-stack--snap.dede-stack--guides::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-guide) var(--opacity-2), transparent) 0 1px,
+        transparent 1px calc(100% / 25)
+    );
+}
+
+.dede-slot--guides {
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+    border-radius: var(--radius-1);
+}
+
+/*  An empty guided slot needs a floor to show. */
+.dede-slot--guides:empty {
+    min-height: var(--space-component-16);
+}
+
+.dede-sleeve--guides {
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+    border-radius: var(--radius-1);
+}
+
+/*  Grid: the container and each item, so the tiling and gaps read. */
+.dede-grid--guides {
+    position: relative;
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+}
+.dede-grid--guides > * {
+    min-height: var(--space-component-16);
+    background: var(--dede-guide-fill);
+    outline: var(--border-1) dashed color-mix(in srgb, var(--color-guide) var(--opacity-8), transparent);
+    outline-offset: calc(-1 * var(--border-1));
+    border-radius: var(--radius-1);
+}
+
+/*  Each item is labelled "Item" (what CSS and HTML both call it), unless it is
+    itself a labelled primitive, directly or inside its <li>. */
+.dede-grid--guides > *:not(.dede-section, .dede-stack, .dede-slot, .dede-sleeve, .dede-grid,
+    :has(> :is(.dede-section, .dede-stack, .dede-slot, .dede-sleeve, .dede-grid))) {
+    position: relative;
+}
+.dede-grid--guides > *:not(.dede-section, .dede-stack, .dede-slot, .dede-sleeve, .dede-grid,
+    :has(> :is(.dede-section, .dede-stack, .dede-slot, .dede-sleeve, .dede-grid)))::after {
+    content: "Item";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 3;
+    pointer-events: none;
+    color: var(--color-guide);
+    font-family: var(--font-family-code);
+    font-size: var(--font-size-2xs);
+    line-height: 1;
+}

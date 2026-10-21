@@ -1,0 +1,101 @@
+/*  Switch — paired with components/switch/Switch.tsx.
+
+    Two boxes: the <input> (`appearance: none`) is the track and ::before is the
+    thumb. `:checked` is the state; the track's fill carries it and the thumb
+    position confirms it. The thumb is surface-raised in both states;
+    check:contrast holds the track against the page and the thumb against both
+    tracks. Metrics are declared on the class, so an ancestor's cannot leak in. */
+
+.dede-switch {
+    /*  The height is the choice row's (16 / 20 / 24). The width is 5:3 of it,
+        rounded to the 4px grid (28 / 32 / 40). The thumb leaves 2px of track all
+        round, so it is the height less 4. */
+    --dede-switch-block:  var(--dede-choice-control);
+    --dede-switch-inline: round(nearest, calc(var(--dede-switch-block) * 5 / 3), var(--space-component-1));
+    --dede-switch-thumb-size: calc(var(--dede-switch-block) - var(--space-component-1));
+
+    --dede-switch-inset: calc(
+        (var(--dede-switch-block) - var(--border-1) * 2 - var(--dede-switch-thumb-size)) / 2
+    );
+    --dede-switch-travel: calc(
+        var(--dede-switch-inline) - var(--border-1) * 2
+        - var(--dede-switch-inset) * 2 - var(--dede-switch-thumb-size)
+    );
+
+    /*  A filled mid-grey off track, edge the same colour: the state is a fill
+        difference, so the border never carries it. */
+    --dede-switch-track: var(--color-control-track);
+    --dede-switch-edge:  var(--color-control-track);
+    --dede-switch-thumb: var(--color-surface-raised);
+    --dede-switch-offset: 0;
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    /*  Positions the thumb; absolute insets measure from inside the border. */
+    position: relative;
+    display: inline-block;
+    flex: none;
+    inline-size: var(--dede-switch-inline);
+    block-size: var(--dede-switch-block);
+    margin: 0;
+
+    background-color: var(--dede-switch-track);
+    border: var(--border-1) solid var(--dede-switch-edge);
+    border-radius: var(--radius-full);
+
+    cursor: pointer;
+    transition:
+        background-color var(--motion-duration-fast) var(--motion-ease-standard),
+        border-color     var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/*  The thumb moves by transform, so the travel costs no layout. */
+.dede-switch::before {
+    content: "";
+    position: absolute;
+    inset-block-start: var(--dede-switch-inset);
+    inset-inline-start: var(--dede-switch-inset);
+    inline-size: var(--dede-switch-thumb-size);
+    block-size: var(--dede-switch-thumb-size);
+    background-color: var(--dede-switch-thumb);
+    border-radius: var(--radius-full);
+    transform: translateX(var(--dede-switch-offset));
+    transition:
+        transform        var(--motion-duration-fast) var(--motion-ease-standard),
+        background-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.dede-switch:checked {
+    --dede-switch-track: var(--color-control-fill);
+    --dede-switch-edge:  var(--color-control-fill);
+    --dede-switch-thumb: var(--color-surface-raised);
+    --dede-switch-offset: var(--dede-switch-travel);
+}
+
+/*  The inset flips in RTL but translateX does not. */
+[dir="rtl"] .dede-switch:checked {
+    --dede-switch-offset: calc(var(--dede-switch-travel) * -1);
+}
+
+/*  The hover is the row's, as for Checkbox and Radio: a state film over the
+    track's fill, so one rule serves both states. No press scale — the switch
+    confirms itself by moving. */
+.dede-choice:hover > .dede-choice-control > .dede-switch:not(:disabled) {
+    background-image: linear-gradient(var(--color-state-hover), var(--color-state-hover));
+}
+
+.dede-switch:focus-visible {
+    outline: var(--border-2) solid var(--color-border-focus);
+    outline-offset: var(--border-1);
+}
+
+/*  Disabled dims the whole row (checkbox.css); only the cursor is set here. */
+.dede-switch:disabled {
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dede-switch,
+    .dede-switch::before { transition-duration: 0s; }
+}

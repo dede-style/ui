@@ -1,0 +1,199 @@
+/*  Checkbox, and the selection row it stands in — paired with Checkbox.tsx,
+    choice.tsx and group.tsx.
+
+    `.dede-choice*` is the row, shared by Checkbox, Radio and Switch.
+    `.dede-choice-group*` is the fieldset both groups render.
+    `.dede-checkbox*` is the box and its mark, this component's alone.
+
+    The row's one rule: the control centres on the label's FIRST line and stays
+    there when the label wraps (`align-items: start` plus a margin from `1lh`). */
+
+/*  ─── The row ─────────────────────────────────────────────────────────── */
+
+.dede-choice {
+    /*  minmax(0, 1fr) so a long unbroken word shrinks the column. */
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-component-2);
+    align-items: start;
+
+    /*  The row is a <label>: hugging keeps empty space out of the click target. */
+    inline-size: fit-content;
+
+    /*  The control's size, read by the first-line margin and by the control. */
+    --dede-choice-control: var(--size-element-5);
+
+    /*  Type comes from `label` in base.css. */
+
+    cursor: pointer;
+}
+
+/*  Whichever is taller, line or box, sets the row's top and the other moves
+    down — so neither margin is ever negative (a box poking above the row would
+    be clipped, focus ring with it). */
+.dede-choice-control {
+    position: relative;
+    display: grid;
+    margin-block-start: max(0px, calc((1lh - var(--dede-choice-control)) / 2));
+}
+
+.dede-choice-label {
+    color: var(--color-text-primary);
+    margin-block-start: max(0px, calc((var(--dede-choice-control) - 1lh) / 2));
+}
+
+/*  Under the label, one type step down: Field's label/hint pairing. */
+.dede-choice-description {
+    grid-column: 2;
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-secondary);
+}
+
+/*  With the words hidden the row is exactly the box. `max-content`, not `auto`:
+    a lone auto track stretches in a wide container and the mark, centred in
+    it, drifts off the box. No first-line margin either, since there is no line. */
+.dede-choice--label-hidden {
+    grid-template-columns: max-content;
+    column-gap: 0;
+}
+
+.dede-choice--label-hidden .dede-choice-control {
+    margin-block-start: 0;
+}
+
+/*  Control at the end: placement only; the DOM order is unchanged. */
+.dede-choice--control-end {
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.dede-choice--control-end > .dede-choice-control {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.dede-choice--control-end > .dede-choice-label,
+.dede-choice--control-end > .dede-choice-description {
+    grid-column: 1;
+}
+
+.dede-choice--full-width {
+    inline-size: auto;
+}
+
+/*  16 / 20 / 24. The gap stays one step at every size. */
+.dede-choice--size-4 { --dede-choice-control: var(--size-element-4); }
+.dede-choice--size-5 { --dede-choice-control: var(--size-element-5); }
+.dede-choice--size-6 { --dede-choice-control: var(--size-element-6); }
+
+/*  One opacity on the whole row, read off the input, so nothing dims twice. */
+.dede-choice:has(input:disabled) {
+    cursor: default;
+    opacity: var(--opacity-12);
+}
+
+/*  ─── The group ───────────────────────────────────────────────────────── */
+
+.dede-choice-group {
+    /*  The UA fieldset, undone by its owner rather than in reset.css, so a
+        fieldset in prose still looks like one. min-inline-size lets it shrink. */
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
+
+    /*  A vertical list on the fixed scale. Packed to the start, so a stretched
+        group does not spread its rows. */
+    display: grid;
+    row-gap: var(--space-component-3);
+    align-content: start;
+}
+
+/*  The legend: a label's type, led by weight because the options beneath are
+    the same size. It is not a grid row, so it carries its own margin, one step
+    tighter than the row gap. */
+.dede-choice-group-label {
+    padding: 0;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-snug);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-block-end: var(--space-component-2);
+}
+
+/*  The rows dim themselves; only the legend needs it here. */
+.dede-choice-group:disabled > .dede-choice-group-label {
+    opacity: var(--opacity-12);
+}
+
+/*  ─── The box ─────────────────────────────────────────────────────────── */
+
+.dede-checkbox {
+    --dede-checkbox-fill: transparent;
+    --dede-checkbox-edge: var(--color-control-border);
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    display: block;
+    inline-size: var(--dede-choice-control);
+    block-size: var(--dede-choice-control);
+    margin: 0;
+    flex: none;
+
+    background-color: var(--dede-checkbox-fill);
+    border: var(--border-1) solid var(--dede-checkbox-edge);
+    border-radius: var(--radius-2);
+
+    cursor: inherit;
+
+    transition:
+        background-color var(--motion-duration-fast) var(--motion-ease-standard),
+        border-color     var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/*  Mixed fills too: it is partly on. */
+.dede-checkbox:is(:checked, :indeterminate) {
+    --dede-checkbox-fill: var(--color-control-fill);
+    --dede-checkbox-edge: var(--color-control-fill);
+}
+
+/*  The hover is the row's: a state film over the fill. */
+.dede-choice:hover > .dede-choice-control > .dede-checkbox:not(:disabled) {
+    background-image: linear-gradient(var(--color-state-hover), var(--color-state-hover));
+}
+
+/*  On the input, so the ring outlines the box and not the row. */
+.dede-checkbox:focus-visible {
+    outline: var(--border-2) solid var(--color-border-focus);
+    outline-offset: var(--border-1);
+}
+
+/*  ─── The mark ────────────────────────────────────────────────────────── */
+
+/*  Centred over the box; clicks pass through to the input. Always in the DOM,
+    shown by opacity and scale so the change animates. */
+.dede-checkbox-mark {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    pointer-events: none;
+    color: var(--color-text-inverse);
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+        opacity   var(--motion-duration-fast) var(--motion-ease-standard),
+        transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.dede-checkbox:is(:checked, :indeterminate) + .dede-checkbox-mark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/*  The scale is dropped, not only un-timed, so no 60% mark flashes. */
+@media (prefers-reduced-motion: reduce) {
+    .dede-checkbox,
+    .dede-checkbox-mark { transition-duration: 0s; }
+    .dede-checkbox-mark { transform: none; }
+}
