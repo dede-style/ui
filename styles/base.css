@@ -1,8 +1,9 @@
 /*  Base element styles: where the system first paints, consuming tokens. */
 
-/*  Native controls and scrollbars follow the mode. */
-[data-mode="light"] { color-scheme: light; }
-[data-mode="dark"]  { color-scheme: dark; }
+/*  Controls, scrollbars and inherited text follow the mode; the background does not. */
+[data-mode="light"], :root[data-mode="dark"] [data-mode="inverse"]  { color-scheme: light; }
+[data-mode="dark"],  :root[data-mode="light"] [data-mode="inverse"] { color-scheme: dark; }
+:where([data-mode]) { color: var(--color-text-primary); }
 
 /*  The one place type becomes fluid: every --font-size-* is a rem, so the
     root moves the whole scale and keeps its ratios. */

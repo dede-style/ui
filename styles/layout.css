@@ -24,12 +24,37 @@
         literal: overflow-clip-margin rejects var(). 4px = the 2px ring plus
         its 2px offset in base.css; move it with them. */
     overflow-clip-margin: 4px;
-}
 
-/*  The ruler: only a frame (the outermost Section, or `queryContainer`). */
-.dede-section--query-container {
+    /*  Every Section is a frame: the ruler cqi and @container measure. */
     container-type: inline-size;
 }
+
+/*  Inside another Section: not a frame, so no ruler and no band gutter.
+    :where() keeps both at one class's weight; the band's Stack is the direct
+    child. */
+.dede-section :where(.dede-section) {
+    container-type: normal;
+}
+
+.dede-section :where(.dede-section) > .dede-stack {
+    --dede-stack-px: 0;
+}
+
+/*  `frame` makes a nested Section a frame again. After the rules above, which
+    it ties with. */
+.dede-section--frame {
+    container-type: inline-size;
+}
+
+.dede-section--frame > .dede-stack {
+    --dede-stack-px: var(--space-layout-2);
+}
+
+/*  A band in a mode paints that mode's page; a bg class picks the surface. */
+.dede-section:where([data-mode]),
+.dede-section--bg-surface { background-color: var(--color-surface); }
+.dede-section--bg-raised  { background-color: var(--color-surface-raised); }
+.dede-section--bg-sunken  { background-color: var(--color-surface-sunken); }
 
 .dede-section--no-clip {
     overflow: visible;

@@ -13,7 +13,7 @@ import { Slot } from "@dede-style/ui"
 | `as` | `div` · `article` · `aside` · `figure` · `header` · `footer` · `nav` · `ul` · `ol` | `div` | element to render: div by default, or article, main, aside, figure, header, footer, nav, ul, ol |
 | `alignSelf` | `stretch` · `start` · `center` · `end` | `stretch` | where this slot sits in its lane, overriding the Stack's align |
 | `justify` | `stretch` · `start` · `center` · `end` | `stretch` | where the slot's content sits across it |
-| `align` | `stretch` · `start` · `center` · `end` | `stretch` | where the slot's content sits down it, when the slot is taller than its content |
+| `align` | `stretch` · `start` · `center` · `end` | `stretch` | where the slot's content sits down it, when the slot is taller than its content. To stretch a child (a Card) to the slot's height, write stretch: left unset, the slot is a plain block |
 
 Props not listed (handlers, `className`, `style`, `children`) are standard React. Sizes are `--size-element-*` steps: `8` = 32px, `10` = 40px, `12` = 48px.
 

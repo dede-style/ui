@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { FieldProps } from "./Field"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -6,7 +7,7 @@ export const summary =
 
 //  Nothing from Sleeve is forwarded: a Field's four rows have a fixed rhythm.
 
-export const fieldControls: PropSchema = [
+export const fieldControls: SchemaFor<FieldProps> = [
     { prop: "label", type: "text", default: "", placeholder: "Email address", help: "the control's visible label. Required. Mark an optional field in these words: Middle name (optional)" },
     { prop: "labelHidden", type: "boolean", default: false, help: "hide the label visually but keep it for screen readers, only where the purpose is obvious (a search box beside its button)" },
     { prop: "hint", type: "text", default: "", placeholder: "We'll only use this to reply.", help: "one line of instructions, shown above the control" },

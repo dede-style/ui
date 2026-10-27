@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { SwitchProps } from "./Switch"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -7,7 +8,7 @@ export const summary =
 //  `checked` is in the panel although the stage is clickable: it is the prop
 //  this component exists for.
 
-export const switchControls: PropSchema = [
+export const switchControls: SchemaFor<SwitchProps> = [
     { prop: "checked", type: "boolean", default: false, help: "whether the setting is on. Controlled: pass it with onChange" },
     { prop: "label", type: "text", default: "", placeholder: "Show guides", help: "the visible label and the accessible name. Required. Name the setting (Show guides), not its state (Guides on)" },
     { prop: "description", type: "text", default: "", placeholder: "Outline every region", help: "an optional second line under the label" },

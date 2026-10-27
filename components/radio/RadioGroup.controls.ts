@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { RadioGroupProps } from "./RadioGroup"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -6,7 +7,7 @@ export const summary =
 
 //  No row for `value`: choosing on the stage is the demonstration.
 
-export const radioGroupControls: PropSchema = [
+export const radioGroupControls: SchemaFor<RadioGroupProps> = [
     { prop: "label", type: "text", default: "", placeholder: "Delivery", help: "the group's name, shown above the options. Required" },
     { prop: "hideLabel", type: "boolean", default: false, help: "hide the name visually but keep it for screen readers, when a heading already says it" },
     { prop: "isDisabled", type: "boolean", default: false, help: "disables every option" },

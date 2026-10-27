@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { CheckboxProps } from "./Checkbox"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -6,7 +7,7 @@ export const summary =
 
 //  No controls for onChange or the form attributes: forwarded as they are.
 
-export const checkboxControls: PropSchema = [
+export const checkboxControls: SchemaFor<CheckboxProps> = [
     { prop: "label", type: "text", default: "", placeholder: "Standard", help: "the visible label and the accessible name. Required" },
     { prop: "description", type: "text", default: "", placeholder: "5–7 business days", help: "an optional second line under the label" },
     { prop: "checked", type: "boolean", default: false, help: "whether it is ticked. Controlled: pass it with onChange" },

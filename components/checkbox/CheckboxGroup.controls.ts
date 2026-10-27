@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { CheckboxGroupProps } from "./CheckboxGroup"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -6,7 +7,7 @@ export const summary =
 
 //  No value row: the options are independent, each controlled on its own.
 
-export const checkboxGroupControls: PropSchema = [
+export const checkboxGroupControls: SchemaFor<CheckboxGroupProps> = [
     { prop: "label", type: "text", default: "", placeholder: "Notifications", help: "the group's name, shown above the options. Required" },
     { prop: "hideLabel", type: "boolean", default: false, help: "hide the name visually but keep it for screen readers, when a heading already says it" },
     { prop: "isDisabled", type: "boolean", default: false, help: "disables every checkbox in the group" },

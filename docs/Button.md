@@ -21,6 +21,10 @@ import { Button } from "@dede-style/ui"
 
 Props not listed (handlers, `className`, `style`, `children`) are standard React. Sizes are `--size-element-*` steps: `8` = 32px, `10` = 40px, `12` = 48px.
 
+## Notes
+
+- **Links**: give `href` and Button renders an `<a>` with the button's look, for an action that goes somewhere (Sign up, Get started). IconButton takes `href` too. A link in running text stays a plain `<a>`.
+
 Live examples: https://dede.style/components/button
 
 _Generated from the component's schema by `npm run build:docs`._

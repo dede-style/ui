@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { ButtonProps } from "./Button"
 import * as icons from "../../icons"
 
 //  The intro for this component's generated doc and DESIGN.md.
@@ -9,7 +10,11 @@ export const summary =
 
 const GLYPHS = ["none", ...Object.keys(icons).map((name) => name.replace(/^icon/, ""))]
 
-export const buttonControls: PropSchema = [
+export const notes = [
+    "**Links**: give `href` and Button renders an `<a>` with the button's look, for an action that goes somewhere (Sign up, Get started). IconButton takes `href` too. A link in running text stays a plain `<a>`.",
+]
+
+export const buttonControls: SchemaFor<ButtonProps> = [
     { prop: "variant", type: "select", options: ["primary", "secondary", "tertiary", "destructive"], default: "secondary", help: "emphasis: primary for the main action (one per view), secondary (default), tertiary for the quietest, destructive for a dangerous action" },
     { prop: "size", type: "select", options: ["6", "8", "10", "12"], default: "10", help: "height: 24, 32, 40 or 48px. 24 is for icon buttons only" },
     { prop: "shape", type: "select", options: ["rounded", "pill", "square"], default: "rounded", help: "corners: rounded (default), pill or square" },

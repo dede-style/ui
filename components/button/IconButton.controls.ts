@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { IconButtonProps } from "./IconButton"
 import * as icons from "../../icons"
 
 //  The intro for this component's generated doc and DESIGN.md.
@@ -10,7 +11,7 @@ export const summary =
 
 const GLYPHS = Object.keys(icons).map((name) => name.replace(/^icon/, ""))
 
-export const iconButtonControls: PropSchema = [
+export const iconButtonControls: SchemaFor<IconButtonProps> = [
     { prop: "glyph", type: "select", options: GLYPHS, default: "Star", valuesHref: "/icons", help: "the icon. In code, import it by its full name: icon plus this (Star is iconStar)" },
     { prop: "label", type: "text", default: "", placeholder: "required", help: "required: the button's accessible name, since it has no visible words" },
     { prop: "variant", type: "select", options: ["primary", "secondary", "tertiary", "destructive"], default: "secondary", help: "emphasis: primary, secondary (default), tertiary or destructive" },

@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { CardProps } from "./Card"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -7,7 +8,7 @@ export const summary =
 /*  `padding` is a dropdown because the prop takes a step, not a length. The
     small steps are left out: a card wants none or the large end. */
 
-export const cardControls: PropSchema = [
+export const cardControls: SchemaFor<CardProps> = [
     { prop: "elevation", type: "select", options: ["sunken", "flush", "raised"], default: "raised", help: "raised (default) sits above the page, flush on it, sunken below it" },
     { prop: "border", type: "boolean", default: true, help: "draw the card's edge. Off keeps the card the same size" },
     { prop: "padding", type: "select", options: ["none", "3", "4", "5", "6", "8", "10", "12"], default: "6", help: "space inside the card, a fixed spacing step. none lets an image reach the card's edges" },

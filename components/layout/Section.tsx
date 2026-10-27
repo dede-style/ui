@@ -1,35 +1,34 @@
 "use client"
 
 import type { CSSProperties, ReactNode } from "react"
-import {
-    GuideContext,
-    SectionDepthContext,
-    SectionFrameContext,
-    StackDepthContext,
-    useGuides,
-    useNestedSection,
-} from "./context"
+import { GuideContext, StackDepthContext, useGuides } from "./context"
 
-/*  Section — a full-width band. The outermost Section is the query container,
-    so every cqi value and @container query measures it, and a nested Section is
-    not (unless `queryContainer`): one ruler per page. It paints the band; the
-    spacing lives on its Stack. Guides set here light the whole subtree. */
+/*  Section — a full-width band, and a frame: the query container cqi and
+    @container measure. A nested one is not, unless `frame` (layout.css decides
+    by position). Spacing lives on its Stack. */
 
 export type SectionElement = "section" | "div" | "header" | "nav" | "aside" | "footer" | "article"
 
+export type SectionMode = "light" | "dark" | "inverse"
+
+export type SectionBg = "surface" | "raised" | "sunken"
+
 export type SectionProps = {
-    /** Make a nested band its own query container, so `cqi` and `@container`
-     *  inside it measure this band. It also restores the band's inline edge.
-     *  Costly: nothing inside can align with anything outside. For a region
-     *  that stands alone (a card, a demo stage), not for grouping. */
-    queryContainer?: boolean
+    /** Make a nested band a frame: its own ruler and inline gutter. Costly:
+     *  nothing inside aligns with anything outside. For a region that stands
+     *  alone, not for grouping. */
+    frame?: boolean
     /** Element to render. Default "section"; a landmark element when the band
      *  is that landmark, "div" for a purely visual band. */
     as?: SectionElement
     /** The band's name. An unnamed <section> is not a landmark. */
     "aria-label"?: string
-    /** A CSS background value. */
-    bg?: string
+    /** Put the band in a mode: its tokens, text and background follow it.
+     *  "inverse" is the opposite of the page's mode. Omitted, it inherits. */
+    mode?: SectionMode
+    /** Paint the band with a surface role, in its mode. Omitted, the band is
+     *  transparent, or `surface` when it has a mode. */
+    bg?: SectionBg
     /** Clip content to the band. Default true; false lets content bleed. */
     clip?: boolean
     /** Draw the guide overlay here and below. Omitted, a nested Section
@@ -45,9 +44,10 @@ export type SectionProps = {
 export function Section({
     as: Element = "section",
     "aria-label": ariaLabel,
+    mode,
     bg,
     clip = true,
-    queryContainer = false,
+    frame = false,
     showGuides,
     guideLabel,
     className,
@@ -58,12 +58,7 @@ export function Section({
     const inheritedGuides = useGuides()
     const guides = showGuides ?? inheritedGuides
 
-    //  The outermost Section is the frame, by position; nested, only by opting in.
-    const nested = useNestedSection()
-    const isFrame = nested ? queryContainer : true
-
     const sectionStyle: CSSProperties = {
-        ...(bg ? { background: bg } : null),
         //  `content` takes a quoted string; inner quotes are stripped.
         ...(guideLabel
             ? { ["--dede-guide-label" as string]: `"${guideLabel.replace(/"/g, "")}"` }
@@ -73,7 +68,8 @@ export function Section({
 
     const classes = [
         "dede-section",
-        isFrame && "dede-section--query-container",
+        frame && "dede-section--frame",
+        bg && `dede-section--bg-${bg}`,
         !clip && "dede-section--no-clip",
         guides && "dede-section--guides",
         className,
@@ -83,25 +79,19 @@ export function Section({
 
     return (
         <GuideContext.Provider value={guides}>
-            {/*  Depth is read by Section (am I the frame?); frame by Stack
-                 (do I own the inline edge?). They differ at a nested band that
-                 opted in. */}
-            <SectionDepthContext.Provider value={true}>
-                <SectionFrameContext.Provider value={isFrame}>
-                {/*  A Section's Stack is band-level on the block axis. `false`,
-                     not undefined: a Provider given undefined sets undefined. */}
-                <StackDepthContext.Provider value={false}>
-                    <Element
-                        data-component="Section"
-                        className={classes}
-                        style={sectionStyle}
-                        aria-label={ariaLabel}
-                    >
-                        {children}
-                    </Element>
-                    </StackDepthContext.Provider>
-                </SectionFrameContext.Provider>
-            </SectionDepthContext.Provider>
+            {/*  A Section's Stack is band-level on the block axis. `false`,
+                 not undefined: a Provider given undefined sets undefined. */}
+            <StackDepthContext.Provider value={false}>
+                <Element
+                    data-component="Section"
+                    data-mode={mode}
+                    className={classes}
+                    style={sectionStyle}
+                    aria-label={ariaLabel}
+                >
+                    {children}
+                </Element>
+            </StackDepthContext.Provider>
         </GuideContext.Provider>
     )
 }

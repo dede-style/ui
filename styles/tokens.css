@@ -10,7 +10,7 @@
         component: fixed 4px × N, inside a component. */
 
     /*  clamp(12N px, 2N cqi, 24N px); 1-5 means N = 1.5. */
-    --space-layout-0:    0;
+    --space-layout-0:    0px;
     --space-layout-0-25: clamp(3px,  0.5cqi, 6px);
     --space-layout-0-5:  clamp(6px,  1cqi,   12px);  /* 2cqi × 0.5 */
     --space-layout-1:    clamp(12px, 2cqi,   24px);
@@ -23,7 +23,7 @@
     --space-layout-8:    clamp(96px, 16cqi,  192px);
 
     /* space-component — base 4px (fixed) */
-    --space-component-0:     0;
+    --space-component-0:     0px;
     --space-component-0-25:  1px;
     --space-component-0-5:   2px;    /* 4 × 0.5  */
     --space-component-1:     4px;
@@ -41,7 +41,7 @@
     /*  ─── Border ─── 1px × N, the name is the pixel value. 0.5px is one
         device pixel at 2x; past 8px a border is the wrong mechanism. */
 
-    --border-0:     0;
+    --border-0:     0px;
     --border-0-5:   0.5px;   /* one device pixel at 2x */
     --border-1:     1px;
     --border-2:     2px;
@@ -51,7 +51,7 @@
 
     /*  ─── Radius ─── 2px × N; no 1px step (imperceptible). -full is a pill. */
 
-    --radius-0:     0;
+    --radius-0:     0px;
     --radius-1:     2px;
     --radius-2:     4px;
     --radius-4:     8px;
@@ -238,7 +238,9 @@
     reserved for status. */
 
 
-[data-mode="light"] {
+/*  Each block also serves `inverse`: the opposite of the page's mode. */
+[data-mode="light"],
+:root[data-mode="dark"] [data-mode="inverse"] {
     /*  Control: a filled control's ink, a switch's off track, an empty edge. */
     --color-control-fill: var(--neutral-20);
     --color-control-track: var(--neutral-60);
@@ -329,7 +331,8 @@
     --color-info-border:     #91abcd;
 }
 
-[data-mode="dark"] {
+[data-mode="dark"],
+:root[data-mode="light"] [data-mode="inverse"] {
     --color-control-fill: var(--neutral-98);
     --color-control-track: var(--neutral-70);
     /*  A role picks its own step per mode. */

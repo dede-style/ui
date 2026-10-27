@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { TextInputProps } from "./TextInput"
 import * as icons from "../../icons"
 
 //  The intro for this component's generated doc and DESIGN.md.
@@ -10,7 +11,7 @@ export const summary =
 
 const GLYPHS = ["none", ...Object.keys(icons).map((name) => name.replace(/^icon/, ""))]
 
-export const textInputControls: PropSchema = [
+export const textInputControls: SchemaFor<TextInputProps> = [
     { prop: "value", type: "text", default: "", placeholder: "Ada Lovelace", help: "the text. Controlled: pass it with onChange" },
     { prop: "type", type: "select", options: ["text", "email", "password", "tel", "url", "search", "number"], default: "text", help: "what is being typed: text, email, password, tel, url, search or number. Sets the keyboard and browser behaviour" },
     { prop: "variant", type: "select", options: ["frame", "plain"], default: "frame", help: "frame (default) draws the box; plain has no box, for a search in a toolbar. Give a plain field an icon or placeholder" },

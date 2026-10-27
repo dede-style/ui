@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { GridProps } from "./Grid"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -12,7 +13,7 @@ export const summary =
 // clamp) — so any gap resolves under either gapScale.
 const GAP_STEPS = ["0", "0-25", "0-5", "1", "2", "3", "4", "6", "8"] as const
 
-export const gridControls: PropSchema = [
+export const gridControls: SchemaFor<GridProps> = [
     { prop: "as", type: "select", options: ["ul", "ol", "div"], default: "ul", help: "element to render. ul by default, wrapping each child in an li; ol when order matters; div when it is not a collection" },
     { prop: "minColumnWidth", type: "text", placeholder: "16rem", default: "16rem", help: "the narrowest a column may be; as many columns as fit, then wrap. Any CSS length; a bare number is px" },
     { prop: "maxColumns", type: "number", default: 0, min: 0, max: 12, help: "the most columns allowed. Omit (0 here) for no limit. In code it can change by breakpoint: { base: 1, sm: 3 }" },

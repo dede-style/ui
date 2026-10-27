@@ -1,5 +1,5 @@
 export { Section } from "./Section"
-export type { SectionElement, SectionProps } from "./Section"
+export type { SectionBg, SectionElement, SectionMode, SectionProps } from "./Section"
 export { Stack } from "./Stack"
 export type { StackLanes, StackAlign, StackDirection, StackReverse, StackMaxWidth, StackPattern, StackProps } from "./Stack"
 export { Slot } from "./Slot"

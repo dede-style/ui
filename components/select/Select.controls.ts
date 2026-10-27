@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { SelectProps } from "./Select"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -7,7 +8,7 @@ export const summary =
 /*  No row for `options` (an array the panel's widgets cannot edit) or `value`
     (the specimen is the control). */
 
-export const selectControls: PropSchema = [
+export const selectControls: SchemaFor<SelectProps> = [
     { prop: "placeholder", type: "text", default: "", placeholder: "Choose a size", help: "shown until an option is chosen. Not a label" },
     { prop: "size", type: "select", options: ["8", "10", "12"], default: "10", help: "height: 32, 40 (default) or 48px, matching TextInput and Button" },
     { prop: "variant", type: "select", options: ["frame", "plain"], default: "frame", help: "frame (default) draws the box; plain has no box, for a toolbar" },

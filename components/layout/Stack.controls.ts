@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { StackProps } from "./Stack"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -11,11 +12,17 @@ export const summary =
 const LAYOUT_STEPS = ["0", "0-5", "1", "1-5", "2", "3", "4", "6", "8"] as const
 const PAD_STEPS = ["none", "0", "0-5", "1", "1-5", "2", "3", "4", "6", "8"] as const
 
-export const stackControls: PropSchema = [
+export const notes = [
+    "**Fewer children than lanes leaves the rest empty**: `lanes=\"2|1\"` with one Slot puts it in the 2 and leaves the 1 as space.",
+    "**Text first on mobile, image left on desktop**: write the image first, then reverse below `md`. `<Stack lanes={{ base: 1, md: \"1|1\" }} reverse={{ base: true, md: false }}>`.",
+    "**The side gutter** (`paddingX`) belongs to the band's own Stack in a frame. Inside another Stack, or a band in a nested Section, it is none; a stated `paddingX` always applies.",
+]
+
+export const stackControls: SchemaFor<StackProps> = [
     { prop: "pattern", type: "select", options: ["ratio", "snap"], default: "ratio", help: "ratio (default) lays lanes out by weight; snap places them on a fixed 25-column grid shared by every Section" },
     { prop: "lanes", type: "text", placeholder: "1|2|1", default: "1", help: "lane weights, such as 2|1, or a number of equal lanes. Children fill lanes in order; extra children start a new row. In code it can change by breakpoint: { base: 1, md: 1|1 }" },
     { prop: "direction", type: "select", options: ["horizontal", "vertical"], default: "horizontal", help: "lanes as columns (horizontal) or rows (vertical). Ratio only", showWhen: { prop: "pattern", equals: "ratio" } },
-    { prop: "reverse", type: "boolean", default: false, help: "reverse the lane order. In code it can change by breakpoint: { base: true, md: false }" },
+    { prop: "reverse", type: "boolean", default: false, help: "reverse the children: they swap lanes, and each lane keeps its width. In code it can change by breakpoint: { base: true, md: false }" },
     { prop: "align", type: "select", options: ["stretch", "start", "center", "end"], default: "stretch", help: "how lanes line up with each other. Default stretch makes them equal height" },
     { prop: "maxWidth", type: "text", placeholder: "content, 60rem, 900px…", default: "", help: "cap the content width and centre it: prose, panel, content, wide or a CSS length. Blank is full width" },
     { prop: "gap", type: "select", options: [...LAYOUT_STEPS], default: "2", help: "space between lanes, a layout spacing step. Default 2" },

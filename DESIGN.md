@@ -114,7 +114,7 @@ typography:
     fontWeight: 500
     lineHeight: 1
 rounded:
-  "0": 0
+  "0": 0px
   "1": 2px
   "2": 4px
   "4": 8px
@@ -350,8 +350,10 @@ Layout is four primitives in a fixed chain, with `Grid` a peer of `Stack`:
 Section > Stack > Slot > Sleeve > content
 ```
 
-- **Section** is a full-width band and the only query container: every `cqi`
-  value and every breakpoint measures the Section, not the viewport.
+- **Section** is a full-width band and a **frame**: the query container that
+  every `cqi` value and every breakpoint measures, instead of the viewport. A
+  Section inside another Section is not a frame (it measures the one above)
+  unless it sets `frame`. Plain elements between them do not count.
 - **Stack** divides the band into **lanes** and owns the band's padding.
   `lanes="2|1"` is two lanes; a weight is a **column count**, so arrangements
   whose totals share a multiple line up (`"2|1"` with `"1|1|1"`).
@@ -382,6 +384,51 @@ Fluid layout steps (`cqi` is 1% of the Section's width):
 
 Fixed component steps are in the front matter as `spacing.component-*` (4px × N).
 
+**Two page shapes.** The rule is the same; only where the bands sit differs.
+
+A **site page** (full-width bands stacked, nav on top, footer at the bottom)
+has no shell. Every top-level Section is a frame with its own side gutter, so a
+band can paint edge to edge while its content keeps the page margin:
+
+```tsx
+<Section as="header" clip={false}>…</Section>     {/* a bar with popovers */}
+<main>
+  <Section aria-label="Intro">…</Section>
+  <Section aria-label="Work" bg="sunken">…</Section>
+  <Section aria-label="Gallery">
+    <Stack paddingX="none">…</Stack>               {/* full bleed */}
+  </Section>
+</main>
+<footer data-mode="dark" className="site-footer">  {/* one mode, your background */}
+  <Section aria-label="Contact">…</Section>
+</footer>
+```
+
+An **app page** (nav beside content) has one frame whose Stack holds the lanes;
+the bands inside `main` are nested, so they measure the frame and the frame's
+Stack sets the gutter once:
+
+```tsx
+<Section>
+  <Stack lanes={{ base: 1, md: "3|8", lg: "3|8|3" }}>
+    <nav>…</nav>
+    <Slot as="main">
+      <Section aria-label="Overview">…</Section>
+    </Slot>
+    <aside>…</aside>
+  </Stack>
+</Section>
+```
+
+A lane takes any element that accepts `style` (a plain `<nav>` or `<main>`);
+a Slot is the default occupant. Outside any Section, `cqi` measures the
+viewport, so a fixed bar outside the bands still gets fluid spacing.
+
+**Colour on a band.** `mode` (`light`, `dark`, `inverse` — the opposite of the
+page) puts a band in a mode and paints its surface; `bg` (`surface`, `raised`,
+`sunken`) picks the surface. `data-mode` works on any element: its colours and
+inherited text follow, and the background is yours.
+
 Rules that keep pages consistent:
 
 - **One row is one Stack.** A Stack with nothing to arrange is not written.
@@ -411,7 +458,8 @@ subtle border. Interaction states are films, not new colours.
 
 ## Shapes
 
-Corners come from one radius scale (2px × N). Controls, cards and inputs use
+Corners come from one radius scale (2px × N). The number in a name is the
+multiplier, not pixels: `--radius-8` is 16px. Controls, cards and inputs use
 `rounded.4` (8px) by default; each has a theme lever (`--button-radius-rounded`,
 `--card-radius`, `--text-input-radius`, `--segmented-radius`). Pills and circles
 use `rounded.full`. A nested corner is derived (outer radius minus the inset),
@@ -464,8 +512,8 @@ and defaults are in its own file:
 
 ## Responsive Behavior
 
-Responsive values are **one mobile-first object**, measured against the Section
-(the query container), with Tailwind's breakpoint names and numbers:
+Responsive values are **one mobile-first object**, measured against the frame
+(the nearest frame Section), with Tailwind's breakpoint names and numbers:
 
 ```tsx
 <Stack lanes={{ base: 1, md: "1|1", lg: "2|1" }}>
@@ -489,9 +537,13 @@ focus; touch rows in lists are at least 40px.
 
 When building with dede:
 
-1. Import `@dede-style/ui/styles.css` once; set `data-mode` on `<html>`.
-2. A page is a list of `<Section>`s. Inside each, one `<Stack>` per row, with
-   `lanes` for the columns. Each lane holds a `<Slot>` (or a `Grid` or nested
+1. Import `@dede-style/ui/styles.css` once; set `data-mode` on `<html>`
+   (`light` or `dark`; to follow the system, set it from
+   `matchMedia("(prefers-color-scheme: dark)")` in a script in `<head>`).
+2. A site page is a list of top-level `<Section>`s inside a plain `<main>`; an
+   app page is one Section whose Stack lanes hold the nav, `main` and an aside
+   (see Layout). Inside each Section, one `<Stack>` per row, as its direct
+   child, with `lanes` for the columns. Each lane holds a `<Slot>` (or a `Grid` or nested
    `Stack`); inside a Slot, a `<Sleeve>` spaces a heading and what follows it.
 3. A collection of cards or items is a `<Grid>` of `<Card>`s, not a Stack.
 4. Text sits in a `"1|1"` lane or under a Stack `maxWidth="prose"` cap.
@@ -501,7 +553,7 @@ When building with dede:
 6. Spacing between regions: Stack `gap` / padding steps. Inside content: Sleeve
    `gap`. Never margins between regions.
 7. Colours, radii and spacing come from `var(--…)` custom properties, never
-   literals.
+   literals. A dark band is `<Section mode="dark">`, not a dark background.
 
 Example — a hero with copy and a figure, then a card grid:
 

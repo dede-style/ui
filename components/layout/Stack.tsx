@@ -2,7 +2,7 @@
 
 import type { CSSProperties, ReactElement, ReactNode } from "react"
 import { Children, cloneElement, Fragment, isValidElement } from "react"
-import { StackDepthContext, useGuides, useNestedStack, useSectionFrame } from "./context"
+import { StackDepthContext, useGuides, useNestedStack } from "./context"
 
 /*  Stack — the layout arranger: lanes, gaps and band padding, on one of two
     CSS grid engines.
@@ -66,9 +66,9 @@ export type StackProps = {
     /** Gap between lanes, a --space-layout-* step. Default "2". Not inherited:
      *  on a vertical Stack it is the row rhythm, on a horizontal one the gutter. */
     gap?: string
-    /** Ratio only: inline band padding, a step or "none". Default "2" at band
-     *  level, "none" when nested or inside a nested Section — the frame owns
-     *  the edge. */
+    /** Ratio only: inline band padding, a step or "none". Default "2" in a
+     *  frame, "none" when nested or in a nested Section — the frame owns the
+     *  edge. */
     paddingX?: string
     /** Top band padding, a step or "none". Default "2" at band level, "none"
      *  when nested. */
@@ -134,8 +134,8 @@ function stepValue(step: string): string {
     return step === "none" ? "0" : `var(--space-layout-${step})`
 }
 
-/*  The band default for all four dials; .dede-stack declares the same step in
-    layout.css, and the two must agree. */
+/*  The band default for all four dials; .dede-stack and .dede-section--frame
+    declare the same step in layout.css, and they must agree. */
 const BAND_DEFAULT = "2"
 
 
@@ -207,10 +207,9 @@ export function Stack({
 }: StackProps) {
     const guides = useGuides()
     const nested = useNestedStack()
-    const frame = useSectionFrame()
-    //  Nested Stacks and nested (non-frame) Sections give up the inline edge;
-    //  nested Stacks give up the block padding too.
-    const resolvedPaddingX = paddingX ?? (nested || !frame ? "none" : BAND_DEFAULT)
+    //  Nested Stacks give up all band padding. A band in a nested Section loses
+    //  its inline edge in layout.css, so a stated paddingX is always written.
+    const resolvedPaddingX = paddingX ?? (nested ? "none" : undefined)
     const resolvedPaddingTop = paddingTop ?? (nested ? "none" : BAND_DEFAULT)
     const resolvedPaddingBottom = paddingBottom ?? (nested ? "none" : BAND_DEFAULT)
     const gapStep = gap ?? BAND_DEFAULT
@@ -287,7 +286,9 @@ export function Stack({
                       ])
                   )),
             ...bandMetric("--dede-stack-gap", gapStep),
-            ...bandMetric("--dede-stack-px", resolvedPaddingX),
+            ...(resolvedPaddingX === undefined
+                ? null
+                : { ["--dede-stack-px" as string]: stepValue(resolvedPaddingX) }),
             ...style,
         }
         const items = laneChildren(children)

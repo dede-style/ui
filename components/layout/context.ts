@@ -11,14 +11,3 @@ export const useGuides = () => useContext(GuideContext)
 export const StackDepthContext = createContext(false)
 
 export const useNestedStack = () => useContext(StackDepthContext)
-
-//  Inside another Section: not the frame (no query container, no inline edge)
-//  unless it opts in with `queryContainer`.
-export const SectionDepthContext = createContext(false)
-
-export const useNestedSection = () => useContext(SectionDepthContext)
-
-//  Whether the nearest Section is a frame; Stack reads it for paddingX.
-export const SectionFrameContext = createContext(true)
-
-export const useSectionFrame = () => useContext(SectionFrameContext)

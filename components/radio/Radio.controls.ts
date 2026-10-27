@@ -1,4 +1,5 @@
-import type { PropSchema } from "../../props/controls"
+import type { SchemaFor } from "../../props/controls"
+import type { RadioProps } from "./Radio"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
@@ -6,7 +7,7 @@ export const summary =
 
 //  No row for `value`: editing it live would desync the group's selection.
 
-export const radioControls: PropSchema = [
+export const radioControls: SchemaFor<RadioProps> = [
     { prop: "label", type: "text", default: "", placeholder: "Standard", help: "the visible label and the accessible name. Required" },
     { prop: "description", type: "text", default: "", placeholder: "5–7 business days", help: "an optional second line under the label" },
     { prop: "size", type: "select", options: ["4", "5", "6"], default: "5", help: "the circle: 16, 20 (default) or 24px" },
