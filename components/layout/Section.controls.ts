@@ -7,6 +7,7 @@ export const summary =
 
 export const notes = [
     "**A Section is a frame**: the query container that `cqi` and `@container` measure, and its Stack keeps the side gutter. A Section inside another Section is not, unless `frame`. Plain elements between them (`main`, `footer`, `div`) do not count, so a Section in a plain `<footer>` is still a frame.",
+    "**A Section has no spacing; its Stacks own all of it.** Space between two Sections is the last Stack's `paddingBottom` plus the next one's `paddingTop`: to set Sections further apart than the Stacks inside them, give those Stacks more padding. Never pad or margin the Section itself.",
     "**The band's Stack is the Section's direct child.** The gutter rule finds it there; a wrapper between them keeps a nested band's gutter.",
     "**Site page**: no shell. Top-level Sections are the bands, each a frame with its own gutter, inside a plain `<main>` (and `<footer>`). **App page**: one Section holds a Stack whose lanes are the nav, `main` and an aside; the bands inside `main` are nested, so the frame's Stack sets the gutter once. Both shapes are in DESIGN.md, Layout.",
     "**`main` is not in `as`.** A Section is one band and `main` holds several, so `main` is a plain element around Sections. A landmark that is one band (`header`, `footer`) can be a Section.",

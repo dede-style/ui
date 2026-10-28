@@ -124,6 +124,7 @@ Everything else is the same in both modes, so one rule does it:
 The code is [MIT](./LICENSE). The icon artwork is derived from
 [Boxicons](https://boxicons.com) and licensed
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); see
-[NOTICE](./NOTICE) for the attribution to keep if you redistribute it.
+[NOTICE](./NOTICE) for the attribution to keep if you redistribute it, and
+the credit a site that shows the icons gives.
 
 Made by Steve Tearle.

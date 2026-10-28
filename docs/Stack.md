@@ -16,10 +16,10 @@ import { Stack } from "@dede-style/ui"
 | `reverse` | `true` · `false` | `false` | reverse the children: they swap lanes, and each lane keeps its width. In code it can change by breakpoint: { base: true, md: false } |
 | `align` | `stretch` · `start` · `center` · `end` | `stretch` | how lanes line up with each other. Default stretch makes them equal height |
 | `maxWidth` | string | — | cap the content width and centre it: prose, panel, content, wide or a CSS length. Blank is full width |
-| `gap` | `0` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | space between lanes, a layout spacing step. Default 2 |
-| `paddingX` | `none` · `0` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding at the band's left and right edges. Default 2; none inside another Stack or a nested Section. Ratio only |
-| `paddingTop` | `none` · `0` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding above the band. Default 2; none inside another Stack |
-| `paddingBottom` | `none` · `0` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding below the band. Default 2; none inside another Stack |
+| `gap` | `0` · `0-25` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | space between lanes, a layout spacing step. Default 2, from the theme lever --stack-space |
+| `paddingX` | `none` · `0` · `0-25` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding at the band's left and right edges. Default 2 (--stack-space); none inside another Stack or a nested Section. Ratio only |
+| `paddingTop` | `none` · `0` · `0-25` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding above the band. Default 2 (--stack-space); none inside another Stack |
+| `paddingBottom` | `none` · `0` · `0-25` · `0-5` · `1` · `1-5` · `2` · `3` · `4` · `6` · `8` | `2` | padding below the band. Default 2 (--stack-space); none inside another Stack |
 | `edges` | `true` · `false` | `true` | keep a gutter column at each edge. Snap only |
 | `gutter` | number | `1` | gutter width in columns. Snap only |
 
@@ -29,6 +29,8 @@ Props not listed (handlers, `className`, `style`, `children`) are standard React
 
 - **Fewer children than lanes leaves the rest empty**: `lanes="2|1"` with one Slot puts it in the 2 and leaves the 1 as space.
 - **Text first on mobile, image left on desktop**: write the image first, then reverse below `md`. `<Stack lanes={{ base: 1, md: "1|1" }} reverse={{ base: true, md: false }}>`.
+- **One theme lever sets all four band dials**: `--stack-space` (default `var(--space-layout-2)`) is the gutter, top, bottom and gap of every Stack that states none. Set it on `:root` to move every band; anything that must line up with the bands, such as a fixed nav, can read it too.
+- **Stacks own all band spacing; a Section has none.** Two Stacks meeting, in one Section or across two, are spaced by the first one's `paddingBottom` plus the second's `paddingTop`. More space between Sections than between Stacks is a larger padding on the Stacks at a Section's ends.
 - **The side gutter** (`paddingX`) belongs to the band's own Stack in a frame. Inside another Stack, or a band in a nested Section, it is none; a stated `paddingX` always applies.
 
 Live examples: https://dede.style/layout/stack

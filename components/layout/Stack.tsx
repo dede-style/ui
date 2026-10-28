@@ -3,6 +3,7 @@
 import type { CSSProperties, ReactElement, ReactNode } from "react"
 import { Children, cloneElement, Fragment, isValidElement } from "react"
 import { StackDepthContext, useGuides, useNestedStack } from "./context"
+import type { LayoutStep } from "./steps"
 
 /*  Stack — the layout arranger: lanes, gaps and band padding, on one of two
     CSS grid engines.
@@ -63,18 +64,19 @@ export type StackProps = {
     edges?: boolean
     /** Snap only: gutter width in columns. Default 1. */
     gutter?: number
-    /** Gap between lanes, a --space-layout-* step. Default "2". Not inherited:
-     *  on a vertical Stack it is the row rhythm, on a horizontal one the gutter. */
-    gap?: string
-    /** Ratio only: inline band padding, a step or "none". Default "2" in a
-     *  frame, "none" when nested or in a nested Section — the frame owns the
-     *  edge. */
-    paddingX?: string
-    /** Top band padding, a step or "none". Default "2" at band level, "none"
-     *  when nested. */
-    paddingTop?: string
+    /** Gap between lanes, a --space-layout-* step. Default --stack-space
+     *  (step 2). Not inherited: on a vertical Stack it is the row rhythm, on a
+     *  horizontal one the gutter. */
+    gap?: LayoutStep
+    /** Ratio only: inline band padding, a step or "none". Default
+     *  --stack-space in a frame, "none" when nested or in a nested Section —
+     *  the frame owns the edge. */
+    paddingX?: LayoutStep | "none"
+    /** Top band padding, a step or "none". Default --stack-space at band
+     *  level, "none" when nested. */
+    paddingTop?: LayoutStep | "none"
     /** Bottom band padding, as paddingTop. */
-    paddingBottom?: string
+    paddingBottom?: LayoutStep | "none"
     /** The guide overlay's label; "" suppresses it. */
     guideLabel?: string
     className?: string
@@ -134,9 +136,6 @@ function stepValue(step: string): string {
     return step === "none" ? "0" : `var(--space-layout-${step})`
 }
 
-/*  The band default for all four dials; .dede-stack and .dede-section--frame
-    declare the same step in layout.css, and they must agree. */
-const BAND_DEFAULT = "2"
 
 
 function isReverseSet(reverse: StackReverse): reverse is StackReverseByBreakpoint {
@@ -210,9 +209,8 @@ export function Stack({
     //  Nested Stacks give up all band padding. A band in a nested Section loses
     //  its inline edge in layout.css, so a stated paddingX is always written.
     const resolvedPaddingX = paddingX ?? (nested ? "none" : undefined)
-    const resolvedPaddingTop = paddingTop ?? (nested ? "none" : BAND_DEFAULT)
-    const resolvedPaddingBottom = paddingBottom ?? (nested ? "none" : BAND_DEFAULT)
-    const gapStep = gap ?? BAND_DEFAULT
+    const resolvedPaddingTop = paddingTop ?? (nested ? "none" : undefined)
+    const resolvedPaddingBottom = paddingBottom ?? (nested ? "none" : undefined)
     const weights = toIntegerWeights(parseWeights(baseLanes(lanes)))
 
     //  One entry per declared breakpoint, each with its own module and spans.
@@ -255,9 +253,10 @@ export function Stack({
         .filter(Boolean)
         .join(" ")
 
-    //  The inline style carries overrides only; defaults come from layout.css.
+    //  The inline style carries stated steps only; defaults are --stack-space,
+    //  which a theme may move, so a stated "2" is still written.
     const bandMetric = (name: string, step: string | undefined) =>
-        step === undefined || step === BAND_DEFAULT ? null : { [name]: stepValue(step) }
+        step === undefined ? null : { [name]: stepValue(step) }
 
     const baseStyle: CSSProperties = {
         ...bandMetric("--dede-stack-pt", resolvedPaddingTop),
@@ -285,7 +284,7 @@ export function Stack({
                           total > 1 ? ratioTemplate(total) : "minmax(0, 1fr)",
                       ])
                   )),
-            ...bandMetric("--dede-stack-gap", gapStep),
+            ...bandMetric("--dede-stack-gap", gap),
             ...(resolvedPaddingX === undefined
                 ? null
                 : { ["--dede-stack-px" as string]: stepValue(resolvedPaddingX) }),
@@ -355,7 +354,7 @@ export function Stack({
 
     const stackStyle: CSSProperties = {
         ...baseStyle,
-        ...bandMetric("--dede-stack-gap", gapStep),
+        ...bandMetric("--dede-stack-gap", gap),
         ...style,
     }
 

@@ -324,17 +324,19 @@ One family stack (the system UI face) until real faces are chosen; `code` is
 the system monospace. Sizes are Tailwind's scale in `rem`, and the **root font
 size is fluid** — about 14px on a phone, 16px from 800px wide — so every step
 scales together and the ratios between them never change. Headings carry their
-own size: choose the level, not a class. Labels are `sm` and snug; prose is
-`text-secondary` at 1.5 leading.
+own size: choose the level, not a class. Each level's size is a theme lever,
+`--heading-size-1` … `--heading-size-6`; set one on `:root` (a `clamp()` is
+fine) for display-sized headings, rather than restyling `h1`. Labels are `sm`
+and snug; prose is `text-secondary` at 1.5 leading.
 
 | Level | Size | Weight | Leading | Use |
 |---|---|---|---|---|
-| `h1` | `--font-size-3xl` (30px) | 700 | 1.15 | page title |
-| `h2` | `--font-size-2xl` (24px) | 600 | 1.15 | band heading |
-| `h3` | `--font-size-xl` (20px) | 600 | 1.15 |  |
-| `h4` | `--font-size-lg` (18px) | 600 | 1.15 |  |
-| `h5` | `--font-size-base` (16px) | 600 | 1.15 |  |
-| `h6` | `--font-size-sm` (14px) | 600 | 1.15 |  |
+| `h1` | `--heading-size-1` = `--font-size-3xl` (30px) | 700 | 1.15 | page title |
+| `h2` | `--heading-size-2` = `--font-size-2xl` (24px) | 600 | 1.15 | band heading |
+| `h3` | `--heading-size-3` = `--font-size-xl` (20px) | 600 | 1.15 |  |
+| `h4` | `--heading-size-4` = `--font-size-lg` (18px) | 600 | 1.15 |  |
+| `h5` | `--heading-size-5` = `--font-size-base` (16px) | 600 | 1.15 |  |
+| `h6` | `--heading-size-6` = `--font-size-sm` (14px) | 600 | 1.15 |  |
 | `body` | `--font-size-base` (16px) | 400 | 1.4 | UI text, the inherited default |
 | `prose` | `--font-size-base` (16px) | 400 | 1.5 | paragraphs, text-secondary |
 | `label` | `--font-size-sm` (14px) | 400 | 1.25 | form labels |
@@ -367,11 +369,16 @@ Section > Stack > Slot > Sleeve > content
 content inside a region or a component. A heading and the table it labels use
 the fixed scale: that distance does not change with the window.
 
+**One lever sets the bands.** A Stack's gutter, top, bottom and gap default
+to `--stack-space` (`var(--space-layout-2)`). Set it on `:root` to give every
+band another step; a stated prop still wins, and a fixed nav that lines up with
+the bands reads the same token.
+
 Fluid layout steps (`cqi` is 1% of the Section's width):
 
 | Token | Min | Max | CSS |
 |---|---|---|---|
-| `--space-layout-0` | 0 | 0 | `0` |
+| `--space-layout-0` | 0px | 0px | `0px` |
 | `--space-layout-0-25` | 3px | 6px | `clamp(3px, 0.5cqi, 6px)` |
 | `--space-layout-0-5` | 6px | 12px | `clamp(6px, 1cqi, 12px)` |
 | `--space-layout-1` | 12px | 24px | `clamp(12px, 2cqi, 24px)` |
@@ -427,7 +434,9 @@ viewport, so a fixed bar outside the bands still gets fluid spacing.
 **Colour on a band.** `mode` (`light`, `dark`, `inverse` — the opposite of the
 page) puts a band in a mode and paints its surface; `bg` (`surface`, `raised`,
 `sunken`) picks the surface. `data-mode` works on any element: its colours and
-inherited text follow, and the background is yours.
+inherited text follow, and the background is yours. Surface roles follow the
+mode, so `.site-footer { background: var(--color-surface) }` paints the right
+surface in either.
 
 Rules that keep pages consistent:
 
@@ -469,8 +478,14 @@ never a second token.
 
 Controls share one height ramp — 32 / 40 / 48px (`size="8" | "10" | "12"`),
 default 40 — so a button, a field, a select and a segmented control in one row
-line up. A control's icon is half its height. Every component's props, values
-and defaults are in its own file:
+line up. A control's icon is half its height.
+
+Icons are values imported one at a time from `@dede-style/ui/icons`; brand
+marks are `iconLogo<Brand>`. The artwork is Boxicons (CC BY 4.0), so a site
+that shows it credits Boxicons where people can see it — see
+[Icon](docs/Icon.md).
+
+Every component's props, values and defaults are in its own file:
 
 - [Button](docs/Button.md) — A button that does something on this page.
 - [Card](docs/Card.md) — A surface that holds content.

@@ -1,6 +1,6 @@
 # Grid
 
-Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width. Renders a list (`<ul>`), wrapping each child in an `<li>`.
+Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width. Renders a list (`<ul>`), wrapping each child in an `<li>`; `as="dl"` makes term–value pairs.
 
 ```tsx
 import { Grid } from "@dede-style/ui"
@@ -10,7 +10,7 @@ import { Grid } from "@dede-style/ui"
 
 | Prop | Values | Default | Description |
 |---|---|---|---|
-| `as` | `ul` · `ol` · `div` | `ul` | element to render. ul by default, wrapping each child in an li; ol when order matters; div when it is not a collection |
+| `as` | `ul` · `ol` · `dl` · `div` | `ul` | element to render. ul by default, wrapping each child in an li; ol when order matters; dl for term–value pairs, each child a dt and dd wrapped in a div; div when it is not a collection |
 | `minColumnWidth` | string | `16rem` | the narrowest a column may be; as many columns as fit, then wrap. Any CSS length; a bare number is px |
 | `maxColumns` | number | `0` | the most columns allowed. Omit (0 here) for no limit. In code it can change by breakpoint: { base: 1, sm: 3 } |
 | `gap` | `0` · `0-25` · `0-5` · `1` · `2` · `3` · `4` · `6` · `8` | `4` | space between items, a spacing step |

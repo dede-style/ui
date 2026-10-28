@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react"
 import { Children } from "react"
 import { useGuides } from "./context"
 import { STACK_BREAKPOINTS, type StackBreakpoint } from "./Stack"
+import type { SharedStep } from "./steps"
 
 /*  Grid — the collection arranger, a peer of Stack. It tiles a uniform
     collection of unknown count into as many equal columns of at least
@@ -11,14 +12,15 @@ import { STACK_BREAKPOINTS, type StackBreakpoint } from "./Stack"
     Mechanics only: no paint.
 
     A list by default: a <ul> with each child wrapped in an <li>, which is the
-    grid item (pass items, never <li>s). `as="div"` opts out; `as="ol"` orders.
-    It is the one component that generates markup for its children, because it
-    already has a per-child wrapper to hand the <li> to. */
+    grid item (pass items, never <li>s). `as="div"` opts out; `as="ol"` orders;
+    `as="dl"` wraps each <dt>/<dd> pair in a <div>. It is the one component
+    that generates markup for its children, because it already has a
+    per-child wrapper to hand the <li> to. */
 
 //  `justify` inline, `align` block (align-items); `alignContent` is reserved.
 export type GridAlign = "start" | "center" | "end" | "stretch"
 
-export type GridElement = "div" | "ul" | "ol"
+export type GridElement = "div" | "ul" | "ol" | "dl"
 
 /** A column ceiling, or one per breakpoint — the same mobile-first object as
  *  Stack's `lanes`: `{ base: 1, sm: 3 }`. */
@@ -26,8 +28,8 @@ export type GridMaxColumnsByBreakpoint = { base: number } & Partial<Record<Stack
 export type GridMaxColumns = number | GridMaxColumnsByBreakpoint
 
 export type GridProps = {
-    /** Default "ul" (each child wrapped in an <li>); "ol" when order matters;
-     *  "div" when it is not a collection. */
+    /** Default "ul" (each child in an <li>); "ol" when order matters; "dl"
+     *  for <dt>/<dd> pairs; "div" when it is not a collection. */
     as?: GridElement
     /** The guide overlay's label for this grid. */
     guideLabel?: string
@@ -39,7 +41,7 @@ export type GridProps = {
      *  cannot keep a comparison row together on a phone. */
     maxColumns?: GridMaxColumns
     /** The gap step, both axes. Default "4". */
-    gap?: string
+    gap?: SharedStep
     /** "component" (fixed, default) or "layout" (fluid) spacing scale. */
     gapScale?: "component" | "layout"
     /** Cell aspect ratio ("16:9"), for media. Off by default. */
@@ -143,14 +145,15 @@ export function Grid({
         .filter(Boolean)
         .join(" ")
 
-    //  A list wraps each child in an <li> (the cell, with a ratio); a div wraps
-    //  only for a ratio. Empty children get no <li>, or a reader counts them.
+    //  A list wraps each child in an <li>, a dl in a <div> (the cell, with a
+    //  ratio); a div only for a ratio. Empty children get no wrapper.
     const isList = Element === "ul" || Element === "ol"
+    const Item = isList ? "li" : Element === "dl" ? "div" : null
     const content =
-        isList ?
+        Item ?
             Children.map(children, (child) =>
                 child == null || typeof child === "boolean" ? null : (
-                    <li className={aspect ? "dede-grid-cell" : undefined}>{child}</li>
+                    <Item className={aspect ? "dede-grid-cell" : undefined}>{child}</Item>
                 ),
             )
         : aspect ? Children.map(children, (child) => <div className="dede-grid-cell">{child}</div>)

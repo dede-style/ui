@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react"
 import { useGuides } from "./context"
+import type { ComponentStep } from "./steps"
 
 /*  Sleeve — the content inside a region, in one column, spaced on the fixed
     --space-component-* scale (a heading and its table are a fixed pair). Gap
@@ -12,7 +13,7 @@ export type SleeveAlign = "start" | "center" | "end" | "stretch"
 export type SleeveProps = {
     /** Space between children, a --space-component-* step or "none". Default
      *  "3" (12px), the paragraph spacing. */
-    gap?: string
+    gap?: ComponentStep | "none"
     /** Position the children on the inline axis. Default stretch. There is no
      *  `align`: rows hug their content; use `alignContent`. To place the Sleeve
      *  itself, align its Slot. */

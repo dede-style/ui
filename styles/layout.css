@@ -10,9 +10,10 @@
     Sleeve    the content inside a region, spaced on the fixed component scale.
 
     A Stack earns its place by having something to arrange: one row is one
-    Stack. All four band dials default to step 2 and nothing inherits: each
-    primitive declares its defaults on its class, which is the inheritance
-    barrier — never as a var() fallback. */
+    Stack. All four band dials default to --stack-space (step 2), a theme
+    lever, and nothing inherits from a parent Stack: each primitive declares
+    its defaults on its class, which is the inheritance barrier — never as a
+    var() fallback. */
 
 
 .dede-section {
@@ -47,7 +48,7 @@
 }
 
 .dede-section--frame > .dede-stack {
-    --dede-stack-px: var(--space-layout-2);
+    --dede-stack-px: var(--stack-space);
 }
 
 /*  A band in a mode paints that mode's page; a bg class picks the surface. */
@@ -66,10 +67,10 @@
 .dede-stack {
     position: relative;
     display: grid;
-    --dede-stack-pt: var(--space-layout-2);
-    --dede-stack-pb: var(--space-layout-2);
-    --dede-stack-px: var(--space-layout-2);
-    --dede-stack-gap: var(--space-layout-2);
+    --dede-stack-pt: var(--stack-space);
+    --dede-stack-pb: var(--stack-space);
+    --dede-stack-px: var(--stack-space);
+    --dede-stack-gap: var(--stack-space);
     padding-block: var(--dede-stack-pt) var(--dede-stack-pb);
 }
 
@@ -254,9 +255,11 @@
 
 .dede-grid > * { min-width: 0; }
 
-/*  The <li> is the grid item; a one-track grid inside it passes a stretched
-    row on to the child, so cards in a row are equal height. */
-.dede-grid > li {
+/*  The <li> (or a dl's <div>) is the grid item; a one-track grid inside it
+    passes a stretched row on to the child, so cards in a row are equal height,
+    and stacks a term over its value. */
+.dede-grid > li,
+dl.dede-grid > div {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
 }

@@ -418,4 +418,16 @@
     --text-input-radius: var(--radius-4);
 
     --segmented-radius: var(--radius-4);
+
+    /*  Stack's band default for all four dials: side gutter, top, bottom and
+        gap. A stated prop still wins. */
+    --stack-space: var(--space-layout-2);
+
+    /*  One size per heading level; a theme may set a clamp(). */
+    --heading-size-1: var(--font-size-3xl);
+    --heading-size-2: var(--font-size-2xl);
+    --heading-size-3: var(--font-size-xl);
+    --heading-size-4: var(--font-size-lg);
+    --heading-size-5: var(--font-size-base);
+    --heading-size-6: var(--font-size-sm);
 }

@@ -11,6 +11,12 @@ export const summary =
     on prefix. */
 
 const GLYPHS = Object.keys(icons).map((name) => name.replace(/^icon/, ""))
+const LOGOS = Object.keys(icons).filter((name) => name.startsWith("iconLogo"))
+
+export const notes = [
+    `**Brand marks are \`iconLogo<Brand>\`**: ${LOGOS.map((name) => `\`${name}\``).join(", ")}. Each brand’s own guidelines apply on top of the licence.`,
+    "**The artwork is Boxicons, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).** A site that shows the icons credits Boxicons where people can see it, such as a footer line or a credits page, linking [boxicons.com](https://boxicons.com) and the licence. The package’s `NOTICE` carries the credit when the files are redistributed.",
+]
 
 export const iconControls: SchemaFor<IconProps> = [
     { prop: "glyph", type: "select", options: GLYPHS, default: "Star", valuesHref: "/icons", help: "the icon. In code, import it by its full name: icon plus this (Star is iconStar)" },

@@ -1,4 +1,6 @@
 export { Section } from "./Section"
+export { COMPONENT_STEPS, LAYOUT_STEPS } from "./steps"
+export type { ComponentStep, LayoutStep, SharedStep } from "./steps"
 export type { SectionBg, SectionElement, SectionMode, SectionProps } from "./Section"
 export { Stack } from "./Stack"
 export type { StackLanes, StackAlign, StackDirection, StackReverse, StackMaxWidth, StackPattern, StackProps } from "./Stack"

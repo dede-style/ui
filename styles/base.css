@@ -26,12 +26,12 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-heading);
 }
 
-h1 { font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); }
-h2 { font-size: var(--font-size-2xl); }
-h3 { font-size: var(--font-size-xl); }
-h4 { font-size: var(--font-size-lg); }
-h5 { font-size: var(--font-size-base); }
-h6 { font-size: var(--font-size-sm); }
+h1 { font-size: var(--heading-size-1); font-weight: var(--font-weight-bold); }
+h2 { font-size: var(--heading-size-2); }
+h3 { font-size: var(--heading-size-3); }
+h4 { font-size: var(--heading-size-4); }
+h5 { font-size: var(--heading-size-5); }
+h6 { font-size: var(--heading-size-6); }
 
 /*  A heading belongs to what follows it, so it takes margin above — the
     asymmetry a gap cannot express. Only after a sibling, so a heading opening

@@ -1258,5 +1258,74 @@
       },
       "$description": "var(--segmented-radius)"
     }
+  },
+  "stack": {
+    "space": {
+      "$description": "Fluid: clamp(24px, 4cqi, 48px). Use var(--stack-space) in CSS.",
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "heading": {
+    "size-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.875,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-1)"
+    },
+    "size-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-2)"
+    },
+    "size-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-3)"
+    },
+    "size-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.125,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-4)"
+    },
+    "size-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-5)"
+    },
+    "size-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.875,
+        "unit": "rem"
+      },
+      "$description": "var(--heading-size-6)"
+    }
   }
 }

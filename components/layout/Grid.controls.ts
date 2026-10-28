@@ -3,7 +3,7 @@ import type { GridProps } from "./Grid"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
-    "Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width. Renders a list (`<ul>`), wrapping each child in an `<li>`."
+    "Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width. Renders a list (`<ul>`), wrapping each child in an `<li>`; `as=\"dl\"` makes term–value pairs."
 
 /*  Grid's live-edit schema for the viewer PropsPanel. Grid tiles a uniform
     collection that wraps and reflows its column count with the container width
@@ -14,7 +14,7 @@ export const summary =
 const GAP_STEPS = ["0", "0-25", "0-5", "1", "2", "3", "4", "6", "8"] as const
 
 export const gridControls: SchemaFor<GridProps> = [
-    { prop: "as", type: "select", options: ["ul", "ol", "div"], default: "ul", help: "element to render. ul by default, wrapping each child in an li; ol when order matters; div when it is not a collection" },
+    { prop: "as", type: "select", options: ["ul", "ol", "dl", "div"], default: "ul", help: "element to render. ul by default, wrapping each child in an li; ol when order matters; dl for term–value pairs, each child a dt and dd wrapped in a div; div when it is not a collection" },
     { prop: "minColumnWidth", type: "text", placeholder: "16rem", default: "16rem", help: "the narrowest a column may be; as many columns as fit, then wrap. Any CSS length; a bare number is px" },
     { prop: "maxColumns", type: "number", default: 0, min: 0, max: 12, help: "the most columns allowed. Omit (0 here) for no limit. In code it can change by breakpoint: { base: 1, sm: 3 }" },
     { prop: "gap", type: "select", options: [...GAP_STEPS], default: "4", help: "space between items, a spacing step" },

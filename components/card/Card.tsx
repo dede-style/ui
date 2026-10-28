@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react"
-import { Sleeve, type SleeveAlign } from "../layout"
+import { Sleeve, type ComponentStep, type SleeveAlign } from "../layout"
 
 /*  Card — a surface that holds content. It paints (fill, edge, shadow, inset);
     it does not arrange. Width comes from the lane that holds it, and the Sleeve
@@ -16,10 +16,10 @@ export type CardProps = {
     border?: boolean
     /** A --space-component-* step, or "none". Default "6" (24px). "none" lets
      *  an image bleed to the card's rounded edge. */
-    padding?: string
+    padding?: ComponentStep | "none"
     /** Space between the card's children, a --space-component-* step. Forwarded
      *  to Sleeve; default 12px. */
-    gap?: string
+    gap?: ComponentStep | "none"
     /** How the children sit on the inline axis. Forwarded to Sleeve. */
     justify?: SleeveAlign
     /** Where the children sit on the block axis when the card is taller than
