@@ -1,6 +1,6 @@
 # IconButton
 
-A button with an icon and no visible words. `label` is required and becomes its accessible name. Same variants, sizes and shapes as Button; with `href` it renders a link instead.
+A button with an icon and no visible words. `label` is required and becomes its accessible name. Same variants, sizes and shapes as Button; with `href` it renders a link instead, and `linkAs` takes a framework's link component (Next.js's `Link`) so the page changes without a full reload.
 
 ```tsx
 import { IconButton } from "@dede-style/ui"

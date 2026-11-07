@@ -11,7 +11,8 @@ export const summary =
 const GLYPHS = ["none", ...Object.keys(icons).map((name) => name.replace(/^icon/, ""))]
 
 export const notes = [
-    "**Links**: give `href` and Button renders an `<a>` with the button's look, for an action that goes somewhere (Sign up, Get started). IconButton takes `href` too. A link in running text stays a plain `<a>`.",
+    "**Links**: give `href` and Button renders an `<a>` with the button's look, for an action that goes somewhere (Sign up, Get started). `onClick` still runs. In Next.js, add `linkAs={Link}` (from `next/link`) so the page changes without a full reload: `<Button href=\"/start\" linkAs={Link}>Get started</Button>`. IconButton takes `href` and `linkAs` too. A link in running text stays a plain `<a>`.",
+    "**Hover** shows only where the pointer can hover. On a touch screen a tap does not leave the button lit; the press state still shows.",
 ]
 
 export const buttonControls: SchemaFor<ButtonProps> = [

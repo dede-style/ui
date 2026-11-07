@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.4 — 2026-11-07
+
+### Added
+
+- **`linkAs` on Button and IconButton.** With `href`, it takes a framework's
+  link component in place of the plain `<a>`: `linkAs={Link}` from
+  `next/link` changes page without a full reload.
+- **Button state tokens:** `--button-bg-primary-hover`,
+  `--button-bg-primary-pressed`, `--button-bg-destructive-hover`,
+  `--button-bg-destructive-pressed`. The filled variants' states read them in
+  place of a mix written in `button.css`, so a theme can move them.
+
+### Fixed
+
+- **`onClick` runs when `href` is set.** The link form dropped it.
+- **Hover shows only where the pointer can hover** (`@media (hover: hover)`).
+  On a touch screen a tapped button no longer stays lit; press still shows.
+
+### Docs
+
+- **App page example corrected.** The frame is `Section as="div"`: `main` is not
+  valid inside a `<section>`, and a footer inside one is not the contentinfo
+  landmark. The example now shows a footer in the content lane, and `DESIGN.md`
+  shows `Section as="footer"` for a footer of one band.
+
 ## 0.1.3 — 2026-10-28
 
 ### Breaking (types only)

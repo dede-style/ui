@@ -580,6 +580,58 @@
         "hex": "#d61f21"
       },
       "$description": "var(--button-bg-destructive)"
+    },
+    "bg-primary-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.157,
+          0.157,
+          0.157
+        ],
+        "hex": "#282828"
+      },
+      "$description": "var(--button-bg-primary-hover)"
+    },
+    "bg-primary-pressed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.227,
+          0.227,
+          0.227
+        ],
+        "hex": "#3a3a3a"
+      },
+      "$description": "var(--button-bg-primary-pressed)"
+    },
+    "bg-destructive-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.78,
+          0.118,
+          0.125
+        ],
+        "hex": "#c71e20"
+      },
+      "$description": "var(--button-bg-destructive-hover)"
+    },
+    "bg-destructive-pressed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.718,
+          0.118,
+          0.122
+        ],
+        "hex": "#b71e1f"
+      },
+      "$description": "var(--button-bg-destructive-pressed)"
     }
   },
   "segmented": {

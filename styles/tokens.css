@@ -282,6 +282,13 @@
     /*  4% here, 8% on dark: a dark ink on a light ground registers harder. */
     --button-bg-secondary:   color-mix(in srgb, var(--neutral-20) var(--opacity-1), transparent);
     --button-bg-destructive: var(--color-error);
+    /*  A filled variant's states, 8% on hover and 16% pressed. Destructive
+        moves toward the ink, as the unfilled variants' films do; primary IS the
+        ink, so it moves toward the page. */
+    --button-bg-primary-hover:       color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
+    --button-bg-primary-pressed:     color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
+    --button-bg-destructive-hover:   color-mix(in srgb, var(--color-text-primary) var(--opacity-2), var(--button-bg-destructive));
+    --button-bg-destructive-pressed: color-mix(in srgb, var(--color-text-primary) var(--opacity-4), var(--button-bg-destructive));
 
     /*  The selected segment. Raised on light; on dark the surface role sits
         below a washed track, so dark takes its own step (see dark). */
@@ -364,6 +371,10 @@
     --button-bg-primary:     var(--neutral-98);
     --button-bg-secondary:   color-mix(in srgb, var(--neutral-98) var(--opacity-2), transparent);
     --button-bg-destructive: var(--color-error);
+    --button-bg-primary-hover:       color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
+    --button-bg-primary-pressed:     color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
+    --button-bg-destructive-hover:   color-mix(in srgb, var(--color-text-primary) var(--opacity-2), var(--button-bg-destructive));
+    --button-bg-destructive-pressed: color-mix(in srgb, var(--color-text-primary) var(--opacity-4), var(--button-bg-destructive));
     /*  n35: the step that makes selected-vs-track match light's relationship. */
     --segmented-thumb:       var(--neutral-35);
     --table-stripe:          color-mix(in srgb, var(--neutral-100) var(--opacity-0-5), transparent);

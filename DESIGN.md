@@ -25,6 +25,10 @@ colors:
   button-bg-primary: "#161616"
   button-bg-secondary: "#1616160a"
   button-bg-destructive: "#d61f21"
+  button-bg-primary-hover: "#282828"
+  button-bg-primary-pressed: "#3a3a3a"
+  button-bg-destructive-hover: "#c71e20"
+  button-bg-destructive-pressed: "#b71e1f"
   segmented-thumb: "#ffffff"
   table-stripe: "#00000005"
   table-selected: "#0000000f"
@@ -288,6 +292,10 @@ Every text and status pairing is verified for WCAG contrast on each build.
 | `button-bg-primary` | `#161616` | `#f8f8f8` | `var(--button-bg-primary)` |
 | `button-bg-secondary` | `#1616160a` | `#f8f8f814` | `var(--button-bg-secondary)` |
 | `button-bg-destructive` | `#d61f21` | `#f87171` | `var(--button-bg-destructive)` |
+| `button-bg-primary-hover` | `#282828` | `#e6e6e6` | `var(--button-bg-primary-hover)` |
+| `button-bg-primary-pressed` | `#3a3a3a` | `#d4d4d4` | `var(--button-bg-primary-pressed)` |
+| `button-bg-destructive-hover` | `#c71e20` | `#f87c7c` | `var(--button-bg-destructive-hover)` |
+| `button-bg-destructive-pressed` | `#b71e1f` | `#f88787` | `var(--button-bg-destructive-pressed)` |
 | `segmented-thumb` | `#ffffff` | `#3a3a3a` | `var(--segmented-thumb)` |
 | `table-stripe` | `#00000005` | `#ffffff05` | `var(--table-stripe)` |
 | `table-selected` | `#0000000f` | `#ffffff0f` | `var(--table-selected)` |
@@ -416,16 +424,24 @@ the bands inside `main` are nested, so they measure the frame and the frame's
 Stack sets the gutter once:
 
 ```tsx
-<Section>
+<Section as="div">
   <Stack lanes={{ base: 1, md: "3|8", lg: "3|8|3" }}>
     <nav>…</nav>
-    <Slot as="main">
-      <Section aria-label="Overview">…</Section>
-    </Slot>
+    <Stack direction="vertical" gap="0">
+      <Slot as="main">
+        <Section aria-label="Overview">…</Section>
+      </Slot>
+      <Slot as="footer">…</Slot>
+    </Stack>
     <aside>…</aside>
   </Stack>
 </Section>
 ```
+
+The frame is `as="div"`: `main` is not valid inside a `<section>`, and a footer
+inside one is not the page's contentinfo landmark. The vertical Stack keeps `main`
+and the footer in one lane; a footer placed directly in the lanes would start a new
+row.
 
 A lane takes any element that accepts `style` (a plain `<nav>` or `<main>`);
 a Slot is the default occupant. Outside any Section, `cqi` measures the
@@ -436,7 +452,8 @@ page) puts a band in a mode and paints its surface; `bg` (`surface`, `raised`,
 `sunken`) picks the surface. `data-mode` works on any element: its colours and
 inherited text follow, and the background is yours. Surface roles follow the
 mode, so `.site-footer { background: var(--color-surface) }` paints the right
-surface in either.
+surface in either. A footer of one band needs no wrapper:
+`<Section as="footer" bg="surface">`.
 
 Rules that keep pages consistent:
 
@@ -556,7 +573,7 @@ When building with dede:
    (`light` or `dark`; to follow the system, set it from
    `matchMedia("(prefers-color-scheme: dark)")` in a script in `<head>`).
 2. A site page is a list of top-level `<Section>`s inside a plain `<main>`; an
-   app page is one Section whose Stack lanes hold the nav, `main` and an aside
+   app page is one `Section as="div"` whose Stack lanes hold the nav, `main` and an aside
    (see Layout). Inside each Section, one `<Stack>` per row, as its direct
    child, with `lanes` for the columns. Each lane holds a `<Slot>` (or a `Grid` or nested
    `Stack`); inside a Slot, a `<Sleeve>` spaces a heading and what follows it.

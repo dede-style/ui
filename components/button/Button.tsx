@@ -1,4 +1,4 @@
-import type { CSSProperties, MouseEventHandler, ReactNode } from "react"
+import type { ComponentType, CSSProperties, MouseEventHandler, ReactNode } from "react"
 import type { IconDefinition } from "../../icons"
 import { Icon } from "../icon"
 import { controlGlyph } from "../icon/control"
@@ -8,7 +8,8 @@ import { controlGlyph } from "../icon/control"
     not looks; `destructive` names a purpose. Only `variant` and the named
     `shape` set paint — no free colour or radius. IconButton shares its styles.
     With `href` it renders a link that looks the same: it goes somewhere rather
-    than doing something. No hooks, so a server page ships no JavaScript for it. */
+    than doing something; `linkAs` swaps the plain <a> for a framework's link
+    component. No hooks, so a server page ships no JavaScript for it. */
 
 /*  A --size-element-* step: 24 / 32 / 40 / 48px. 24 is for icon buttons: it is
     exactly the WCAG 2.5.8 minimum target. */
@@ -17,6 +18,22 @@ export type ButtonSize = "6" | "8" | "10" | "12"
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "destructive"
 
 export type ButtonShape = "rounded" | "pill" | "square"
+
+/*  What a link component must accept: the props Button and IconButton give the
+    <a>. Next.js's Link fits, as does any component that renders an <a>. */
+export type ButtonLinkComponent = ComponentType<{
+    href: string
+    className?: string
+    style?: CSSProperties
+    target?: string
+    rel?: string
+    onClick?: MouseEventHandler<HTMLAnchorElement>
+    children?: ReactNode
+    "data-component"?: string
+    "aria-label"?: string
+    "aria-expanded"?: boolean
+    "aria-controls"?: string
+}>
 
 export type ButtonProps = {
     /** The visible label, and the accessible name. Icon-only is IconButton. */
@@ -37,7 +54,8 @@ export type ButtonProps = {
     /** Fill the container's width. Off, the button hugs its content. */
     fullWidth?: boolean
     type?: "button" | "submit" | "reset"
-    onClick?: MouseEventHandler<HTMLButtonElement>
+    /** Runs on click, with or without `href`. */
+    onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
     className?: string
     style?: CSSProperties
     /** For a disclosure. ARIA is added by name, one per real consumer. */
@@ -48,6 +66,9 @@ export type ButtonProps = {
     href?: string
     target?: "_blank"
     rel?: string
+    /** With `href`, the component that renders the link instead of a plain
+     *  <a>: Next.js's Link, so the page changes without a full reload. */
+    linkAs?: ButtonLinkComponent
 }
 
 export function Button({
@@ -68,6 +89,7 @@ export function Button({
     href,
     target,
     rel,
+    linkAs,
 }: ButtonProps) {
     //  The icon modifier names the side: it takes one step less padding.
     const classes = [
@@ -94,19 +116,21 @@ export function Button({
 
     //  A link cannot be disabled, so isDisabled with href is unsupported.
     if (href) {
+        const LinkAs = linkAs ?? "a"
         return (
-            <a
+            <LinkAs
                 data-component="Button"
                 className={classes}
                 style={style}
                 href={href}
                 target={target}
                 rel={rel}
+                onClick={onClick}
                 aria-expanded={ariaExpanded}
                 aria-controls={ariaControls}
             >
                 {content}
-            </a>
+            </LinkAs>
         )
     }
 

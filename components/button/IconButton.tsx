@@ -2,7 +2,7 @@ import type { CSSProperties, MouseEventHandler, Ref } from "react"
 import type { IconDefinition } from "../../icons"
 import { Icon } from "../icon"
 import { controlGlyph } from "../icon/control"
-import type { ButtonShape, ButtonSize, ButtonVariant } from "./Button"
+import type { ButtonLinkComponent, ButtonShape, ButtonSize, ButtonVariant } from "./Button"
 
 /*  IconButton — a Button with no words: a square box and a required name. Its
     own component so the compiler insists on `label` (a shared Button with an
@@ -22,7 +22,8 @@ export type IconButtonProps = {
     shape?: ButtonShape
     isDisabled?: boolean
     type?: "button" | "submit" | "reset"
-    onClick?: MouseEventHandler<HTMLButtonElement>
+    /** Runs on click, with or without `href`. */
+    onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
     className?: string
     style?: CSSProperties
     /** For a disclosure. ARIA is added by name, one per real consumer. */
@@ -33,6 +34,9 @@ export type IconButtonProps = {
     href?: string
     target?: "_blank"
     rel?: string
+    /** With `href`, the component that renders the link instead of a plain
+     *  <a>: Next.js's Link, so the page changes without a full reload. */
+    linkAs?: ButtonLinkComponent
     /** The <button>, so a focus trap can return focus to it. */
     ref?: Ref<HTMLButtonElement>
 }
@@ -51,6 +55,7 @@ export function IconButton({
     href,
     target,
     rel,
+    linkAs,
     ref,
     "aria-expanded": ariaExpanded,
     "aria-controls": ariaControls,
@@ -78,10 +83,11 @@ export function IconButton({
     } as const
 
     if (href) {
+        const LinkAs = linkAs ?? "a"
         return (
-            <a {...shared} href={href} target={target} rel={rel}>
+            <LinkAs {...shared} href={href} target={target} rel={rel} onClick={onClick}>
                 <Icon glyph={glyph} size={controlGlyph(size)} />
-            </a>
+            </LinkAs>
         )
     }
 

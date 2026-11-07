@@ -4,7 +4,7 @@ import * as icons from "../../icons"
 
 //  The intro for this component's generated doc and DESIGN.md.
 export const summary =
-    "A button with an icon and no visible words. `label` is required and becomes its accessible name. Same variants, sizes and shapes as Button; with `href` it renders a link instead."
+    "A button with an icon and no visible words. `label` is required and becomes its accessible name. Same variants, sizes and shapes as Button; with `href` it renders a link instead, and `linkAs` takes a framework's link component (Next.js's `Link`) so the page changes without a full reload."
 
 /*  Button's rows minus iconPosition and fullWidth, plus a required label. Not
     derived by filtering: the help text differs too. */

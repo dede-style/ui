@@ -3,8 +3,8 @@
     Metrics are declared on `.dede-button` and stepped by modifier classes.
     Monochrome, so emphasis is solid / soft / nothing; destructive is the only
     hue. Every fill is a --button-bg-* token, and check:contrast holds the text
-    on each. States: a filled variant mixes the page into its fill; an unfilled
-    one takes a translucent wash over whatever it rests on. */
+    on each. States: a filled variant moves to its state token; an unfilled one
+    takes a translucent wash over whatever it rests on. */
 
 .dede-button {
     --dede-button-size:    var(--size-element-8);
@@ -124,40 +124,43 @@
 
 /*  ─── States (never on :disabled) ─── */
 
-/*  Hover confirms the target without reading as a state change. Filled
-    variants mix the page in by --opacity-2. */
+/*  Hover confirms the target without reading as a state change. Only where the
+    pointer can hover: a touch screen keeps :hover on the last thing tapped, so
+    a tapped button would stay lit. A filled variant moves to its hover token; an
+    unfilled one takes the wash over whatever it rests on. The border of an
+    unfilled variant does not move. */
+@media (hover: hover) {
+    .dede-button--variant-primary:hover:not(:disabled) {
+        --dede-button-bg: var(--button-bg-primary-hover);
+        --dede-button-bd: var(--button-bg-primary-hover);
+    }
 
-.dede-button--variant-primary:hover:not(:disabled) {
-    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
-    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-primary));
+    .dede-button--variant-destructive:hover:not(:disabled) {
+        --dede-button-bg: var(--button-bg-destructive-hover);
+        --dede-button-bd: var(--button-bg-destructive-hover);
+    }
+
+    .dede-button--variant-secondary:hover:not(:disabled),
+    .dede-button--variant-tertiary:hover:not(:disabled) { --dede-button-wash: var(--color-state-hover); }
+
+    .dede-button:hover:not(:disabled) { transform: scale(var(--motion-scale-hover)); }
 }
-
-.dede-button--variant-destructive:hover:not(:disabled) {
-    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-destructive));
-    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-2), var(--button-bg-destructive));
-}
-
-/*  One pair of rules for both unfilled variants: the wash composes over
-    whatever each rests on. The border does not move. */
-.dede-button--variant-secondary:hover:not(:disabled),
-.dede-button--variant-tertiary:hover:not(:disabled)  { --dede-button-wash: var(--color-state-hover); }
-
-.dede-button--variant-secondary:active:not(:disabled),
-.dede-button--variant-tertiary:active:not(:disabled) { --dede-button-wash: var(--color-state-pressed); }
 
 /*  Pressed: each mechanism one step louder, plus a scale — a press is the one
     interaction a user waits to see confirmed. */
 .dede-button--variant-primary:active:not(:disabled) {
-    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
-    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-primary));
+    --dede-button-bg: var(--button-bg-primary-pressed);
+    --dede-button-bd: var(--button-bg-primary-pressed);
 }
 
 .dede-button--variant-destructive:active:not(:disabled) {
-    --dede-button-bg: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-destructive));
-    --dede-button-bd: color-mix(in srgb, var(--color-surface) var(--opacity-4), var(--button-bg-destructive));
+    --dede-button-bg: var(--button-bg-destructive-pressed);
+    --dede-button-bd: var(--button-bg-destructive-pressed);
 }
 
-.dede-button:hover:not(:disabled)  { transform: scale(var(--motion-scale-hover)); }
+.dede-button--variant-secondary:active:not(:disabled),
+.dede-button--variant-tertiary:active:not(:disabled) { --dede-button-wash: var(--color-state-pressed); }
+
 .dede-button:active:not(:disabled) { transform: scale(var(--motion-scale-press)); }
 
 /*  The offset keeps the ring clear of a filled variant's edge. */
