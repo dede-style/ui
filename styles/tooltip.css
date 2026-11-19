@@ -1,0 +1,121 @@
+/*  Tooltip — paired with components/tooltip/Tooltip.tsx.
+
+    The wrapper hugs its trigger and is the anchor. The bubble is a manual
+    popover in the top layer, so no scrolling ancestor clips it; the UA
+    centres a popover in the viewport, so its inset, margin, border, padding
+    and paint are reset here. Anchor positioning places it beside the
+    trigger and flips it at a screen edge. Without anchor positioning,
+    Tooltip.tsx sets its top and left once instead. */
+
+.dede-tooltip {
+    anchor-name: var(--dede-tooltip-anchor);
+}
+
+/*  Zero specificity, so a site's class can hide or re-display the wrapper. */
+:where(.dede-tooltip) {
+    display: inline-flex;
+}
+
+/*  The bubble's padding is the gap, so the pointer crosses from the trigger
+    onto the text without leaving the wrapper's box (WCAG 1.4.13). Padding on
+    both sides of the axis, so a flip keeps the gap on the trigger's side.
+
+    The browser tries the placement as written, then the opposite side, then
+    the opposite alignment, then both, and takes the first that fits on
+    screen. */
+.dede-tooltip-bubble {
+    --dede-tooltip-side: block-start;
+    --dede-tooltip-along: span-all;
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    overflow: visible;
+    background: none;
+    color: inherit;
+    position-anchor: var(--dede-tooltip-anchor);
+    position-area: var(--dede-tooltip-side) var(--dede-tooltip-along);
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+}
+
+/*  Each side presses the bubble against the trigger, and unsafe: a safe
+    alignment would slide a bubble that runs off screen back over its own
+    trigger, which counts as fitting, so it would never flip. */
+.dede-tooltip-bubble--placement-above {
+    padding-block: var(--space-component-2);
+    align-self: unsafe end;
+}
+
+.dede-tooltip-bubble--placement-below {
+    --dede-tooltip-side: block-end;
+    padding-block: var(--space-component-2);
+    align-self: unsafe start;
+}
+
+.dede-tooltip-bubble--placement-start {
+    --dede-tooltip-side: inline-start;
+    padding-inline: var(--space-component-2);
+    justify-self: unsafe end;
+}
+
+.dede-tooltip-bubble--placement-end {
+    --dede-tooltip-side: inline-end;
+    padding-inline: var(--space-component-2);
+    justify-self: unsafe start;
+}
+
+/*  Centred: the whole row or column, centred on the trigger, and nudged
+    back on screen at an edge. A centre cell as wide as the trigger would
+    never fit a longer tooltip, so no fallback would ever be taken. */
+.dede-tooltip-bubble--placement-above.dede-tooltip-bubble--align-center,
+.dede-tooltip-bubble--placement-below.dede-tooltip-bubble--align-center {
+    justify-self: anchor-center;
+}
+
+.dede-tooltip-bubble--placement-start.dede-tooltip-bubble--align-center,
+.dede-tooltip-bubble--placement-end.dede-tooltip-bubble--align-center {
+    align-self: anchor-center;
+}
+
+/*  Start and end: a span from the trigger's start edge runs toward its end,
+    so the two start edges line up. Along the inline axis above and below,
+    along the block axis at the sides. */
+.dede-tooltip-bubble--placement-above.dede-tooltip-bubble--align-start,
+.dede-tooltip-bubble--placement-below.dede-tooltip-bubble--align-start {
+    --dede-tooltip-along: span-inline-end;
+}
+
+.dede-tooltip-bubble--placement-above.dede-tooltip-bubble--align-end,
+.dede-tooltip-bubble--placement-below.dede-tooltip-bubble--align-end {
+    --dede-tooltip-along: span-inline-start;
+}
+
+.dede-tooltip-bubble--placement-start.dede-tooltip-bubble--align-start,
+.dede-tooltip-bubble--placement-end.dede-tooltip-bubble--align-start {
+    --dede-tooltip-along: span-block-end;
+}
+
+.dede-tooltip-bubble--placement-start.dede-tooltip-bubble--align-end,
+.dede-tooltip-bubble--placement-end.dede-tooltip-bubble--align-end {
+    --dede-tooltip-along: span-block-start;
+}
+
+/*  The text: one line, the smallest size, on the inverse surface. */
+.dede-tooltip-text {
+    display: block;
+    padding-block: var(--space-component-1);
+    padding-inline: var(--space-component-2);
+    border-radius: var(--tooltip-radius);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-snug);
+    white-space: nowrap;
+}
+
+/*  The paint, at zero specificity, so a site's own class wins whatever
+    order the stylesheets load in. */
+:where(.dede-tooltip-text) {
+    background-color: var(--color-surface-inverse);
+    color: var(--color-text-inverse);
+}

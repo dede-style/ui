@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.1.5 — 2026-11-19
+
+### Added
+
+- **Badge** (`@dede-style/ui/badge`): a short label in a pill, 24px tall and
+  never narrower than it is tall, so one character is a circle and a word a
+  pill. `variant` sets the emphasis: `quiet` (default) or `strong`. `tone`
+  sets the meaning: `neutral` (default), `info`, `success`, `warning` or
+  `error`. `border` (default off) adds an inset edge in the tone's border
+  colour that takes no room; strong has no border, since its fill is the
+  edge. The text is regular weight. A label wider than its container is cut
+  with an ellipsis. Its stylesheet is `badge.css`, in `styles.css`.
+- Badge has no component tokens. Its colour rules have zero specificity, so
+  a site's own class on a badge (`.badge-new { background-color: …; color:
+  … }`) wins whatever order the stylesheets load in. dede checks contrast
+  for its own colours only.
+- **Tooltip** (`@dede-style/ui/tooltip`): a short line of text beside a
+  control. A wrapper: `<Tooltip content="Matching"><IconButton … /></Tooltip>`
+  anchors to its one child. `placement`: `above` (default), `below`, `start`,
+  `end`; `align`: `center` (default), `start`, `end`. It shows on keyboard
+  focus at once and on hover after a delay, never on touch, and hides at once
+  on leave, blur, Escape or a press. The text is hidden from screen readers,
+  so the control's name must carry it. Shown in the top layer and placed
+  with CSS anchor positioning, flipping at a screen edge; without anchor
+  positioning it shows at the chosen side, unflipped. A disabled control
+  shows none. Its stylesheet is `tooltip.css`, in `styles.css`.
+- **`--tooltip-radius`** (8px, from `--radius-4`): the corner of every
+  tooltip.
+- **`--tooltip-delay`** (200ms, from `--motion-duration-base`): how long the
+  pointer rests before a tooltip shows. A tooltip reached within that time of
+  another closing opens at once.
+
 ## 0.1.4 — 2026-11-07
 
 ### Added

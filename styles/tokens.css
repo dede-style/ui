@@ -430,6 +430,12 @@
 
     --segmented-radius: var(--radius-4);
 
+    --tooltip-radius: var(--radius-4);
+
+    /*  How long the pointer rests on a control before its tooltip shows. A
+        delay, not a duration: it starts on the motion scale but moves alone. */
+    --tooltip-delay: var(--motion-duration-base);
+
     /*  Stack's band default for all four dials: side gutter, top, bottom and
         gap. A stated prop still wins. */
     --stack-space: var(--space-layout-2);

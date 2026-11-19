@@ -1259,6 +1259,24 @@
       "$description": "var(--segmented-radius)"
     }
   },
+  "tooltip": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--tooltip-radius)"
+    },
+    "delay": {
+      "$type": "duration",
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "$description": "var(--tooltip-delay)"
+    }
+  },
   "stack": {
     "space": {
       "$description": "Fluid: clamp(24px, 4cqi, 48px). Use var(--stack-space) in CSS.",

@@ -1,0 +1,93 @@
+/*  Badge — a pill at least as wide as it is tall. One line, centred; a label
+    wider than its container is cut with an ellipsis. */
+
+.dede-badge {
+    display: inline-block;
+    flex: none;
+    min-inline-size: var(--size-element-6);
+    max-inline-size: 100%;
+    block-size: var(--size-element-6);
+    padding-inline: var(--space-component-2);
+
+    border-radius: var(--radius-full);
+
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--size-element-6);
+    text-align: center;
+    vertical-align: middle;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*  The paint, at zero specificity, so a site's own class on a badge wins
+    whatever order the stylesheets load in. Quiet and neutral are the
+    default; --dede-badge-edge is the tone's border colour. */
+:where(.dede-badge) {
+    --dede-badge-edge: var(--color-border-strong);
+    background-color: var(--color-wash);
+    color: var(--color-text-secondary);
+}
+
+:where(.dede-badge--variant-strong) {
+    background-color: var(--color-surface-inverse);
+    color: var(--color-text-inverse);
+}
+
+/*  Quiet with a tone: the tint, with the tone's strong colour for the label. */
+:where(.dede-badge--tone-info) {
+    --dede-badge-edge: var(--color-info-border);
+    background-color: var(--color-info-surface);
+    color: var(--color-info-strong);
+}
+
+:where(.dede-badge--tone-success) {
+    --dede-badge-edge: var(--color-success-border);
+    background-color: var(--color-success-surface);
+    color: var(--color-success-strong);
+}
+
+:where(.dede-badge--tone-warning) {
+    --dede-badge-edge: var(--color-warning-border);
+    background-color: var(--color-warning-surface);
+    color: var(--color-warning-strong);
+}
+
+:where(.dede-badge--tone-error) {
+    --dede-badge-edge: var(--color-error-border);
+    background-color: var(--color-error-surface);
+    color: var(--color-error-strong);
+}
+
+/*  Strong with a tone: the tone's strong colour as the fill, inverse text. */
+:where(.dede-badge--variant-strong.dede-badge--tone-info) {
+    background-color: var(--color-info-strong);
+    color: var(--color-text-inverse);
+}
+
+:where(.dede-badge--variant-strong.dede-badge--tone-success) {
+    background-color: var(--color-success-strong);
+    color: var(--color-text-inverse);
+}
+
+:where(.dede-badge--variant-strong.dede-badge--tone-warning) {
+    background-color: var(--color-warning-strong);
+    color: var(--color-text-inverse);
+}
+
+:where(.dede-badge--variant-strong.dede-badge--tone-error) {
+    background-color: var(--color-error-strong);
+    color: var(--color-text-inverse);
+}
+
+/*  The edge: inset, so it takes no room and one character stays square.
+    Strong has none, since its fill is already the edge. */
+:where(.dede-badge--border) {
+    box-shadow: inset 0 0 0 var(--border-1) var(--dede-badge-edge);
+}
+
+:where(.dede-badge--variant-strong) {
+    box-shadow: none;
+}

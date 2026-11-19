@@ -502,8 +502,15 @@ marks are `iconLogo<Brand>`. The artwork is Boxicons (CC BY 4.0), so a site
 that shows it credits Boxicons where people can see it — see
 [Icon](docs/Icon.md).
 
+A tooltip is a wrapper around the control it names, never a prop on it:
+`<Tooltip content="Matching"><IconButton glyph={iconArrowRight} label="Next: Matching" /></Tooltip>`.
+It anchors to its one child, shows on keyboard focus and after a short hover
+(`--tooltip-delay`), and is hidden from screen readers, so the control's own
+name must say everything the tooltip says — see [Tooltip](docs/Tooltip.md).
+
 Every component's props, values and defaults are in its own file:
 
+- [Badge](docs/Badge.md) — A short label in a pill: a number, a status, a word.
 - [Button](docs/Button.md) — A button that does something on this page.
 - [Card](docs/Card.md) — A surface that holds content.
 - [Checkbox](docs/Checkbox.md) — Include this option, independently of the others.
@@ -524,6 +531,7 @@ Every component's props, values and defaults are in its own file:
 - [Switch](docs/Switch.md) — A setting that takes effect immediately: on or off.
 - [Table](docs/Table.md) — Rows of records in a real `<table>`, built from TableHead, TableBody, TableFoot, TableRow and TableCell.
 - [TextInput](docs/TextInput.md) — One line of typed text.
+- [Tooltip](docs/Tooltip.md) — A short line of text beside a control, naming what it does.
 
 ## Do's and Don'ts
 
@@ -536,6 +544,8 @@ Every component's props, values and defaults are in its own file:
   component's box from outside.
 - **Do** name an icon-only control (`IconButton label`); **don't** put
   `aria-label` on the glyph.
+- **Do** wrap a control in `Tooltip` to show its name; **don't** let a tooltip
+  say more than the control's accessible name, or put one on a disabled control.
 - **Do** mark an optional field in its label ("Middle name (optional)");
   **don't** add a required asterisk.
 - **Don't** set a `max-width` on text, or a layout margin between regions — use
