@@ -134,6 +134,9 @@
     --opacity-20:    80%;
     --opacity-25:    100%;
 
+    /*  Every disabled control dims as a whole to this one value. */
+    --opacity-disabled: var(--opacity-8);
+
 
     /*  ─── Size ─── */
 
@@ -425,6 +428,8 @@
     /*  Button's reads through its `shape` rule (only `rounded` uses it); the
         others are read directly. */
     --card-radius: var(--radius-4);
+
+    --figure-radius: var(--radius-4);
 
     --text-input-radius: var(--radius-4);
 

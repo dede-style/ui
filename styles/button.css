@@ -171,7 +171,7 @@
 
 .dede-button:disabled {
     cursor: default;
-    opacity: var(--opacity-16);
+    opacity: var(--opacity-disabled);
     transform: none;
 }
 

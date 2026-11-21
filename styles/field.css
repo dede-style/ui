@@ -30,5 +30,5 @@
 /*  Read from the control, which dims itself; the words dim to match it. */
 .dede-field:has(:disabled) > .dede-field-label-group,
 .dede-field:has(:disabled) > .dede-field-error {
-    opacity: var(--opacity-12);
+    opacity: var(--opacity-disabled);
 }

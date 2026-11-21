@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.1.6 — 2026-11-21
+
+### Changed
+
+- **Disabled is fainter and the same everywhere:** every disabled control
+  now dims to `--opacity-disabled`, 32%. It was 64% on Button, IconButton and
+  Segmented, and 48% on fields and the choice rows. Buttons in particular
+  were hard to tell from enabled ones. A site that wants a different value
+  sets `--opacity-disabled` once on `:root`, and every control follows.
+
+### Added
+
+- `--opacity-disabled` (`var(--opacity-8)`), the opacity of every disabled
+  control.
+- **Figure** (`@dede-style/ui/figure`): content with an optional caption
+  under it. The content is anything you pass: your own `<img>`, a
+  framework's image, a `<video>`, an SVG or a component; Figure never
+  renders the image itself. It fills its lane. `caption` makes it a
+  `<figure>` with a `<figcaption>` (small tertiary text, 12px below);
+  without one it is a plain `<div>`. `surface="sunken"` puts the content in
+  a rounded panel, with padding per edge (`paddingTop`, `paddingBottom`,
+  `paddingStart`, `paddingEnd`: a layout step or `"none"`, default step 2),
+  `mode` (`light`, `dark`, `inverse`), `panelRatio` for a fixed shape and
+  `overflow` (`hidden`, the default, or `visible`). `contentRatio` crops the
+  content to a shape; `fit` (0 to 1) sets its width as a share of the
+  frame; `justify` and `align` (`start`, `center`, `end`) place it.
+  `contentPosition` (`center`, `top`, `bottom`, `start`, `end`) says which
+  part a `contentRatio` crop keeps. Ratios are written with a colon
+  (`"16:9"`); `"16/9"` and `"16 / 9"` work too, decimals allowed, and a
+  value that is not a ratio is ignored with a warning in development.
+  `border` draws a hairline over the content; `rounded` rounds its corners.
+  The panel is painted with `--color-surface-sunken` at zero specificity,
+  so a site recolours one panel by setting that role on its own class. Its
+  stylesheet is `figure.css`, in `styles.css`.
+- **`--figure-radius`** (8px, from `--radius-4`): the corner of every
+  panel, and of content with `rounded`.
+
 ## 0.1.5 — 2026-11-19
 
 ### Added

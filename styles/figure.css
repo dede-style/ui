@@ -1,0 +1,144 @@
+/*  Figure — content with an optional caption under it and an optional panel
+    behind it. The figure fills its lane; the content takes --dede-figure-fit
+    of it. Defaults are declared here, so a figure inside another resets them. */
+
+.dede-figure {
+    --dede-figure-fit: 1;
+    --dede-figure-content-ratio: auto;
+    --dede-figure-panel-ratio: auto;
+    --dede-figure-pt: var(--space-layout-2);
+    --dede-figure-pb: var(--space-layout-2);
+    --dede-figure-ps: var(--space-layout-2);
+    --dede-figure-pe: var(--space-layout-2);
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: var(--space-component-3);
+    inline-size: 100%;
+    min-inline-size: 0;
+    margin: 0;
+}
+
+.dede-figure--justify-start { justify-items: start; }
+.dede-figure--justify-end   { justify-items: end; }
+
+/*  With a panel, the panel and the caption span the frame. */
+.dede-figure--panel { justify-items: stretch; }
+
+
+/*  The content box. Media directly inside fills its width. */
+.dede-figure-content {
+    position: relative;
+    inline-size: calc(var(--dede-figure-fit) * 100%);
+    min-inline-size: 0;
+}
+
+.dede-figure-content > :is(img, video, svg, picture),
+.dede-figure-content > picture > img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+}
+
+/*  Cropped to a ratio: media fills the box and is cut to it. */
+.dede-figure-content--ratio {
+    aspect-ratio: var(--dede-figure-content-ratio);
+    min-block-size: 0;
+    overflow: clip;
+}
+
+.dede-figure-content--ratio > :is(img, video, svg, picture),
+.dede-figure-content--ratio > picture > img {
+    block-size: 100%;
+    object-fit: cover;
+}
+
+/*  Which part a crop keeps. object-position has no logical words, so start
+    and end flip for right-to-left. */
+.dede-figure-content--position-top > :is(img, video),
+.dede-figure-content--position-top > picture > img { object-position: top; }
+
+.dede-figure-content--position-bottom > :is(img, video),
+.dede-figure-content--position-bottom > picture > img { object-position: bottom; }
+
+.dede-figure-content--position-start > :is(img, video),
+.dede-figure-content--position-start > picture > img,
+.dede-figure-content--position-end:dir(rtl) > :is(img, video),
+.dede-figure-content--position-end:dir(rtl) > picture > img { object-position: left; }
+
+.dede-figure-content--position-end > :is(img, video),
+.dede-figure-content--position-end > picture > img,
+.dede-figure-content--position-start:dir(rtl) > :is(img, video),
+.dede-figure-content--position-start:dir(rtl) > picture > img { object-position: right; }
+
+.dede-figure-content--rounded {
+    border-radius: var(--figure-radius);
+    overflow: clip;
+}
+
+/*  The hairline is drawn over the content, so it takes no room. */
+.dede-figure-content--border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+
+/*  The panel. One grid cell; justify and align place the content in it.
+    Content taller than the panel starts at the top (safe center), unless
+    aligned to the end, which keeps its bottom edge on the panel's. */
+.dede-figure-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    align-content: center;
+    align-content: safe center;
+    min-inline-size: 0;
+    min-block-size: 0;
+    padding-block: var(--dede-figure-pt) var(--dede-figure-pb);
+    padding-inline: var(--dede-figure-ps) var(--dede-figure-pe);
+    border-radius: var(--figure-radius);
+    overflow: clip;
+}
+
+.dede-figure-panel--ratio { aspect-ratio: var(--dede-figure-panel-ratio); }
+
+.dede-figure-panel--overflow-visible { overflow: visible; }
+
+.dede-figure--justify-start > .dede-figure-panel { justify-items: start; }
+.dede-figure--justify-end   > .dede-figure-panel { justify-items: end; }
+
+.dede-figure--align-start > .dede-figure-panel { align-content: start; }
+.dede-figure--align-end   > .dede-figure-panel {
+    align-content: end;
+    align-content: unsafe end;
+}
+
+
+/*  The caption takes the content's width without a panel, the panel's with. */
+.dede-figure-caption {
+    inline-size: calc(var(--dede-figure-fit) * 100%);
+    font-size: var(--font-size-xs);
+    text-align: start;
+}
+
+.dede-figure--panel > .dede-figure-caption { inline-size: auto; }
+
+
+/*  The paint, at zero specificity, so a site's own class wins whatever order
+    the stylesheets load in. The panel reads the sunken role, so a class that
+    sets --color-surface-sunken recolours it. */
+:where(.dede-figure-panel) {
+    background-color: var(--color-surface-sunken);
+}
+
+:where(.dede-figure-content--border)::after {
+    box-shadow: inset 0 0 0 var(--border-1) var(--color-border-subtle);
+}
+
+:where(.dede-figure-caption) {
+    color: var(--color-text-tertiary);
+}

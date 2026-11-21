@@ -93,7 +93,7 @@
 }
 
 .dede-select-option[aria-disabled="true"] {
-    opacity: var(--opacity-12);
+    opacity: var(--opacity-disabled);
     cursor: default;
 }
 

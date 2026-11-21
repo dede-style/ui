@@ -89,7 +89,7 @@
 /*  One opacity on the whole row, read off the input, so nothing dims twice. */
 .dede-choice:has(input:disabled) {
     cursor: default;
-    opacity: var(--opacity-12);
+    opacity: var(--opacity-disabled);
 }
 
 /*  ─── The group ───────────────────────────────────────────────────────── */
@@ -123,7 +123,7 @@
 
 /*  The rows dim themselves; only the legend needs it here. */
 .dede-choice-group:disabled > .dede-choice-group-label {
-    opacity: var(--opacity-12);
+    opacity: var(--opacity-disabled);
 }
 
 /*  ─── The box ─────────────────────────────────────────────────────────── */

@@ -674,6 +674,11 @@
       "$type": "number",
       "$value": 0.06,
       "$description": "var(--opacity-1-5)"
+    },
+    "disabled": {
+      "$type": "number",
+      "$value": 0.32,
+      "$description": "var(--opacity-disabled)"
     }
   },
   "size-element": {
@@ -1237,6 +1242,16 @@
         "unit": "px"
       },
       "$description": "var(--card-radius)"
+    }
+  },
+  "figure": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "var(--figure-radius)"
     }
   },
   "text-input": {

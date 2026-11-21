@@ -178,11 +178,10 @@
     outline-offset: 0;
 }
 
-/*  One opacity on the whole control, so its parts dim together. 48%: a field is
-    mostly white space, and at Button's 64% it read as live. */
+/*  One opacity on the whole control, so its parts dim together. */
 .dede-text-input:has(:disabled),
 .dede-select:disabled {
-    opacity: var(--opacity-12);
+    opacity: var(--opacity-disabled);
     cursor: default;
 }
 

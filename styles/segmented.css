@@ -138,7 +138,7 @@
 
 /*  One opacity on the whole group, so the selection still reads. */
 .dede-segmented:has(:disabled) {
-    opacity: var(--opacity-16);
+    opacity: var(--opacity-disabled);
 }
 
 .dede-segmented:has(:disabled) .dede-segmented-option,

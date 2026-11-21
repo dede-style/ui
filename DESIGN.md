@@ -516,6 +516,7 @@ Every component's props, values and defaults are in its own file:
 - [Checkbox](docs/Checkbox.md) — Include this option, independently of the others.
 - [CheckboxGroup](docs/CheckboxGroup.md) — A labelled set of Checkboxes: a fieldset whose legend names the set.
 - [Field](docs/Field.md) — The label, hint and error around one form control (TextInput, Select).
+- [Figure](docs/Figure.md) — Content with an optional caption under it: an image, a video, an SVG or a component.
 - [Grid](docs/Grid.md) — Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width.
 - [Icon](docs/Icon.md) — An SVG glyph from `@dede-style/ui/icons`, sized on the element ramp and coloured by `currentColor`.
 - [IconButton](docs/IconButton.md) — A button with an icon and no visible words.
