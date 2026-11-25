@@ -22,6 +22,7 @@ export const textInputControls: SchemaFor<TextInputProps> = [
     { prop: "prefixIcon", type: "select", options: GLYPHS, default: "none", valuesHref: "/icons", help: "an icon at the start of the box. In code, import it by its full name: icon plus this (Search is iconSearch)" },
     { prop: "suffix", type: "text", default: "", placeholder: "kg", help: "text at the end of the box, such as a unit" },
     { prop: "suffixIcon", type: "select", options: GLYPHS, default: "none", valuesHref: "/icons", help: "an icon at the end of the box" },
+    { prop: "glyphSize", type: "select", unset: "auto", options: ["auto", "3", "4", "5", "6"], default: "auto", help: "the size of both glyphs: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside the box. Auto (the default) is half the box’s height. In code, leave it out for auto" },
     { prop: "required", type: "boolean", default: false, help: "requires a value before the form submits. No asterisk is shown; mark optional fields in their label" },
     { prop: "disabled", type: "boolean", default: false, help: "disables the field and dims it. Prefer readOnly when the value should still be read or copied" },
     { prop: "readOnly", type: "boolean", default: false, help: "the value can be read, selected and copied, and is submitted, but not edited" },

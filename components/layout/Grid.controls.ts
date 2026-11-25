@@ -15,7 +15,7 @@ const GAP_STEPS = ["0", "0-25", "0-5", "1", "2", "3", "4", "6", "8"] as const
 
 export const gridControls: SchemaFor<GridProps> = [
     { prop: "as", type: "select", options: ["ul", "ol", "dl", "div"], default: "ul", help: "element to render. ul by default, wrapping each child in an li; ol when order matters; dl for term–value pairs, each child a dt and dd wrapped in a div; div when it is not a collection" },
-    { prop: "minColumnWidth", type: "text", placeholder: "16rem", default: "16rem", help: "the narrowest a column may be; as many columns as fit, then wrap. Any CSS length; a bare number is px" },
+    { prop: "minColumnWidth", type: "text", values: "a CSS length such as `16rem`, or a number of pixels", placeholder: "16rem", default: "16rem", help: "the narrowest a column may be; as many columns as fit, then wrap. Any CSS length; a bare number is px" },
     { prop: "maxColumns", type: "number", default: 0, min: 0, max: 12, help: "the most columns allowed. Omit (0 here) for no limit. In code it can change by breakpoint: { base: 1, sm: 3 }" },
     { prop: "gap", type: "select", options: [...GAP_STEPS], default: "4", help: "space between items, a spacing step" },
     { prop: "gapScale", type: "select", options: ["component", "layout"], default: "component", help: "component for a fixed gap, layout for one that grows with the Section" },

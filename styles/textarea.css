@@ -1,0 +1,45 @@
+/*  Textarea — the box is TextInput's (text-input.css). This file adds the
+    height: one row is a TextInput's height, and each further row adds 1lh. */
+
+.dede-textarea {
+    --dede-textarea-rows: 3;
+    --dede-textarea-py: calc((var(--dede-text-input-block) - 1lh - var(--border-1) * 2) / 2);
+    --dede-textarea-min: calc(var(--dede-textarea-rows) * 1lh + var(--dede-textarea-py) * 2 + var(--border-1) * 2);
+
+    display: block;
+    block-size: var(--dede-textarea-min);
+    min-block-size: var(--dede-textarea-min);
+    padding-block: var(--dede-textarea-py);
+}
+
+/*  The colour, at zero specificity, so a site's own class wins. */
+:where(.dede-textarea) {
+    color: var(--color-text-primary);
+}
+
+.dede-textarea--rows-2 { --dede-textarea-rows: 2; }
+.dede-textarea--rows-3 { --dede-textarea-rows: 3; }
+.dede-textarea--rows-4 { --dede-textarea-rows: 4; }
+.dede-textarea--rows-5 { --dede-textarea-rows: 5; }
+.dede-textarea--rows-6 { --dede-textarea-rows: 6; }
+.dede-textarea--rows-8 { --dede-textarea-rows: 8; }
+
+/*  Taller only: the box fills its container's width. */
+.dede-textarea--resize-vertical { resize: vertical; }
+.dede-textarea--resize-none     { resize: none; }
+
+/*  A value that cannot change needs no room to grow. */
+.dede-textarea[readonly],
+.dede-textarea:disabled {
+    resize: none;
+}
+
+/*  Grows from `rows` up. Without `field-sizing` it keeps `rows` and the
+    handle; with it the handle goes, since a dragged height stops growth. */
+@supports (field-sizing: content) {
+    .dede-textarea--auto-size {
+        field-sizing: content;
+        block-size: auto;
+        resize: none;
+    }
+}

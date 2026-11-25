@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.1.7 — 2026-11-25
+
+### Added
+
+- **`glyphSize`** on Button, IconButton, SegmentedItem and TextInput: the
+  glyph's size, `"3"`, `"4"`, `"5"` or `"6"` (12, 16, 20 or 24px). These
+  are Icon's sizes that fit inside a control. Leave it
+  out and the icon is half the control's height, as before. Use it when
+  icons side by side look different sizes: Boxicons draws some marks, such
+  as plus and minus, larger than others, such as the arrows. On TextInput
+  it sets both the start and end icons.
+- `GlyphSize`, the type of that prop, exported with `IconSize`.
+- **Divider** (`@dede-style/ui/divider`): a 1px line between items. It is
+  an `<hr>`, so screen readers announce it as a separator. `orientation`
+  is `horizontal` (the default), which fills its container's width, or
+  `vertical`, which fills the height of the flex or grid row it sits in
+  and adds `aria-orientation="vertical"`. `variant` is `subtle` (the
+  default, `--color-border-subtle`) or `strong` (`--color-border-strong`).
+  `inset` (a `--space-component-*` step, `"none"`, the default, or
+  `"text"`) shortens the line. A step stops it that far short of both
+  ends; in a 40px row, `inset="3"` makes a vertical line 16px.
+  `inset="text"` makes a vertical line exactly one line of the
+  surrounding text tall (`1lh`), centred in the row, so it matches the
+  text at any size. On a horizontal line `"text"` is the same as
+  `"none"`. `DividerInset` is the type of that prop. It has no margin:
+  the parent's `gap` spaces it. Its colour rules have zero specificity, so
+  a site's own class wins. No new tokens. Its stylesheet is `divider.css`,
+  in `styles.css`.
+- **Textarea** (`@dede-style/ui/textarea`): a box for several lines of
+  text. It is TextInput's box, with the same edge, corners, focus ring,
+  `variant` (`frame` or `plain`), and disabled, read-only and error looks,
+  and it fills its container's width. It is controlled: `value` and
+  `onChange`, which receives the string. `rows` (2, 3, the default, 4, 5,
+  6 or 8) sets the height in lines and is also the smallest it can be.
+  `resize` is `vertical` (the default), so the person can drag it taller,
+  or `none`. It never resizes sideways. `autoSize` grows the box as the
+  person types, from `rows` up, with CSS `field-sizing: content`: Chrome
+  and Edge 123+, Safari 26.2+ and Firefox 152+. Older browsers keep the
+  `rows` height and the drag handle. `size` (`"8"`, `"10"`, the default,
+  or `"12"`) gives the text size and the space above the first line of a
+  TextInput of that size, so the two line up in a form. Also `onBlur`,
+  `placeholder`, `required`, `disabled`, `readOnly`, `name`, `id`,
+  `autoComplete`, `maxLength` (no counter), `aria-label` and `ref`. Put it
+  in a Field for the label, hint and error. No new tokens: its corner is
+  `--text-input-radius`. Its stylesheet is `textarea.css`, in
+  `styles.css`.
+
+### Fixed
+
+- **The props tables in `docs/` say what each text prop takes.** They
+  listed every text prop as "string", even where the type is stricter or
+  wider. Now: Badge `children` takes text or a number; Figure `caption`
+  takes text or any React content; Figure `contentRatio` and `panelRatio`
+  take a ratio written `16:9` or `16/9` (`FigureRatio`, exported); Grid
+  `minColumnWidth` takes a CSS length or a number of pixels; Stack `lanes`
+  takes lane weights, a number, or an object by breakpoint (`StackLanes`).
+
 ## 0.1.6 — 2026-11-21
 
 ### Changed

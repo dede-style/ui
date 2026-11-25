@@ -7,6 +7,9 @@ import type { IconDefinition } from "../../icons"
 
 export type IconSize = "3" | "4" | "5" | "6" | "8" | "10" | "12" | "text" | "fill"
 
+/** A glyph inside a control: the sizes that fit one, 12 to 24px. */
+export type GlyphSize = Extract<IconSize, "3" | "4" | "5" | "6">
+
 //  The set's grid; a glyph may declare its own.
 const DEFAULT_VIEWBOX = "0 0 24 24"
 

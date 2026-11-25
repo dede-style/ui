@@ -2,7 +2,7 @@
 
 import type { CSSProperties, Ref } from "react"
 import type { IconDefinition } from "../../icons"
-import { Icon } from "../icon"
+import { Icon, type GlyphSize } from "../icon"
 import { controlGlyph } from "../icon/control"
 import { useField } from "../field/context"
 
@@ -85,6 +85,8 @@ export type TextInputProps = {
     suffix?: string
     /** Decorative glyph at the end. */
     suffixIcon?: IconDefinition
+    /** The size of both glyphs, one of Icon's sizes that fits. Default half the box's height. */
+    glyphSize?: GlyphSize
     /** The attribute only; no marker is rendered. */
     required?: boolean
     /** Prefer `readOnly`: a disabled control is not focusable or submitted. */
@@ -122,6 +124,7 @@ export function TextInput({
     prefixIcon,
     suffix,
     suffixIcon,
+    glyphSize,
     required = false,
     disabled = false,
     readOnly = false,
@@ -150,7 +153,7 @@ export function TextInput({
         .filter(Boolean)
         .join(" ")
 
-    const iconSize = controlGlyph(size)
+    const iconSize = controlGlyph(size, glyphSize)
 
     return (
         <div data-component="TextInput" className={classes} style={style}>

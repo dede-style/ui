@@ -13,10 +13,12 @@
 @import "./checkbox.css";
 @import "./radio.css";
 @import "./card.css";
+@import "./divider.css";
 @import "./figure.css";
 @import "./field.css";
 @import "./text-input.css";
 @import "./select.css";
+@import "./textarea.css";
 @import "./segmented.css";
 @import "./table.css";
 @import "./tooltip.css";

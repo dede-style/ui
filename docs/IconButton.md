@@ -14,6 +14,7 @@ import { IconButton } from "@dede-style/ui"
 | `label` | string | — | required: the button's accessible name, since it has no visible words |
 | `variant` | `primary` · `secondary` · `tertiary` · `destructive` | `secondary` | emphasis: primary, secondary (default), tertiary or destructive |
 | `size` | `6` · `8` · `10` · `12` | `10` | 24, 32, 40 or 48px square. Use 24 only where space demands it: it is the minimum touch target |
+| `glyphSize` | `auto` · `3` · `4` · `5` · `6` | `auto` | the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a button. Auto (the default) is half the button’s height. In code, leave it out for auto |
 | `shape` | `rounded` · `pill` · `square` | `rounded` | corners: rounded (default), pill (a circle) or square |
 | `isDisabled` | `true` · `false` | `false` | disables the button and dims it |
 | `type` | `button` · `submit` · `reset` | `button` | the HTML button type. Default button, so it never submits a form by accident |

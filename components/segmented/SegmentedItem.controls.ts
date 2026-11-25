@@ -16,4 +16,5 @@ export const segmentedItemControls: SchemaFor<SegmentedItemProps> = [
     //  Hidden once a glyph is chosen: with no visible words it would duplicate `label`.
     { prop: "a11yLabel", type: "text", default: "", placeholder: "Start of the line", help: "a longer name for screen readers when the visible label is short, such as H for Horizontal", showWhen: { prop: "glyph", equals: "none" } },
     { prop: "glyph", type: "select", options: GLYPHS, default: "none", valuesHref: "/icons", help: "an icon in place of the words, for three or four options in a narrow space" },
+    { prop: "glyphSize", type: "select", unset: "auto", options: ["auto", "3", "4", "5", "6"], default: "auto", help: "the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a control. Auto (the default) is half the control’s height. In code, leave it out for auto", showWhen: { prop: "glyph", not: "none" } },
 ]

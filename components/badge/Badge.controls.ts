@@ -12,7 +12,7 @@ export const notes = [
 ]
 
 export const badgeControls: SchemaFor<BadgeProps> = [
-    { prop: "children", label: "children", type: "text", default: "", placeholder: "1", help: "the label, required. One character is a circle; more is a pill" },
+    { prop: "children", label: "children", type: "text", values: "text or a number", default: "", placeholder: "1", help: "the label, required. One character is a circle; more is a pill" },
     { prop: "variant", type: "select", options: ["quiet", "strong"], default: "quiet", help: "how much it stands out: quiet (default) sits back, strong is a solid fill" },
     { prop: "tone", type: "select", options: ["neutral", "info", "success", "warning", "error"], default: "neutral", help: "what it means: neutral (default), or a status colour" },
     { prop: "border", type: "boolean", default: false, help: "draw an edge in the tone's border colour. It takes no room, so the badge stays the same size. Quiet status badges on a light page need it to read as a pill. Strong has no border; its fill is the edge" },

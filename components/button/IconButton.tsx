@@ -1,6 +1,6 @@
 import type { CSSProperties, MouseEventHandler, Ref } from "react"
 import type { IconDefinition } from "../../icons"
-import { Icon } from "../icon"
+import { Icon, type GlyphSize } from "../icon"
 import { controlGlyph } from "../icon/control"
 import type { ButtonLinkComponent, ButtonShape, ButtonSize, ButtonVariant } from "./Button"
 
@@ -18,6 +18,8 @@ export type IconButtonProps = {
     variant?: ButtonVariant
     /** A --size-element-* step. Default "10" (40px). */
     size?: ButtonSize
+    /** The glyph's size, one of Icon's sizes that fits. Default half the button's height. */
+    glyphSize?: GlyphSize
     /** Default "rounded". Because the box is square, "pill" renders a circle. */
     shape?: ButtonShape
     isDisabled?: boolean
@@ -46,6 +48,7 @@ export function IconButton({
     label,
     variant = "secondary",
     size = "10",
+    glyphSize,
     shape = "rounded",
     isDisabled = false,
     type = "button",
@@ -86,7 +89,7 @@ export function IconButton({
         const LinkAs = linkAs ?? "a"
         return (
             <LinkAs {...shared} href={href} target={target} rel={rel} onClick={onClick}>
-                <Icon glyph={glyph} size={controlGlyph(size)} />
+                <Icon glyph={glyph} size={controlGlyph(size, glyphSize)} />
             </LinkAs>
         )
     }
@@ -99,7 +102,7 @@ export function IconButton({
             ref={ref}
             onClick={onClick}
         >
-            <Icon glyph={glyph} size={controlGlyph(size)} />
+            <Icon glyph={glyph} size={controlGlyph(size, glyphSize)} />
         </button>
     )
 }

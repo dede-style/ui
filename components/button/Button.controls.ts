@@ -21,6 +21,7 @@ export const buttonControls: SchemaFor<ButtonProps> = [
     { prop: "shape", type: "select", options: ["rounded", "pill", "square"], default: "rounded", help: "corners: rounded (default), pill or square" },
     { prop: "glyph", type: "select", options: GLYPHS, default: "none", valuesHref: "/icons", help: "an optional icon beside the label. In code, import it by its full name: icon plus this (Star is iconStar)" },
     { prop: "iconPosition", type: "select", options: ["start", "end"], default: "start", help: "which side of the label the icon sits on", showWhen: { prop: "glyph", not: "none" } },
+    { prop: "glyphSize", type: "select", unset: "auto", options: ["auto", "3", "4", "5", "6"], default: "auto", help: "the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a button. Auto (the default) is half the button’s height. In code, leave it out for auto", showWhen: { prop: "glyph", not: "none" } },
     { prop: "isDisabled", type: "boolean", default: false, help: "disables the button and dims it" },
     { prop: "fullWidth", type: "boolean", default: false, help: "fill the container's width. Off, the button fits its label" },
     { prop: "type", type: "select", options: ["button", "submit", "reset"], default: "button", help: "the HTML button type. Default button, so it never submits a form by accident; use submit to submit" },

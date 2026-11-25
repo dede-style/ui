@@ -1,7 +1,7 @@
 "use client"
 
 import type { CSSProperties } from "react"
-import { Icon } from "../icon"
+import { Icon, type GlyphSize } from "../icon"
 import { controlGlyph } from "../icon/control"
 import type { IconDefinition } from "../../icons"
 import { useSegmented } from "./context"
@@ -19,9 +19,11 @@ export type SegmentedItemProps = {
     /** Replaces the words (not joins them); `label` becomes the accessible name.
      *  How three or four items fit a narrow track. */
     glyph?: IconDefinition
+    /** The glyph's size, one of Icon's sizes that fits. Default half the control's height. */
+    glyphSize?: GlyphSize
 }
 
-export function SegmentedItem({ value, label, a11yLabel, glyph }: SegmentedItemProps) {
+export function SegmentedItem({ value, label, a11yLabel, glyph, glyphSize }: SegmentedItemProps) {
     const group = useSegmented()
 
     return (
@@ -39,7 +41,7 @@ export function SegmentedItem({ value, label, a11yLabel, glyph }: SegmentedItemP
                 aria-label={a11yLabel ?? (glyph ? label : undefined)}
             />
             {glyph ? (
-                <Icon glyph={glyph} size={controlGlyph(group.size)} />
+                <Icon glyph={glyph} size={controlGlyph(group.size, glyphSize)} />
             ) : (
                 /*  The label carries its own text into a custom property, so a
                     hidden ::after reserves its width at the selected (heavier)

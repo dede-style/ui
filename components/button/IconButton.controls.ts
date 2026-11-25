@@ -16,6 +16,7 @@ export const iconButtonControls: SchemaFor<IconButtonProps> = [
     { prop: "label", type: "text", default: "", placeholder: "required", help: "required: the button's accessible name, since it has no visible words" },
     { prop: "variant", type: "select", options: ["primary", "secondary", "tertiary", "destructive"], default: "secondary", help: "emphasis: primary, secondary (default), tertiary or destructive" },
     { prop: "size", type: "select", options: ["6", "8", "10", "12"], default: "10", help: "24, 32, 40 or 48px square. Use 24 only where space demands it: it is the minimum touch target" },
+    { prop: "glyphSize", type: "select", unset: "auto", options: ["auto", "3", "4", "5", "6"], default: "auto", help: "the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a button. Auto (the default) is half the button’s height. In code, leave it out for auto" },
     { prop: "shape", type: "select", options: ["rounded", "pill", "square"], default: "rounded", help: "corners: rounded (default), pill (a circle) or square" },
     { prop: "isDisabled", type: "boolean", default: false, help: "disables the button and dims it" },
     { prop: "type", type: "select", options: ["button", "submit", "reset"], default: "button", help: "the HTML button type. Default button, so it never submits a form by accident" },

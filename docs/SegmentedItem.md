@@ -13,6 +13,7 @@ import { SegmentedItem } from "@dede-style/ui"
 | `label` | string | `Start` | the words on the segment. With a glyph, the accessible name instead |
 | `a11yLabel` | string | — | a longer name for screen readers when the visible label is short, such as H for Horizontal |
 | `glyph` | `none` · `Alert` · `AlertFill` · `ArrowDown` · `ArrowLeft` · `ArrowRight` … ([all](https://dede.style/icons)) | `none` | an icon in place of the words, for three or four options in a narrow space |
+| `glyphSize` | `auto` · `3` · `4` · `5` · `6` | `auto` | the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a control. Auto (the default) is half the control’s height. In code, leave it out for auto |
 
 Props not listed (handlers, `className`, `style`, `children`) are standard React. Sizes are `--size-element-*` steps: `8` = 32px, `10` = 40px, `12` = 48px.
 

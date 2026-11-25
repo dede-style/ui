@@ -20,7 +20,7 @@ type ControlBase<K extends string = string> = {
 export type PropControl =
     | (ControlBase & { type: "boolean" })
     | (ControlBase & { type: "select"; options: readonly string[]; unset?: string })
-    | (ControlBase & { type: "text"; placeholder?: string })
+    | (ControlBase & { type: "text"; placeholder?: string; values?: string })
     | (ControlBase & { type: "number"; min?: number; max?: number; step?: number })
 
 export type PropControlType = PropControl["type"]
@@ -37,10 +37,17 @@ type ControlFor<P, K extends keyof P & string> =
     | (ControlBase<K> & { type: "select"; options: readonly Option<NonNullable<P[K]>>[]; unset?: never })
     | (ControlBase<K> & {
           type: "select"
-          unset: "none" | "inherit"
-          options: readonly (Option<NonNullable<P[K]>> | "none" | "inherit")[]
+          unset: "none" | "inherit" | "auto"
+          options: readonly (Option<NonNullable<P[K]>> | "none" | "inherit" | "auto")[]
       })
-    | (ControlBase<K> & { type: "text"; placeholder?: string })
+    | (ControlBase<K> & { type: "text"; placeholder?: string } & TextValues<P[K]>)
     | (ControlBase<K> & { type: "number"; min?: number; max?: number; step?: number })
+
+//  A text control on a prop that is not a plain string says what it takes.
+type TextValues<V> = [NonNullable<V>] extends [string]
+    ? string extends NonNullable<V>
+        ? { values?: never }
+        : { values: string }
+    : { values: string }
 
 export type SchemaFor<P> = readonly { [K in keyof P & string]: ControlFor<P, K> }[keyof P & string][]

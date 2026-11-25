@@ -515,6 +515,7 @@ Every component's props, values and defaults are in its own file:
 - [Card](docs/Card.md) — A surface that holds content.
 - [Checkbox](docs/Checkbox.md) — Include this option, independently of the others.
 - [CheckboxGroup](docs/CheckboxGroup.md) — A labelled set of Checkboxes: a fieldset whose legend names the set.
+- [Divider](docs/Divider.md) — A 1px line between items, rendered as an `<hr>`, so screen readers announce it as a separator.
 - [Field](docs/Field.md) — The label, hint and error around one form control (TextInput, Select).
 - [Figure](docs/Figure.md) — Content with an optional caption under it: an image, a video, an SVG or a component.
 - [Grid](docs/Grid.md) — Tiles a collection of unknown count — cards, images, logos — into as many equal columns of at least `minColumnWidth` as fit, reflowing with its own width.
@@ -531,6 +532,7 @@ Every component's props, values and defaults are in its own file:
 - [Stack](docs/Stack.md) — Divides a band into lanes and owns its padding and gap.
 - [Switch](docs/Switch.md) — A setting that takes effect immediately: on or off.
 - [Table](docs/Table.md) — Rows of records in a real `<table>`, built from TableHead, TableBody, TableFoot, TableRow and TableCell.
+- [Textarea](docs/Textarea.md) — Several lines of typed text, in the same box as TextInput.
 - [TextInput](docs/TextInput.md) — One line of typed text.
 - [Tooltip](docs/Tooltip.md) — A short line of text beside a control, naming what it does.
 

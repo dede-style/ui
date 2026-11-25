@@ -1,0 +1,49 @@
+/*  Divider — a 1px line, drawn as one border of an empty <hr> (a border
+    still shows in forced-colours mode, where a background does not). Its
+    length is the space it is given, less --dede-divider-inset at each end.
+    It has no other margin: the parent's gap spaces it. */
+
+.dede-divider {
+    --dede-divider-inset: 0px;
+
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border-style: solid;
+    border-width: 0;
+}
+
+/*  Fills its container's width, in block flow, a grid cell or a flex column. */
+.dede-divider--orientation-horizontal {
+    inline-size: auto;
+    block-size: 0;
+    border-block-start-width: var(--border-1);
+    align-self: stretch;
+    justify-self: stretch;
+    margin-inline: var(--dede-divider-inset);
+}
+
+/*  Fills the row's height, in a flex or grid row. */
+.dede-divider--orientation-vertical {
+    inline-size: 0;
+    block-size: auto;
+    border-inline-start-width: var(--border-1);
+    align-self: stretch;
+    margin-block: var(--dede-divider-inset);
+}
+
+/*  One line of the inherited text tall, centred in the row. */
+.dede-divider--orientation-vertical.dede-divider--inset-text {
+    block-size: 1lh;
+    align-self: center;
+}
+
+/*  The colour, at zero specificity, so a site's own class wins whatever
+    order the stylesheets load in. */
+:where(.dede-divider) {
+    border-color: var(--color-border-subtle);
+}
+
+:where(.dede-divider--variant-strong) {
+    border-color: var(--color-border-strong);
+}

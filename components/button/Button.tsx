@@ -1,6 +1,6 @@
 import type { ComponentType, CSSProperties, MouseEventHandler, ReactNode } from "react"
 import type { IconDefinition } from "../../icons"
-import { Icon } from "../icon"
+import { Icon, type GlyphSize } from "../icon"
 import { controlGlyph } from "../icon/control"
 
 /*  Button — the box, the emphasis and the states. It owns the whole box, so an
@@ -50,6 +50,8 @@ export type ButtonProps = {
     glyph?: IconDefinition
     /** Which side of the label the icon sits on. Default "start". */
     iconPosition?: "start" | "end"
+    /** The glyph's size, one of Icon's sizes that fits. Default half the button's height. */
+    glyphSize?: GlyphSize
     isDisabled?: boolean
     /** Fill the container's width. Off, the button hugs its content. */
     fullWidth?: boolean
@@ -78,6 +80,7 @@ export function Button({
     shape = "rounded",
     glyph,
     iconPosition = "start",
+    glyphSize,
     isDisabled = false,
     fullWidth = false,
     type = "button",
@@ -104,7 +107,7 @@ export function Button({
         .filter(Boolean)
         .join(" ")
 
-    const icon = glyph ? <Icon glyph={glyph} size={controlGlyph(size)} /> : null
+    const icon = glyph ? <Icon glyph={glyph} size={controlGlyph(size, glyphSize)} /> : null
 
     const content = (
         <>

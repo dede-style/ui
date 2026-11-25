@@ -11,7 +11,7 @@ import { Stack } from "@dede-style/ui"
 | Prop | Values | Default | Description |
 |---|---|---|---|
 | `pattern` | `ratio` · `snap` | `ratio` | ratio (default) lays lanes out by weight; snap places them on a fixed 25-column grid shared by every Section |
-| `lanes` | string | `1` | lane weights, such as 2\|1, or a number of equal lanes. Children fill lanes in order; extra children start a new row. In code it can change by breakpoint: { base: 1, md: 1\|1 } |
+| `lanes` | lane weights such as `2\|1`, a number of equal lanes, or an object by breakpoint (the exported type `StackLanes`) | `1` | lane weights, such as 2\|1, or a number of equal lanes. Children fill lanes in order; extra children start a new row. In code it can change by breakpoint: { base: 1, md: 1\|1 } |
 | `direction` | `horizontal` · `vertical` | `horizontal` | lanes as columns (horizontal) or rows (vertical). Ratio only |
 | `reverse` | `true` · `false` | `false` | reverse the children: they swap lanes, and each lane keeps its width. In code it can change by breakpoint: { base: true, md: false } |
 | `align` | `stretch` · `start` · `center` · `end` | `stretch` | how lanes line up with each other. Default stretch makes them equal height |

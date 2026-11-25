@@ -15,6 +15,7 @@ import { Button } from "@dede-style/ui"
 | `shape` | `rounded` · `pill` · `square` | `rounded` | corners: rounded (default), pill or square |
 | `glyph` | `none` · `Alert` · `AlertFill` · `ArrowDown` · `ArrowLeft` · `ArrowRight` … ([all](https://dede.style/icons)) | `none` | an optional icon beside the label. In code, import it by its full name: icon plus this (Star is iconStar) |
 | `iconPosition` | `start` · `end` | `start` | which side of the label the icon sits on |
+| `glyphSize` | `auto` · `3` · `4` · `5` · `6` | `auto` | the glyph’s size: 3, 4, 5 or 6 (12, 16, 20 or 24px), Icon’s sizes that fit inside a button. Auto (the default) is half the button’s height. In code, leave it out for auto |
 | `isDisabled` | `true` · `false` | `false` | disables the button and dims it |
 | `fullWidth` | `true` · `false` | `false` | fill the container's width. Off, the button fits its label |
 | `type` | `button` · `submit` · `reset` | `button` | the HTML button type. Default button, so it never submits a form by accident; use submit to submit |

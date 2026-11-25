@@ -10,12 +10,12 @@ import { Figure } from "@dede-style/ui"
 
 | Prop | Values | Default | Description |
 |---|---|---|---|
-| `caption` | string | — | text under the frame. Given, the figure is a <figure> and this its <figcaption>. Blank, it is a plain wrapper |
+| `caption` | text or any React content | — | text under the frame. Given, the figure is a <figure> and this its <figcaption>. Blank, it is a plain wrapper |
 | `surface` | `none` · `sunken` | `none` | sunken puts the content in a rounded panel, in the sunken surface colour. None (default) shows the content alone |
 | `mode` | `inherit` · `light` · `dark` · `inverse` | `inherit` | put the panel in a mode, as Section’s mode. Light keeps a sketch’s panel light on a dark page. Panel only |
-| `contentRatio` | string | — | crop the content to this ratio of width to height, such as 16:9 or 1:1. An image, video or SVG inside fills it and is cut to fit. Blank keeps the content’s own shape |
+| `contentRatio` | a ratio written `16:9` or `16/9` (the exported type `FigureRatio`) | — | crop the content to this ratio of width to height, such as 16:9 or 1:1. An image, video or SVG inside fills it and is cut to fit. Blank keeps the content’s own shape |
 | `contentPosition` | `center` · `top` · `bottom` · `start` · `end` | `center` | which part of the content the crop keeps: center (default), top, bottom, start (left) or end (right). An inline SVG follows its own preserveAspectRatio instead. With contentRatio only |
-| `panelRatio` | string | — | give the panel this ratio of width to height, such as 16:9. Content taller than the panel runs off an edge. Blank, the panel is the content’s height plus its padding. Panel only |
+| `panelRatio` | a ratio written `16:9` or `16/9` (the exported type `FigureRatio`) | — | give the panel this ratio of width to height, such as 16:9. Content taller than the panel runs off an edge. Blank, the panel is the content’s height plus its padding. Panel only |
 | `fit` | number | `1` | the content’s width as a share of the frame: 0.85 is 85%. Without a panel, the caption takes the same width |
 | `justify` | `start` · `center` · `end` | `center` | where the content sits from side to side: start (left), center (default) or end (right) |
 | `align` | `start` · `center` · `end` | `center` | where the content sits from top to bottom, in a panel taller than it. Content taller than the panel starts at the top, unless end. Panel only |
